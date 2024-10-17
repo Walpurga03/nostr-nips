@@ -57,7 +57,7 @@ const Nip1: React.FC = () => {
       <p>{t('example_usage_scenario')}</p>
       <pre className="formatted-text" dangerouslySetInnerHTML={{
         __html: syntaxHighlight(JSON.stringify({
-          id: "1234567890abcdef",
+          id: "86885d03218abe92f1800fb2f0a306535710111d60e8c9aafd0179db11963ed7",
           pubkey: "user123",
           created_at: "1728888328",
           kind: "message",
