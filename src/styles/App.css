@@ -1,0 +1,29 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #CA36B9, #1F1827, #201928);
+  margin: 0;
+  padding: 0;
+  padding-top: 80px; /* Platz für die fixe Navbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  padding: 0px;
+  margin: auto;
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 80%;
+  }
+}
+@media (max-width: 769px) {
+  .container {
+ margin-top: -5em;
+  }
+}

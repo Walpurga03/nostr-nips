@@ -1,0 +1,43 @@
+{
+  "home": {
+    "welcome": "NIPs Explorer",
+    "nostr_intro": "Nostr is an open protocol designed for decentralized communication. It allows users to send and receive messages and other data over a network of relays.",
+    "what_are_nips": "What are NIPs?",
+    "nips_intro": "NIPs (Nostr Implementation Possibilities) are proposals and standards that describe how various aspects of the Nostr protocol can be implemented. They help developers create compatible and interoperable applications.",
+    "nips_docs": "NIPs are documents that describe various aspects of the Nostr protocol. They can propose new features, improve existing features, or provide best practices for implementing the protocol.",
+    "nips_website": "On this website, you will find explanations and examples of various NIPs to help you better understand and use the Nostr protocol.",
+    "what_are_relays": "What are Relays?",
+    "relays_intro": "Relays are servers that forward messages and other data in the Nostr network. They act as intermediaries between clients, ensuring that messages are delivered to the correct recipients. Anyone can operate a relay server, and users can connect to multiple relays to increase the availability and reliability of communication.",
+    "what_are_clients": "What are Clients?",
+    "clients_intro": "Clients are applications that users use to interact with the Nostr network. They allow users to send and receive messages, publish data, and access information shared by other users. Clients can come in various forms, including web applications, mobile apps, and desktop programs.",
+    "summary": "Summary",
+    "summary_text": "Nostr is a decentralized communication protocol based on relays and clients. NIPs provide the standards and proposals that help developers implement and extend the protocol. This website offers an introduction to Nostr and NIPs, as well as examples and explanations to help you better understand and use the protocol."
+  },
+  "nip1": {
+    "nip1_title": "NIP-01",
+    "key_protocol": "Key Protocol",
+    "key_protocol_description": "This NIP defines the basic protocol that should be implemented by all. It describes the structure and flow of events.",
+    "event_format": "Event Format",
+    "event_format_description": "Events have a specific format that includes a type, tags, content, and signature. The signature is based on the SHA-256 hash of the serialized event data.",
+    "filters_and_subscriptions": "Filters and Subscriptions",
+    "filters_and_subscriptions_description": "Clients can use filters to subscribe to specific events from relays. Filters can be specified by IDs, authors, types, and timestamps.",
+    "websocket_connections": "WebSocket Connections",
+    "websocket_connections_description": "Relays provide WebSocket endpoints that clients can connect to. Clients should use a single WebSocket connection per relay.",
+    "example_usage": "Example Usage",
+    "example_usage_intro": "Here is a simple example of using events in a protocol:",
+    "example_usage_scenario": "Imagine you want to create an event that represents a message from a user. The event might look like this:",
+    "example_message_content": "Hello, how are you?",
+    "example_explanation": "In this example:",
+    "example_id": "A unique identifier for the event.",
+    "example_pubkey": "The username or ID of the author.",
+    "example_created_at": "The creation date of the event in Unix timestamp.",
+    "example_kind": "The type of event, in this case, a message.",
+    "example_tags": "A list of tags that categorize the event.",
+    "example_content": "The actual content of the message.",
+    "example_sig": "A digital signature that ensures the integrity and authenticity of the event.",
+    "example_filters": "Clients can then use filters to subscribe to only specific events, e.g., all messages from 'user123' or all events with the tag 'chat'.",
+    "event_fetcher": "Event Fetcher",
+    "fetched_event": "Fetched Event",
+    "detailed_github_page": "Detailed GitHub Page"
+  }
+}

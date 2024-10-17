@@ -1,0 +1,87 @@
+@import './variables.css';
+
+.home {
+  padding: 20px;
+  animation: fadeInFromTop 3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Stellt sicher, dass das Element die volle Höhe des Viewports einnimmt */
+}
+
+@keyframes fadeInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home h1 {
+  font-size: 3em; /* Erhöhen Sie die Schriftgröße */
+  margin-bottom: 20px;
+  animation: fadeInFromTop 2s ease-in-out;
+  text-align: center; /* Zentriert den Text horizontal */
+}
+
+.home p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  animation: fadeInFromTop 2s ease-in-out;
+  text-align: left; /* Links bündig */
+  width: 100%; /* Stellt sicher, dass die Absätze die volle Breite einnehmen */
+}
+
+/* Media Queries für Responsivität */
+@media (max-width: 1200px) {
+  .home h1 {
+    font-size: 2.5em;
+  }
+
+  .home p {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 992px) {
+  .home h1 {
+    font-size: 2em;
+  }
+
+  .home p {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding: 15px;
+  }
+
+  .home h1 {
+    font-size: 1.8em;
+  }
+
+  .home p {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 576px) {
+  .home {
+    padding: 10px;
+  }
+
+  .home h1 {
+    font-size: 1.5em;
+  }
+
+  .home p {
+    font-size: 0.8em;
+  }
+}
