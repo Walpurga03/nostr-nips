@@ -22,14 +22,14 @@
 }
 
 .nip1-container h2 {
-  font-size: 3em; /* Erhöhen Sie die Schriftgröße */
+  font-size: var(--font-size-large); /* Verwende die globale Schriftgröße */
   margin-bottom: 20px;
   animation: fadeInFromTop 2s ease-in-out;
   text-align: center; /* Zentriert den Text horizontal */
 }
 
 .nip1-container p, .nip1-container ul {
-  font-size: 1.2em;
+  font-size: var(--font-size-medium); /* Verwende die globale Schriftgröße */
   line-height: 1.6;
   margin-bottom: 20px;
   animation: fadeInFromTop 2s ease-in-out;
@@ -37,50 +37,98 @@
   width: 100%; /* Stellt sicher, dass die Absätze die volle Breite einnehmen */
 }
 
+.fetched-event {
+  width: 100%; /* Stellt sicher, dass der Container die volle Breite einnimmt */
+  max-width: 800px; /* Begrenze die maximale Breite auf 800px */
+  overflow-x: auto; /* Horizontales Scrollen ermöglichen */
+  margin: 0 auto; /* Zentriere den Container horizontal */
+}
+
 .formatted-text {
-  white-space: pre-wrap; /* Beibehaltung aller Leerzeichen und Zeilenumbrüche, aber erlaubt Umbrüche */
-  overflow: hidden;
-  word-wrap: break-word; /* Zeilenumbruch bei langen Wörtern */
-  word-break: break-all; /* Erzwingt Zeilenumbruch bei langen Wörtern */
+  white-space: pre; /* Beibehaltung aller Leerzeichen und Zeilenumbrüche, ohne Umbrüche zu erlauben */
+  overflow-x: auto; /* Horizontales Scrollen ermöglichen */
   padding: 10px; /* Padding hinzufügen */
-  tab-size: 1; /* Tab-Größe für Einrückung */
-  text-indent: 0em; /* Einrückung der ersten Zeile */
-  background-color:  var(--background-color); /* Hintergrundfarbe für den JSON-Container */
+  background-color: var(--background-color); /* Hintergrundfarbe für den JSON-Container */
   border-radius: 4px; /* Abgerundete Ecken */
-  border: 1px solid #ddd; /* Rahmenfarbe */
+  border: 1px solid var(--border-color); /* Rahmenfarbe */
   font-family: 'Courier New', Courier, monospace; /* Monospace-Schriftart */
+  max-width: 100%; /* Begrenze die maximale Breite auf 100% des übergeordneten Containers */
+}
+
+.link {
+  color: var(--primary-color);
 }
 
 .json-key {
-  color: #a71d5d; /* Farbe für JSON-Schlüssel */
+  color: var(--primary-color); /* Farbe für JSON-Schlüssel */
 }
 
 .json-value {
-  color: #0086b3; /* Farbe für JSON-Werte */
+  color: var(--secondary-color); /* Farbe für JSON-Werte */
 }
 
 .json-string {
-  color:var(--text-color); /* Farbe für JSON-Strings */
+  color: var(--text-color); /* Farbe für JSON-Strings */
 }
 
 .json-number {
-  color: var(--secondary-color); /* Farbe für JSON-Zahlen */
+  color: var(--text-color); /* Farbe für JSON-Zahlen */
 }
 
 .json-boolean {
-  color: #a71d5d; /* Farbe für JSON-Boolean */
+  color: var(--primary-color); /* Farbe für JSON-Boolean */
 }
 
 .json-null {
-  color: #a71d5d; /* Farbe für JSON-Null */
+  color: var(--primary-color); /* Farbe für JSON-Null */
 }
 
 .json-bracket {
-  color: #333; /* Farbe für JSON-Klammern */
+  color: var(--text-color); /* Farbe für JSON-Klammern */
+}
+
+.input-form-container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.input-form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-form-container label {
+  font-size: var(--font-size-medium);
+  margin-bottom: 10px;
+}
+
+.input-form-container input {
+  padding: 10px;
+  font-size: var(--font-size-medium);
+  margin-bottom: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.input-form-container button {
+  padding: 10px 20px;
+  font-size: var(--font-size-medium);
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-form-container button:hover {
+  background-color: var(--button-hover-background-color);
 }
 
 /* Media Query für Bildschirme kleiner als 600px */
-@media (max-width: 600px) {
+@media (max-width: 576px) {
   .nip1-container h2 {
     font-size: 2.5em;
   }
@@ -96,7 +144,7 @@
 }
 
 /* Media Query für Bildschirme zwischen 600px und 1200px */
-@media (min-width: 600px) and (max-width: 1200px) {
+@media (max-width: 1200px) {
   .nip1-container h2 {
     font-size: 2em;
   }
@@ -112,7 +160,7 @@
 }
 
 /* Media Query für Bildschirme größer als 1200px */
-@media (min-width: 1200px) {
+@media (max-width: 1200px) {
   .nip1-container h2 {
     font-size: 1.8em;
   }
@@ -125,4 +173,7 @@
     padding: 10px; /* Standard Padding auf großen Bildschirmen */
     font-size: 18px; /* Größere Schriftgröße auf großen Bildschirmen */
   }
+}
+.link{
+  color: var(--primary-color);
 }

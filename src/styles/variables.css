@@ -1,10 +1,27 @@
 :root {
-  --secondary-color: #a02d98;
+  --primary-color: #CA36B9;
+  --secondary-color: #1F1827;
+  --tertiary-color: #201928;
   --text-color: #fff;
-  --background-color: rgba(45, 55, 72, 0.8);
-  --hover-background-color: rgba(74, 85, 104, 0.8);
-  --navbar-background-color: rgba(26, 32, 44, 0);
-  --navbar-text-color: #cbd5e0;
-  --border-color: #ccc;
-  --button-hover-background-color: #f0f0f0;
+
+  /* Abgeleitete Farben */
+  --background-color: rgba(var(--secondary-color-rgb), 0.8);
+  --hover-background-color: rgba(var(--tertiary-color-rgb), 0.8);
+  --navbar-background-color: rgba(var(--secondary-color-rgb), 0);
+  --border-color: rgba(var(--tertiary-color-rgb), 0.5);
+  --button-hover-background-color: rgba(var(--primary-color-rgb), 0.1);
+
+  /* Schriftgrößen */
+  --font-size-large: 3em;
+  --font-size-medium: 1.2em;
+  --font-size-small: 1em;
+  --font-size-xsmall: 0.9em;
+  --font-size-xxsmall: 0.8em;
+}
+
+/* RGB-Werte der Hauptfarben */
+:root {
+  --primary-color-rgb: 202, 54, 185;
+  --secondary-color-rgb: 31, 24, 39;
+  --tertiary-color-rgb: 32, 25, 40;
 }

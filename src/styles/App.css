@@ -1,6 +1,9 @@
+@import './variables.css';
+
 body {
+  color: var(--text-color);
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #CA36B9, #1F1827, #201928);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
   margin: 0;
   padding: 0;
   padding-top: 80px; /* Platz für die fixe Navbar */
@@ -22,8 +25,9 @@ body {
     width: 80%;
   }
 }
-@media (max-width: 769px) {
+
+@media (max-width: 768px) {
   .container {
- margin-top: -5em;
+    margin-top: -5em;
   }
 }

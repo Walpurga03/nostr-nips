@@ -22,14 +22,14 @@
 }
 
 .home h1 {
-  font-size: 3em; /* Erhöhen Sie die Schriftgröße */
+  font-size: var(--font-size-large); /* Verwende die globale Schriftgröße */
   margin-bottom: 20px;
   animation: fadeInFromTop 2s ease-in-out;
   text-align: center; /* Zentriert den Text horizontal */
 }
 
 .home p {
-  font-size: 1.2em;
+  font-size: var(--font-size-medium); /* Verwende die globale Schriftgröße */
   line-height: 1.6;
   margin-bottom: 20px;
   animation: fadeInFromTop 2s ease-in-out;

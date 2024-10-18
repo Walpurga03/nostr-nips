@@ -19,11 +19,11 @@
   padding: 3px 6px;
   cursor: pointer;
   font-size: 0.8em;
-  color: var(--navbar-text-color);
+  color: var(--text-color);
 }
 
 .language-switcher button:hover {
-  background-color: var(--button-hover-background-color);
+  background-color: var(--primary-color);
   color: var(--hover-background-color);
 }
 

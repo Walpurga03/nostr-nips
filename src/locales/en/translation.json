@@ -39,5 +39,26 @@
     "event_fetcher": "Event Fetcher",
     "fetched_event": "Fetched Event",
     "detailed_github_page": "Detailed GitHub Page"
+  },
+  "nip2": {
+    "nip2_title": "NIP-02",
+    "description": "This NIP describes the second implementation possibility for the Nostr protocol.",
+    "details": "Here is a detailed explanation of NIP-02.",
+    "example_usage": "Example Usage",
+    "example_usage_intro": "Here is a simple example of using NIP-02 in a protocol:",
+    "example_usage_scenario": "Imagine you want to create an event that represents a user action. The event might look like this:",
+    "example_message_content": "User action example content",
+    "example_explanation": "In this example:",
+    "example_id": "A unique identifier for the event.",
+    "example_pubkey": "The username or ID of the author.",
+    "example_created_at": "The creation date of the event in Unix timestamp.",
+    "example_kind": "The type of event, in this case, a user action.",
+    "example_tags": "A list of tags that categorize the event.",
+    "example_content": "The actual content of the user action.",
+    "example_sig": "A digital signature that ensures the integrity and authenticity of the event.",
+    "example_filters": "Clients can then use filters to subscribe to only specific events, e.g., all actions from 'user123' or all events with the tag 'action'.",
+    "event_fetcher": "Event Fetcher",
+    "fetched_event": "Fetched Event",
+    "detailed_github_page": "Detailed GitHub Page"
   }
 }

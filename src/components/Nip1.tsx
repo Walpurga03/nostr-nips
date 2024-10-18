@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import InputForm from './InputForm';
-import '../styles/Nip1.css'; // Import the CSS file
+import NDK from "@nostr-dev-kit/ndk";
+import RelayConnector from './RelayConnector';
 
 const Nip1: React.FC = () => {
   const { t } = useTranslation('nip1');
   const [event, setEvent] = useState<any>(null);
+  const [ndk, setNdk] = useState<NDK | null>(null);
+  const [eventId, setEventId] = useState<string>('');
 
-  const handleFetchEvent = (fetchedEvent: any) => {
-    setEvent(fetchedEvent);
+  // Funktion zum Abrufen eines Ereignisses basierend auf der ID
+  const fetchEvent = async (id: string) => {
+    if (ndk) {
+      const sub = await ndk.fetchEvent(id);
+      console.log(sub?.rawEvent());
+      setEvent(sub?.rawEvent());
+    }
   };
 
+  // Funktion zum Handhaben des Formular-Submits
+  const handleFetch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    fetchEvent(eventId);
+  };
+
+  // Funktion zum Formatieren eines Ereignisses
   const formatEvent = (event: any) => {
     return {
       id: event.id,
@@ -23,27 +37,40 @@ const Nip1: React.FC = () => {
     };
   };
 
-  const syntaxHighlight = (json: string) => {
-    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:\s*)?|true|false|null|[0-9]+)/g, (match) => {
-      let cls = 'json-number';
-      if (/^"/.test(match)) {
-        if (/:$/.test(match)) {
-          cls = 'json-key';
-        } else {
-          cls = 'json-string';
-        }
-      } else if (/true|false/.test(match)) {
-        cls = 'json-boolean';
-      } else if (/null/.test(match)) {
-        cls = 'json-null';
+  // Funktion zum Escapen von HTML-Zeichen
+  const escapeHtml = (json: string) => {
+    return json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  };
+
+  // Funktion zum Bestimmen der CSS-Klasse basierend auf dem JSON-Teil
+  const getClassForJsonPart = (match: string) => {
+    if (/^"/.test(match)) {
+      if (/:$/.test(match)) {
+        return 'json-key';
+      } else {
+        return 'json-string';
       }
+    } else if (/true|false/.test(match)) {
+      return 'json-boolean';
+    } else if (/null/.test(match)) {
+      return 'json-null';
+    } else {
+      return 'json-number';
+    }
+  };
+
+  // Funktion zum Syntax-Highlighting von JSON
+  const syntaxHighlight = (json: string) => {
+    json = escapeHtml(json);
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:\s*)?|true|false|null|[0-9]+)/g, (match) => {
+      const cls = getClassForJsonPart(match);
       return `<span class="${cls}">${match}</span>`;
     });
   };
 
   return (
     <div className="nip1-container">
+      <RelayConnector onConnect={setNdk} />
       <h2>{t('nip1_title')}</h2>
       <ul>
         <li><strong>{t('key_protocol')}</strong>: {t('key_protocol_description')}</li>
@@ -79,7 +106,15 @@ const Nip1: React.FC = () => {
       <p>{t('example_filters')}</p>
 
       <h3>{t('event_fetcher')}</h3>
-      <InputForm onFetchEvent={handleFetchEvent} />
+      <div className="input-form-container">
+        <form onSubmit={handleFetch}>
+          <label>
+            Event ID:
+            <input type="text" value={eventId} onChange={(e) => setEventId(e.target.value)} />
+          </label>
+          <button type="submit">Fetch Event</button>
+        </form>
+      </div>
       {event && (
         <div className="fetched-event json-container">
           <h3>{t('fetched_event')}</h3>
@@ -87,7 +122,7 @@ const Nip1: React.FC = () => {
         </div>
       )}
       <p>
-        <a href="https://github.com/nostr-protocol/nips/blob/master/01.md" target="_blank" rel="noopener noreferrer">
+        <a className="link" href="https://github.com/nostr-protocol/nips/blob/master/01.md" target="_blank" rel="noopener noreferrer">
           {t('detailed_github_page')}
         </a>
       </p>

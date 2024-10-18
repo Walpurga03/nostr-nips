@@ -1,28 +1,39 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import '../styles/Navbar.css';
+import { ActivePage } from '../types';  // Stellen Sie sicher, dass der Pfad korrekt ist
 
+// Definiere die Props für die Navbar-Komponente
 interface NavbarProps {
-  setActiveNip: (nip: string) => void;
-  activeNip: string;
+  setActivePage: (page: ActivePage) => void;
+  activePage: ActivePage;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ setActiveNip, activeNip }) => {
+// Definiere die Menüeinträge
+const menuItems: Array<{ id: ActivePage; label: string }> = [
+  { id: 'home', label: 'Startseite' },
+  { id: 'nip1', label: 'NIP-01' },
+  { id: 'nip2', label: 'NIP-02' }
+];
+
+const Navbar: React.FC<NavbarProps> = ({ setActivePage, activePage }) => {
   const { i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Funktion zum Ändern der Sprache
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 
+  // Funktion zum Umschalten des Menüs
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const handleMenuItemClick = (nip: string) => {
-    setActiveNip(nip);
-    setMenuOpen(false); // Schließt das Menü
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scrollt nach oben
+  // Funktion zum Handhaben des Klicks auf einen Menüeintrag
+  const handleMenuItemClick = (page: ActivePage) => {
+    setActivePage(page);
+    setMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -34,13 +45,18 @@ const Navbar: React.FC<NavbarProps> = ({ setActiveNip, activeNip }) => {
       {menuOpen && <div className="blur-background"></div>}
       <nav className="navbar">
         <div className="menu-icon" onClick={toggleMenu}>
-          &#9776; {/* Unicode für das Menü-Icon */}
+          &#9776;
         </div>
         <ul className={menuOpen ? 'show' : ''}>
-          <li onClick={() => handleMenuItemClick('home')} className={activeNip === 'home' ? 'active' : ''}>Startseite</li>
-          <li onClick={() => handleMenuItemClick('nip1')} className={activeNip === 'nip1' ? 'active' : ''}>NIP-01</li>
-          <li onClick={() => handleMenuItemClick('nip2')} className={activeNip === 'nip2' ? 'active' : ''}>NIP-02</li>
-          {/* Weitere NIPs können hier hinzugefügt werden */}
+          {menuItems.map(({ id, label }) => (
+            <li
+              key={id}
+              onClick={() => handleMenuItemClick(id)}
+              className={activePage === id ? 'active' : ''}
+            >
+              {label}
+            </li>
+          ))}
         </ul>
       </nav>
     </>
