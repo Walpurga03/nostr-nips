@@ -1,64 +1,181 @@
 {
-  "home": {
-    "welcome": "NIPs Explorer",
-    "nostr_intro": "Nostr ist ein offenes Protokoll für dezentrale Kommunikation. Es ermöglicht Benutzern, Nachrichten und andere Daten über ein Netzwerk von Relays zu senden und zu empfangen.",
-    "what_are_nips": "Was sind NIPs?",
-    "nips_intro": "NIPs (Nostr Implementation Possibilities) sind Vorschläge und Standards, die beschreiben, wie verschiedene Aspekte des Nostr-Protokolls implementiert werden können. Sie helfen Entwicklern, kompatible und interoperable Anwendungen zu erstellen.",
-    "nips_docs": "NIPs sind Dokumente, die verschiedene Aspekte des Nostr-Protokolls beschreiben. Sie können neue Funktionen vorschlagen, bestehende Funktionen verbessern oder bewährte Verfahren zur Implementierung des Protokolls bereitstellen.",
-    "nips_website": "Auf dieser Website finden Sie Erklärungen und Beispiele zu verschiedenen NIPs, die Ihnen helfen, das Nostr-Protokoll besser zu verstehen und zu nutzen.",
-    "what_are_relays": "Was sind Relays?",
-    "relays_intro": "Relays sind Server, die Nachrichten und andere Daten im Nostr-Netzwerk weiterleiten. Sie fungieren als Vermittler zwischen Clients und stellen sicher, dass Nachrichten an die richtigen Empfänger zugestellt werden. Jeder kann einen Relay-Server betreiben, und Benutzer können sich mit mehreren Relays verbinden, um die Verfügbarkeit und Zuverlässigkeit der Kommunikation zu erhöhen.",
-    "what_are_clients": "Was sind Clients?",
-    "clients_intro": "Clients sind Anwendungen, die Benutzer verwenden, um mit dem Nostr-Netzwerk zu interagieren. Sie ermöglichen es Benutzern, Nachrichten zu senden und zu empfangen, Daten zu veröffentlichen und auf Informationen zuzugreifen, die von anderen Benutzern geteilt werden. Clients können in verschiedenen Formen vorliegen, einschließlich Webanwendungen, mobilen Apps und Desktop-Programmen.",
-    "summary": "Zusammenfassung",
-    "summary_text": "Nostr ist ein dezentrales Kommunikationsprotokoll, das auf Relays und Clients basiert. NIPs bieten die Standards und Vorschläge, die Entwicklern helfen, das Protokoll zu implementieren und zu erweitern. Diese Website bietet eine Einführung in Nostr und NIPs sowie Beispiele und Erklärungen, die Ihnen helfen, das Protokoll besser zu verstehen und zu nutzen."
-  },
-  "nip1": {
-    "nip1_title": "NIP-01",
-    "key_protocol": "Grundprotokoll",
-    "key_protocol_description": "Dieses NIP definiert das grundlegende Protokoll, das von allen implementiert werden sollte. Es beschreibt die Struktur und den Ablauf von Ereignissen.",
-    "event_format": "Ereignisformat",
-    "event_format_description": "Ereignisse haben ein bestimmtes Format, das eine Art, Tags, Inhalt und Signatur umfasst. Die Signatur basiert auf dem SHA-256-Hash der serialisierten Ereignisdaten.",
-    "filters_and_subscriptions": "Filter und Abonnements",
-    "filters_and_subscriptions_description": "Clients können Filter verwenden, um bestimmte Ereignisse von Relays zu abonnieren. Filter können nach IDs, Autoren, Arten und Zeitstempeln spezifiziert werden.",
-    "websocket_connections": "WebSocket-Verbindungen",
-    "websocket_connections_description": "Relays stellen WebSocket-Endpunkte bereit, an die sich Clients verbinden können. Clients sollten eine einzelne WebSocket-Verbindung pro Relay verwenden.",
-    "example_usage": "Beispiel für die Verwendung",
-    "example_usage_intro": "Hier ist ein einfaches Beispiel für die Verwendung von Ereignissen in einem Protokoll:",
-    "example_usage_scenario": "Stell dir vor, du möchtest ein Ereignis erstellen, das eine Nachricht von einem Benutzer darstellt. Das Ereignis könnte so aussehen:",
-    "example_message_content": "Hallo, wie geht's?",
-    "example_explanation": "In diesem Beispiel:",
-    "example_id": "Eine eindeutige Kennung für das Ereignis.",
-    "example_pubkey": "Der Benutzername oder die ID des Autors.",
-    "example_created_at": "Das Erstellungsdatum des Ereignisses in Unix-Zeitstempel.",
-    "example_kind": "Die Art des Ereignisses, in diesem Fall eine Nachricht.",
-    "example_tags": "Eine Liste von Tags, die das Ereignis kategorisieren.",
-    "example_content": "Der eigentliche Inhalt der Nachricht.",
-    "example_sig": "Eine digitale Signatur, die die Integrität und Authentizität des Ereignisses sicherstellt.",
-    "example_filters": "Clients können dann Filter verwenden, um nur bestimmte Ereignisse zu abonnieren, z.B. alle Nachrichten von 'user123' oder alle Ereignisse mit Tag 'chat'.",
-    "event_fetcher": "Event Fetcher",
-    "fetched_event": "Fetched Event",
-    "detailed_github_page": "Detaillierte GitHub-Seite"
-  },
-  "nip2": {
-    "nip2_title": "NIP-02",
-    "description": "Dieses NIP beschreibt die zweite Implementierungsmöglichkeit für das Nostr-Protokoll.",
-    "details": "Hier ist eine detaillierte Erklärung von NIP-02.",
-    "example_usage": "Beispiel für die Verwendung",
-    "example_usage_intro": "Hier ist ein einfaches Beispiel für die Verwendung von NIP-02 in einem Protokoll:",
-    "example_usage_scenario": "Stell dir vor, du möchtest ein Ereignis erstellen, das eine Benutzeraktion darstellt. Das Ereignis könnte so aussehen:",
-    "example_message_content": "Beispielinhalt für Benutzeraktion",
-    "example_explanation": "In diesem Beispiel:",
-    "example_id": "Eine eindeutige Kennung für das Ereignis.",
-    "example_pubkey": "Der Benutzername oder die ID des Autors.",
-    "example_created_at": "Das Erstellungsdatum des Ereignisses in Unix-Zeitstempel.",
-    "example_kind": "Die Art des Ereignisses, in diesem Fall eine Benutzeraktion.",
-    "example_tags": "Eine Liste von Tags, die das Ereignis kategorisieren.",
-    "example_content": "Der eigentliche Inhalt der Benutzeraktion.",
-    "example_sig": "Eine digitale Signatur, die die Integrität und Authentizität des Ereignisses sicherstellt.",
-    "example_filters": "Clients können dann Filter verwenden, um nur bestimmte Ereignisse zu abonnieren, z.B. alle Aktionen von 'user123' oder alle Ereignisse mit dem Tag 'action'.",
-    "event_fetcher": "Event Fetcher",
-    "fetched_event": "Fetched Event",
-    "detailed_github_page": "Detaillierte GitHub-Seite"
-  }
+    "home": {
+      "welcome": "NIPs Explorer",
+      "nostr_intro": "Nostr ist ein offenes Protokoll für dezentrale Kommunikation. Es ermöglicht Benutzern, Nachrichten und andere Daten über ein Netzwerk von Relays zu senden und zu empfangen.",
+      
+      "protocol_basics": "Protokoll-Grundlagen",
+      "protocol_basics_intro": "Nostr basiert auf einem einfachen aber mächtigen Eventmodell. Jede Interaktion im Netzwerk ist ein Event mit einer definierten Struktur.",
+      
+      "event_structure": {
+        "title": "Event-Struktur",
+        "id_desc": "Eindeutige ID (SHA256 Hash der Event-Daten)",
+        "pubkey_desc": "Öffentlicher Schlüssel des Autors",
+        "created_at_desc": "Erstellungszeitpunkt (Unix Timestamp)",
+        "kind_desc": "Art des Events (z.B. 1 für Textnachricht)",
+        "tags_desc": "Zusätzliche Metadaten und Verknüpfungen",
+        "content_desc": "Der eigentliche Inhalt des Events",
+        "sig_desc": "Digitale Signatur zur Verifikation"
+      },
+  
+      "protocol_concepts": {
+        "title": "Zentrale Konzepte",
+        "nips_vs_kinds": "NIPs vs Event Kinds",
+        "nips_vs_kinds_explanation": "NIPs (Nostr Implementation Possibilities) und Event Kinds sind zwei unterschiedliche, aber wichtige Konzepte in Nostr:"
+      },
+  
+      "nips_section": {
+        "title": "Was sind NIPs?",
+        "intro": "NIPs (Nostr Implementation Possibilities) sind Vorschläge und Standards, die beschreiben, wie verschiedene Aspekte des Nostr-Protokolls implementiert werden können. Sie helfen Entwicklern, kompatible und interoperable Anwendungen zu erstellen.",
+        "docs": "NIPs sind Dokumente, die verschiedene Aspekte des Nostr-Protokolls beschreiben. Sie können neue Funktionen vorschlagen, bestehende Funktionen verbessern oder bewährte Verfahren zur Implementierung des Protokolls bereitstellen.",
+        "website": "Auf dieser Website finden Sie Erklärungen und Beispiele zu verschiedenen NIPs, die Ihnen helfen, das Nostr-Protokoll besser zu verstehen und zu nutzen.",
+        "explanation": {
+          "title": "NIPs (Nostr Implementation Possibilities)",
+          "description": "NIPs sind technische Spezifikationsdokumente, die beschreiben:",
+          "points": [
+            "Wie neue Features im Nostr-Protokoll implementiert werden sollen",
+            "Welche Standards alle Clients und Relays befolgen müssen",
+            "Wie verschiedene Arten von Daten strukturiert werden",
+            "Wie die Kommunikation zwischen Clients und Relays funktioniert"
+          ],
+          "example": "Zum Beispiel beschreibt NIP-01 das grundlegende Protokoll, während NIP-02 das Format für Kontaktlisten definiert."
+        },
+        "examples": {
+          "title": "NIP Beispiele:",
+          "nip01": "NIP-01: Grundprotokoll",
+          "nip02": "NIP-02: Kontaktliste",
+          "nip03": "NIP-03: OpenTimestamps Attestierungen",
+          "nip04": "NIP-04: Verschlüsselte Direktnachrichten"
+        }
+      },
+  
+      "event_kinds": {
+        "title": "Event Kinds (Event-Typen)",
+        "explanation_title": "Was sind Event Kinds?",
+        "explanation_intro": "Event Kinds sind numerische Identifier, die den Typ und Zweck eines einzelnen Events definieren. Sie sind Teil der tatsächlichen Daten und bestimmen:",
+        "purpose_points": [
+          "Welche Art von Inhalt ein Event enthält",
+          "Wie Clients den Inhalt anzeigen sollen",
+          "Wie Relays das Event verarbeiten sollen",
+          "Wie lange das Event gespeichert werden soll"
+        ],
+        "connection_to_nips": "Event Kinds werden in verschiedenen NIPs definiert und standardisiert. Zum Beispiel wurden die grundlegenden Kinds 0-3 in NIP-01 festgelegt.",
+        "ranges": {
+          "title": "Kind-Bereiche und ihre Bedeutung",
+          "regular": "Reguläre Events wie Metadaten, Textnachrichten und Kontaktlisten",
+          "regular_replaceable": "Ersetzbare Events, bei denen nur die neueste Version relevant ist",
+          "ephemeral": "Kurzlebige Events, die nicht dauerhaft gespeichert werden müssen",
+          "parameterized": "Parametrisierte Events für spezielle Anwendungsfälle"
+        },
+        "common_title": "Häufig verwendete Event Kinds",
+        "metadata": "Profilinformationen wie Name, Bild und Beschreibung",
+        "text_note": "Öffentliche Textnachrichten (ähnlich wie Tweets)",
+        "recommend_server": "Empfehlungen für Relay-Server",
+        "contacts": "Liste von gefolgten Nutzern und deren bevorzugte Relays",
+        "direct_message": "Verschlüsselte Direktnachrichten",
+        "deletion": "Löscht zuvor veröffentlichte Events"
+      },
+  
+      "implementation_example": {
+        "title": "Beispiel für den Zusammenhang:",
+        "content": "NIP-01 definiert, dass ein Event vom Kind 1 eine öffentliche Textnachricht ist. Wenn ein Client also ein Event mit kind: 1 empfängt, weiß er dank NIP-01, dass er den Inhalt als Textnachricht anzeigen soll."
+      },
+  
+      "relays_section": {
+        "title": "Was sind Relays?",
+        "intro": "Relays sind Server, die Nachrichten und andere Daten im Nostr-Netzwerk weiterleiten. Sie fungieren als Vermittler zwischen Clients und stellen sicher, dass Nachrichten an die richtigen Empfänger zugestellt werden.",
+        "features": {
+          "decentralized": {
+            "title": "Dezentral",
+            "description": "Jeder kann einen Relay betreiben"
+          },
+          "redundant": {
+            "title": "Redundant",
+            "description": "Mehrere Relays für Ausfallsicherheit"
+          },
+          "flexible": {
+            "title": "Flexibel",
+            "description": "Freie Wahl der Relays"
+          },
+          "scalable": {
+            "title": "Skalierbar",
+            "description": "Verteilte Lastverteilung"
+          }
+        }
+      },
+  
+      "clients_section": {
+        "title": "Was sind Clients?",
+        "intro": "Clients sind Anwendungen, die Benutzer verwenden, um mit dem Nostr-Netzwerk zu interagieren. Sie ermöglichen es Benutzern, Nachrichten zu senden und zu empfangen, Daten zu veröffentlichen und auf Informationen zuzugreifen.",
+        "types": {
+          "web": {
+            "title": "Web Clients",
+            "description": "Direkter Zugriff über den Browser"
+          },
+          "mobile": {
+            "title": "Mobile Apps",
+            "description": "Für iOS und Android unterwegs"
+          },
+          "desktop": {
+            "title": "Desktop Apps",
+            "description": "Volle Funktionalität am Computer"
+          }
+        }
+      },
+  
+      "summary": {
+        "title": "Zusammenfassung",
+        "text": "Nostr ist ein dezentrales Kommunikationsprotokoll, das auf Relays und Clients basiert. NIPs bieten die Standards und Vorschläge, die Entwicklern helfen, das Protokoll zu implementieren und zu erweitern. Diese Website bietet eine Einführung in Nostr und NIPs sowie Beispiele und Erklärungen, die Ihnen helfen, das Protokoll besser zu verstehen und zu nutzen."
+      }
+    },
+  
+    "nip1": {
+      "nip1_title": "NIP-01",
+      "key_protocol": "Grundprotokoll",
+      "key_protocol_description": "Dieses NIP definiert das grundlegende Protokoll, das von allen implementiert werden sollte. Es beschreibt die Struktur und den Ablauf von Ereignissen.",
+      "event_format": "Ereignisformat",
+      "event_format_description": "Ereignisse haben ein bestimmtes Format, das eine Art, Tags, Inhalt und Signatur umfasst. Die Signatur basiert auf dem SHA-256-Hash der serialisierten Ereignisdaten.",
+      "filters_and_subscriptions": "Filter und Abonnements",
+      "filters_and_subscriptions_description": "Clients können Filter verwenden, um bestimmte Ereignisse von Relays zu abonnieren. Filter können nach IDs, Autoren, Arten und Zeitstempeln spezifiziert werden.",
+      "websocket_connections": "WebSocket-Verbindungen",
+      "websocket_connections_description": "Relays stellen WebSocket-Endpunkte bereit, an die sich Clients verbinden können. Clients sollten eine einzelne WebSocket-Verbindung pro Relay verwenden.",
+      "example_usage": "Beispiel für die Verwendung",
+      "example_usage_intro": "Hier ist ein einfaches Beispiel für die Verwendung von Ereignissen in einem Protokoll:",
+      "example_usage_scenario": "Stell dir vor, du möchtest ein Ereignis erstellen, das eine Nachricht von einem Benutzer darstellt. Das Ereignis könnte so aussehen:",
+      "example_message_content": "Hallo, wie geht's?",
+      "example_explanation": "In diesem Beispiel:",
+      "example_id": "Eine eindeutige Kennung für das Ereignis.",
+      "example_pubkey": "Der Benutzername oder die ID des Autors.",
+      "example_created_at": "Das Erstellungsdatum des Ereignisses in Unix-Zeitstempel.",
+      "example_kind": "Die Art des Ereignisses, in diesem Fall eine Nachricht.",
+      "example_tags": "Eine Liste von Tags, die das Ereignis kategorisieren.",
+      "example_content": "Der eigentliche Inhalt der Nachricht.",
+      "example_sig": "Eine digitale Signatur, die die Integrität und Authentizität des Ereignisses sicherstellt.",
+      "example_filters": "Clients können dann Filter verwenden, um nur bestimmte Ereignisse zu abonnieren, z.B. alle Nachrichten von 'user123' oder alle Ereignisse mit Tag 'chat'.",
+      "event_fetcher": "Event Fetcher",
+      "fetched_event": "Fetched Event",
+      "detailed_github_page": "Detaillierte GitHub-Seite"
+    },
+  
+    "nip2": {
+      "nip2_title": "NIP-02",
+      "description": "Dieses NIP beschreibt die zweite Implementierungsmöglichkeit für das Nostr-Protokoll.",
+      "details": "Hier ist eine detaillierte Erklärung von NIP-02.",
+      "example_usage": "Beispiel für die Verwendung",
+      "example_usage_intro": "Hier ist ein einfaches Beispiel für die Verwendung von NIP-02 in einem Protokoll:",
+      "example_usage_scenario": "Stell dir vor, du möchtest ein Ereignis erstellen, das eine Benutzeraktion darstellt. Das Ereignis könnte so aussehen:",
+      "example_message_content": "Beispielinhalt für Benutzeraktion",
+      "example_explanation": "In diesem Beispiel:",
+      "example_id": "Eine eindeutige Kennung für das Ereignis.",
+      "example_pubkey": "Der Benutzername oder die ID des Autors.",
+      "example_created_at": "Das Erstellungsdatum des Ereignisses in Unix-Zeitstempel.",
+      "example_kind": "Die Art des Ereignisses, in diesem Fall eine Benutzeraktion.",
+      "example_tags": "Eine Liste von Tags, die das Ereignis kategorisieren.",
+      "example_content": "Der eigentliche Inhalt der Benutzeraktion.",
+      "example_sig": "Eine digitale Signatur, die die Integrität und Authentizität des Ereignisses sicherstellt.",
+      "example_filters": "Clients können dann Filter verwenden, um nur bestimmte Ereignisse zu abonnieren, z.B. alle Aktionen von 'user123' oder alle Ereignisse mit dem Tag 'action'.",
+      "event_fetcher": "Event Fetcher",
+      "fetched_event": "Fetched Event",
+      "detailed_github_page": "Detaillierte GitHub-Seite"
+    }
 }
+  

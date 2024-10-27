@@ -1,0 +1,90 @@
+@import './variables.css';
+
+.relay-status-container {
+    background-color: var(--background-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .relay-status-title {
+    font-size: var(--font-size-medium);
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .relay-status-grid {
+    display: grid;
+    gap: 0.5rem;
+  }
+  
+  .relay-status-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: var(--tertiary-color);
+    border-radius: 4px;
+  }
+  
+  .status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+  
+  .status-indicator.connected {
+    background-color: #4CAF50;
+  }
+  
+  .status-indicator.disconnected {
+    background-color: #f44336;
+  }
+  
+  .status-indicator.connecting {
+    background-color: #FFC107;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .relay-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .relay-url {
+    font-size: var(--font-size-small);
+    color: var(--text-color);
+  }
+  
+  .relay-latency {
+    font-size: var(--font-size-xsmall);
+    color: var(--text-color);
+    opacity: 0.8;
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .relay-status-container {
+      max-width: 100%;
+    }
+    
+    .relay-status-item {
+      padding: 0.25rem;
+    }
+  }

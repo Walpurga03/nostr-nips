@@ -15,9 +15,10 @@
   "dependencies": {
     "@nostr-dev-kit/ndk": "^2.10.1",
     "@nostr-dev-kit/ndk-react": "^0.1.1",
-    "gh-pages": "^3.2.3",
+    "gh-pages": "^6.2.0",
     "i18next": "^23.16.0",
     "i18next-browser-languagedetector": "^8.0.0",
+    "lucide-react": "^0.453.0",
     "ndk": "^1.0.0",
     "nostr-tools": "^2.8.0",
     "react": "^18.2.0",
