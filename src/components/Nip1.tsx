@@ -1,133 +1,322 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import NDK from "@nostr-dev-kit/ndk";
+import { Alert, AlertDescription } from '../components/ui/alert';
+import { 
+  Activity, 
+  ChevronDown, 
+  ChevronUp, 
+  Hash, 
+  Key, 
+  Clock, 
+  Tag, 
+  FileText, 
+  Shield 
+} from "lucide-react";
 import RelayConnector from './RelayConnector';
+import { getArrayTranslation, getObjectTranslation, TranslatedFields } from '../utils/translationUtils';
+
+interface SectionProps {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  isExpanded: boolean;
+  onToggle: () => void;
+}
+
+const Section: React.FC<SectionProps> = ({ id, title, icon, children, isExpanded, onToggle }) => (
+  <div className="section">
+    <button 
+      className="section-header" 
+      onClick={onToggle}
+      aria-expanded={isExpanded}
+    >
+      {icon}
+      <h2>{title}</h2>
+      {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+    </button>
+    {isExpanded && (
+      <div className="section-content">
+        {children}
+      </div>
+    )}
+  </div>
+);
+
+interface EventData {
+  id: string;
+  pubkey: string;
+  created_at: number;
+  kind: number;
+  tags: string[][];
+  content: string;
+  sig: string;
+}
 
 const Nip1: React.FC = () => {
   const { t } = useTranslation('nip1');
-  const [event, setEvent] = useState<any>(null);
+  const [event, setEvent] = useState<EventData | null>(null);
   const [ndk, setNdk] = useState<NDK | null>(null);
   const [eventId, setEventId] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [expandedSection, setExpandedSection] = useState<string>('overview');
 
-  // Funktion zum Abrufen eines Ereignisses basierend auf der ID
+  const EXAMPLE_EVENT_ID = "86885d03218abe92f1800fb2f0a306535710111d60e8c9aafd0179db11963ed7";
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSection(expandedSection === sectionId ? '' : sectionId);
+  };
+
+  const handleExampleClick = () => {
+    setEventId(EXAMPLE_EVENT_ID);
+  };
+
   const fetchEvent = async (id: string) => {
-    if (ndk) {
-      const sub = await ndk.fetchEvent(id);
-      console.log(sub?.rawEvent());
-      setEvent(sub?.rawEvent());
+    if (!ndk) {
+      setError(t('errors.no_relay_connection'));
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const fetchedEvent = await ndk.fetchEvent(id);
+      if (fetchedEvent) {
+        setEvent(fetchedEvent.rawEvent() as EventData);
+      } else {
+        setError(t('errors.event_not_found'));
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('errors.fetch_failed'));
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Funktion zum Handhaben des Formular-Submits
   const handleFetch = async (e: React.FormEvent) => {
     e.preventDefault();
-    fetchEvent(eventId);
+    await fetchEvent(eventId);
   };
 
-  // Funktion zum Formatieren eines Ereignisses
-  const formatEvent = (event: any) => {
-    return {
-      id: event.id,
-      pubkey: event.pubkey,
-      created_at: event.created_at,
-      kind: event.kind,
-      tags: event.tags,
-      content: event.content,
-      sig: event.sig
-    };
-  };
+  // Renderfunktion für die Übersichtssektion
+  const renderOverview = () => (
+    <div className="overview">
+      <p className="description">{t('sections.overview.description')}</p>
+      <ul className="overview-list">
+        {getArrayTranslation(t, 'sections.overview.points').map((point, index) => (
+          <li key={index}>{point}</li>
+        ))}
+      </ul>
+    </div>
+  );
 
-  // Funktion zum Escapen von HTML-Zeichen
-  const escapeHtml = (json: string) => {
-    return json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  };
+  // Renderfunktion für die Event-Struktur-Sektion
+  const renderEventStructure = () => (
+    <div className="event-structure">
+      <p className="description">{t('sections.event_structure.description')}</p>
+      <div className="fields-grid">
+        {Object.entries(getObjectTranslation<TranslatedFields>(t, 'sections.event_structure.fields'))
+          .map(([key, field]) => (
+            <div key={key} className="field-card">
+              <div className="field-header">
+                {getFieldIcon(key)}
+                <h3>{field.title}</h3>
+              </div>
+              <p className="field-description">{field.description}</p>
+              {field.technical && (
+                <div className="technical-note">
+                  <code>{field.technical}</code>
+                </div>
+              )}
+              {field.examples && (
+                <ul className="examples-list">
+                  {field.examples.map((example, index) => (
+                    <li key={index}>{example}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+      </div>
+    </div>
+  );
 
-  // Funktion zum Bestimmen der CSS-Klasse basierend auf dem JSON-Teil
-  const getClassForJsonPart = (match: string) => {
-    if (/^"/.test(match)) {
-      if (/:$/.test(match)) {
-        return 'json-key';
-      } else {
-        return 'json-string';
-      }
-    } else if (/true|false/.test(match)) {
-      return 'json-boolean';
-    } else if (/null/.test(match)) {
-      return 'json-null';
-    } else {
-      return 'json-number';
+  // Renderfunktion für die Relay-Kommunikations-Sektion
+  const renderRelayCommunication = () => (
+    <div className="relay-communication">
+      <p className="description">{t('sections.relay_communication.description')}</p>
+      <div className="message-types">
+        <h3>{t('sections.relay_communication.messages.types.title')}</h3>
+        <div className="types-grid">
+          {Object.entries(getObjectTranslation(t, 'sections.relay_communication.messages.types'))
+            .filter(([key]) => key !== 'title')
+            .map(([key, description]) => (
+              <div key={key} className="type-card">
+                <h4>{key}</h4>
+                <p>{String(description)}</p>
+              </div>
+            ))}
+        </div>
+      </div>
+      <div className="subscription-system">
+        <h3>{t('sections.relay_communication.subscription.title')}</h3>
+        <p>{t('sections.relay_communication.subscription.description')}</p>
+        <ul className="filter-options">
+          {getArrayTranslation(t, 'sections.relay_communication.subscription.filter_options')
+            .map((option, index) => (
+              <li key={index}>{option}</li>
+            ))}
+        </ul>
+      </div>
+    </div>
+  );
+
+  // Hilfsfunktion für Field Icons
+  const getFieldIcon = (key: string) => {
+    const iconSize = 18;
+    switch (key) {
+      case 'id': return <Hash size={iconSize} />;
+      case 'pubkey': return <Key size={iconSize} />;
+      case 'created_at': return <Clock size={iconSize} />;
+      case 'kind': return <Tag size={iconSize} />;
+      case 'tags': return <Tag size={iconSize} />;
+      case 'content': return <FileText size={iconSize} />;
+      case 'sig': return <Shield size={iconSize} />;
+      default: return null;
     }
-  };
-
-  // Funktion zum Syntax-Highlighting von JSON
-  const syntaxHighlight = (json: string) => {
-    json = escapeHtml(json);
-    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:\s*)?|true|false|null|[0-9]+)/g, (match) => {
-      const cls = getClassForJsonPart(match);
-      return `<span class="${cls}">${match}</span>`;
-    });
   };
 
   return (
     <div className="nip1-container">
       <RelayConnector onConnect={setNdk} />
-      <h2>{t('nip1_title')}</h2>
-      <ul>
-        <li><strong>{t('key_protocol')}</strong>: {t('key_protocol_description')}</li>
-        <li><strong>{t('event_format')}</strong>: {t('event_format_description')}</li>
-        <li><strong>{t('filters_and_subscriptions')}</strong>: {t('filters_and_subscriptions_description')}</li>
-        <li><strong>{t('websocket_connections')}</strong>: {t('websocket_connections_description')}</li>
-      </ul>
+      
+      <header className="nip1-header">
+        <h1>{t('nip1_title')}</h1>
+        <p className="intro-text">{t('key_protocol_description')}</p>
+      </header>
 
-      <h3>{t('example_usage')}</h3>
-      <p>{t('example_usage_intro')}</p>
-      <p>{t('example_usage_scenario')}</p>
-      <pre className="formatted-text" dangerouslySetInnerHTML={{
-        __html: syntaxHighlight(JSON.stringify({
-          id: "86885d03218abe92f1800fb2f0a306535710111d60e8c9aafd0179db11963ed7",
-          pubkey: "user123",
-          created_at: "1728888328",
-          kind: "message",
-          tags: ["chat", "example"],
-          content: t('example_message_content'),
-          signature: "abcdef1234567890"
-        }, null, 2))
-      }}></pre>
-      <p>{t('example_explanation')}</p>
-      <ul>
-        <li><strong>id</strong>: {t('example_id')}</li>
-        <li><strong>pubkey</strong>: {t('example_pubkey')}</li>
-        <li><strong>created_at</strong>: {t('example_created_at')}</li>
-        <li><strong>kind</strong>: {t('example_kind')}</li>
-        <li><strong>tags</strong>: {t('example_tags')}</li>
-        <li><strong>content</strong>: {t('example_content')}</li>
-        <li><strong>sig</strong>: {t('example_sig')}</li>
-      </ul>
-      <p>{t('example_filters')}</p>
+      <main className="nip1-content">
+        <Section 
+          id="overview"
+          title={t('sections.overview.title')}
+          icon={<Hash className="section-icon" />}
+          isExpanded={expandedSection === 'overview'}
+          onToggle={() => toggleSection('overview')}
+        >
+          {renderOverview()}
+        </Section>
 
-      <h3>{t('event_fetcher')}</h3>
-      <div className="input-form-container">
-        <form onSubmit={handleFetch}>
-          <label>
-            Event ID:
-            <input type="text" value={eventId} onChange={(e) => setEventId(e.target.value)} />
-          </label>
-          <button type="submit">Fetch Event</button>
-        </form>
-      </div>
-      {event && (
-        <div className="fetched-event json-container">
-          <h3>{t('fetched_event')}</h3>
-          <pre className="formatted-text" dangerouslySetInnerHTML={{ __html: syntaxHighlight(JSON.stringify(formatEvent(event), null, 2)) }}></pre>
-        </div>
-      )}
-      <p>
-        <a className="link" href="https://github.com/nostr-protocol/nips/blob/master/01.md" target="_blank" rel="noopener noreferrer">
+        <Section 
+          id="event-structure"
+          title={t('sections.event_structure.title')}
+          icon={<FileText className="section-icon" />}
+          isExpanded={expandedSection === 'event-structure'}
+          onToggle={() => toggleSection('event-structure')}
+        >
+          {renderEventStructure()}
+        </Section>
+
+        <Section 
+          id="relay-communication"
+          title={t('sections.relay_communication.title')}
+          icon={<Activity className="section-icon" />}
+          isExpanded={expandedSection === 'relay-communication'}
+          onToggle={() => toggleSection('relay-communication')}
+        >
+          {renderRelayCommunication()}
+        </Section>
+
+        <section className="interactive-section">
+          <h2>{t('event_fetcher')}</h2>
+          <div className="example-container">
+            <p className="example-text">
+              {t('example.try_it_out')}
+            </p>
+            <div className="example-id-container">
+              <code className="example-id">{EXAMPLE_EVENT_ID}</code>
+              <button 
+                type="button" 
+                className="example-button"
+                onClick={handleExampleClick}
+              >
+                {t('example.use_this_id')}
+              </button>
+            </div>
+          </div>
+
+          <form onSubmit={handleFetch} className="fetch-form">
+            <div className="input-group">
+              <label htmlFor="eventId">
+                {t('labels.event_id')}
+                <span className="input-helper">{t('labels.event_id_helper')}</span>
+              </label>
+              <div className="input-wrapper">
+                <input
+                  id="eventId"
+                  type="text"
+                  value={eventId}
+                  onChange={(e) => setEventId(e.target.value)}
+                  placeholder={t('placeholder.enter_event_id')}
+                  className="event-input"
+                />
+                {eventId && (
+                  <button 
+                    type="button" 
+                    className="clear-button"
+                    onClick={() => setEventId('')}
+                    aria-label={t('buttons.clear_input')}
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            </div>
+            <button 
+              type="submit" 
+              disabled={loading || !ndk || !eventId.trim()} 
+              className="fetch-button"
+            >
+              {loading ? (
+                <>
+                  <Activity className="animate-spin h-4 w-4" />
+                  {t('buttons.fetching')}
+                </>
+              ) : t('buttons.fetch_event')}
+            </button>
+          </form>
+
+          {error && (
+            <Alert variant="destructive" className="mt-4">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {event && (
+            <div className="result-section">
+              <h3>{t('fetched_event')}</h3>
+              <div className="json-result">
+                <pre>{JSON.stringify(event, null, 2)}</pre>
+              </div>
+            </div>
+          )}
+        </section>
+      </main>
+
+      <footer className="nip1-footer">
+        <a 
+          href="https://github.com/nostr-protocol/nips/blob/master/01.md" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="github-link"
+        >
           {t('detailed_github_page')}
         </a>
-      </p>
+      </footer>
     </div>
   );
-}
+};
 
 export default Nip1;

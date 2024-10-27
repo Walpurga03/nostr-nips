@@ -127,34 +127,180 @@
       "text": "Nostr is a decentralized communication protocol based on relays and clients. NIPs provide the standards and proposals that help developers implement and extend the protocol. This website offers an introduction to Nostr and NIPs, as well as examples and explanations to help you better understand and use the protocol."
     }
   },
-
-  "nip1": {
-    "nip1_title": "NIP-01",
-    "key_protocol": "Basic Protocol",
-    "key_protocol_description": "This NIP defines the basic protocol that should be implemented by all. It describes the structure and flow of events.",
-    "event_format": "Event Format",
-    "event_format_description": "Events have a specific format that includes a type, tags, content, and signature. The signature is based on the SHA-256 hash of the serialized event data.",
-    "filters_and_subscriptions": "Filters and Subscriptions",
-    "filters_and_subscriptions_description": "Clients can use filters to subscribe to specific events from relays. Filters can be specified by IDs, authors, kinds, and timestamps.",
-    "websocket_connections": "WebSocket Connections",
-    "websocket_connections_description": "Relays provide WebSocket endpoints that clients can connect to. Clients should use a single WebSocket connection per relay.",
-    "example_usage": "Example Usage",
-    "example_usage_intro": "Here is a simple example of using events in a protocol:",
-    "example_usage_scenario": "Imagine you want to create an event that represents a message from a user. The event might look like this:",
-    "example_message_content": "Hello, how are you?",
-    "example_explanation": "In this example:",
-    "example_id": "A unique identifier for the event.",
-    "example_pubkey": "The username or ID of the author.",
-    "example_created_at": "The creation date of the event in Unix timestamp.",
-    "example_kind": "The type of event, in this case, a message.",
-    "example_tags": "A list of tags that categorize the event.",
-    "example_content": "The actual content of the message.",
-    "example_sig": "A digital signature that ensures the integrity and authenticity of the event.",
-    "example_filters": "Clients can then use filters to subscribe to only specific events, e.g., all messages from 'user123' or all events with the tag 'chat'.",
-    "event_fetcher": "Event Fetcher",
-    "fetched_event": "Fetched Event",
-    "detailed_github_page": "Detailed GitHub Page"
-  },
+    "nip1": {
+      "nip1_title": "NIP-01: Basic Protocol",
+      "key_protocol": "Basic Protocol",
+      "key_protocol_description": "NIP-01 defines the fundamental concepts and mechanisms of the Nostr protocol. It is the cornerstone for all other NIPs and must be supported by all Nostr implementations.",
+      
+      "sections": {
+        "overview": {
+          "title": "Overview",
+          "points": [
+            "NIP-01 establishes the basic structure of events",
+            "Defines communication between clients and relays",
+            "Describes authentication and validation of events",
+            "Establishes the publish/subscribe model for data exchange"
+          ]
+        },
+  
+        "event_structure": {
+          "title": "Event Structure",
+          "description": "An event is the basic data unit in Nostr. Every action and piece of information is transmitted as an event.",
+          "fields": {
+            "id": {
+              "title": "ID",
+              "description": "A SHA-256 hash of all other event fields. Serves as a unique identifier.",
+              "technical": "Calculated from the serialization of event data (excluding 'id' and 'sig')"
+            },
+            "pubkey": {
+              "title": "Public Key",
+              "description": "The event author's public key in hexadecimal format.",
+              "technical": "32-byte Schnorr key"
+            },
+            "created_at": {
+              "title": "Creation Timestamp",
+              "description": "Unix timestamp of event creation in seconds.",
+              "technical": "Must be a valid Unix timestamp"
+            },
+            "kind": {
+              "title": "Event Kind",
+              "description": "Numerical value defining the type of event.",
+              "examples": [
+                "0: Metadata (profile information)",
+                "1: Short text note",
+                "2: Recommended relay servers",
+                "3: Contacts",
+                "4: Encrypted direct message"
+              ]
+            },
+            "tags": {
+              "title": "Tags",
+              "description": "List of tags for additional metadata and references.",
+              "common_tags": [
+                "e: Reference to other events",
+                "p: Reference to public keys",
+                "t: Thematic hashtags"
+              ]
+            },
+            "content": {
+              "title": "Content",
+              "description": "The actual content of the event as text.",
+              "notes": [
+                "Can contain any text",
+                "Format depends on event kind",
+                "Can be encrypted"
+              ]
+            },
+            "sig": {
+              "title": "Signature",
+              "description": "Cryptographic signature to verify authenticity.",
+              "technical": "64-byte Schnorr signature of the event ID value"
+            }
+          }
+        },
+  
+        "relay_communication": {
+          "title": "Relay Communication",
+          "description": "Communication between clients and relays occurs via WebSocket connections.",
+          "messages": {
+            "types": {
+              "title": "Message Types",
+              "EVENT": "Send a new event",
+              "REQ": "Request events with specific filters",
+              "CLOSE": "End a subscription",
+              "EOSE": "End of stored event stream"
+            }
+          },
+          "subscription": {
+            "title": "Subscription System",
+            "description": "Clients can subscribe to events using filters:",
+            "filter_options": [
+              "ids: Specific event IDs",
+              "authors: Events from specific authors",
+              "kinds: Specific event types",
+              "since: Events after a timestamp",
+              "until: Events up to a timestamp",
+              "limit: Maximum number of events"
+            ]
+          }
+        },
+  
+        "event_validation": {
+          "title": "Event Validation",
+          "steps": [
+            "Verify event ID (correct calculation)",
+            "Validate signature",
+            "Check timestamp (not in future)",
+            "Verify required fields"
+          ]
+        },
+  
+        "best_practices": {
+          "title": "Best Practices",
+          "client_practices": [
+            "Connect to multiple relays for redundancy",
+            "Local caching of frequently used data",
+            "Implement exponential backoff for connection errors",
+            "Validate all received events"
+          ],
+          "relay_practices": [
+            "Efficient event storage and indexing",
+            "Implementation of rate limiting",
+            "Configurable event retention",
+            "Robust error handling"
+          ]
+        }
+      },
+  
+      "example_usage": "Practical Example",
+      "example_usage_intro": "The following example shows how a typical Nostr event is structured:",
+      "example_usage_scenario": "Suppose a user wants to publish a public message:",
+      "example_message_content": "Hello Nostr world! 👋",
+      
+      "example_explanation": "Breakdown of the example event:",
+      "example_id": "Unique ID of the event, calculated from event data",
+      "example_pubkey": "Author's public key",
+      "example_created_at": "Creation timestamp as Unix timestamp",
+      "example_kind": "Kind 1 indicates this is a public text note",
+      "example_tags": "Optional metadata and references",
+      "example_content": "The actual message text",
+      "example_sig": "Cryptographic signature for verification",
+      
+      "event_fetcher": "Event Fetcher",
+      "fetched_event": "Fetched Event",
+      "fetch_event": "Fetch Event",
+      "detailed_github_page": "Detailed Documentation on GitHub",
+  
+      "example": {
+        "try_it_out": "Try it out with this example event:",
+        "use_this_id": "Use this ID"
+      },
+      "labels": {
+        "event_id": "Event ID",
+        "event_id_helper": "Enter a valid Nostr event ID"
+      },
+      "buttons": {
+        "fetch_event": "Fetch Event",
+        "fetching": "Fetching...",
+        "clear_input": "Clear input"
+      },
+      "placeholder": {
+        "enter_event_id": "Enter event ID..."
+      },
+      
+      "validation_errors": {
+        "invalid_id": "Invalid event ID",
+        "invalid_sig": "Invalid signature",
+        "future_timestamp": "Timestamp is in the future",
+        "missing_fields": "Missing required fields"
+      },
+      
+      "errors": {
+        "no_relay_connection": "No relay connection available",
+        "event_not_found": "Event not found",
+        "fetch_failed": "Failed to fetch event"
+      }
+    },
 
   "nip2": {
     "nip2_title": "NIP-02",

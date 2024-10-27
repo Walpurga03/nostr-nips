@@ -127,34 +127,174 @@
         "text": "Nostr ist ein dezentrales Kommunikationsprotokoll, das auf Relays und Clients basiert. NIPs bieten die Standards und Vorschläge, die Entwicklern helfen, das Protokoll zu implementieren und zu erweitern. Diese Website bietet eine Einführung in Nostr und NIPs sowie Beispiele und Erklärungen, die Ihnen helfen, das Protokoll besser zu verstehen und zu nutzen."
       }
     },
-  
-    "nip1": {
-      "nip1_title": "NIP-01",
-      "key_protocol": "Grundprotokoll",
-      "key_protocol_description": "Dieses NIP definiert das grundlegende Protokoll, das von allen implementiert werden sollte. Es beschreibt die Struktur und den Ablauf von Ereignissen.",
-      "event_format": "Ereignisformat",
-      "event_format_description": "Ereignisse haben ein bestimmtes Format, das eine Art, Tags, Inhalt und Signatur umfasst. Die Signatur basiert auf dem SHA-256-Hash der serialisierten Ereignisdaten.",
-      "filters_and_subscriptions": "Filter und Abonnements",
-      "filters_and_subscriptions_description": "Clients können Filter verwenden, um bestimmte Ereignisse von Relays zu abonnieren. Filter können nach IDs, Autoren, Arten und Zeitstempeln spezifiziert werden.",
-      "websocket_connections": "WebSocket-Verbindungen",
-      "websocket_connections_description": "Relays stellen WebSocket-Endpunkte bereit, an die sich Clients verbinden können. Clients sollten eine einzelne WebSocket-Verbindung pro Relay verwenden.",
-      "example_usage": "Beispiel für die Verwendung",
-      "example_usage_intro": "Hier ist ein einfaches Beispiel für die Verwendung von Ereignissen in einem Protokoll:",
-      "example_usage_scenario": "Stell dir vor, du möchtest ein Ereignis erstellen, das eine Nachricht von einem Benutzer darstellt. Das Ereignis könnte so aussehen:",
-      "example_message_content": "Hallo, wie geht's?",
-      "example_explanation": "In diesem Beispiel:",
-      "example_id": "Eine eindeutige Kennung für das Ereignis.",
-      "example_pubkey": "Der Benutzername oder die ID des Autors.",
-      "example_created_at": "Das Erstellungsdatum des Ereignisses in Unix-Zeitstempel.",
-      "example_kind": "Die Art des Ereignisses, in diesem Fall eine Nachricht.",
-      "example_tags": "Eine Liste von Tags, die das Ereignis kategorisieren.",
-      "example_content": "Der eigentliche Inhalt der Nachricht.",
-      "example_sig": "Eine digitale Signatur, die die Integrität und Authentizität des Ereignisses sicherstellt.",
-      "example_filters": "Clients können dann Filter verwenden, um nur bestimmte Ereignisse zu abonnieren, z.B. alle Nachrichten von 'user123' oder alle Ereignisse mit Tag 'chat'.",
-      "event_fetcher": "Event Fetcher",
-      "fetched_event": "Fetched Event",
-      "detailed_github_page": "Detaillierte GitHub-Seite"
+      "nip1": {
+        "nip1_title": "NIP-01: Grundprotokoll",
+        "key_protocol": "Grundprotokoll",
+        "key_protocol_description": "NIP-01 definiert die fundamentalen Konzepte und Mechanismen des Nostr-Protokolls. Es ist der Grundstein für alle weiteren NIPs und muss von allen Nostr-Implementierungen unterstützt werden.",
+        
+        "sections": {
+          "overview": {
+            "title": "Überblick",
+            "points": [
+              "NIP-01 legt die grundlegende Struktur von Events fest",
+              "Definiert die Kommunikation zwischen Clients und Relays",
+              "Beschreibt die Authentifizierung und Validierung von Events",
+              "Etabliert das Publish/Subscribe-Modell für Datenaustausch"
+            ]
+          },
+    
+          "event_structure": {
+            "title": "Event-Struktur",
+            "description": "Ein Event ist die grundlegende Dateneinheit in Nostr. Jede Aktion und jede Information wird als Event übertragen.",
+            "fields": {
+              "id": {
+                "title": "ID",
+                "description": "Ein SHA-256-Hash aller anderen Event-Felder. Dient als eindeutiger Identifier.",
+                "technical": "Wird aus der Serialisierung der Event-Daten (ohne 'id' und 'sig') berechnet."
+              },
+              "pubkey": {
+                "title": "Public Key",
+                "description": "Der öffentliche Schlüssel des Event-Autors in hexadezimaler Form.",
+                "technical": "32-Byte Schnorr-Schlüssel"
+              },
+              "created_at": {
+                "title": "Erstellungszeitpunkt",
+                "description": "Unix-Timestamp der Event-Erstellung in Sekunden.",
+                "technical": "Muss ein gültiger Unix-Timestamp sein"
+              },
+              "kind": {
+                "title": "Event-Art",
+                "description": "Numerischer Wert, der den Typ des Events definiert.",
+                "examples": [
+                  "0: Metadaten (Profilinformationen)",
+                  "1: Kurznachricht",
+                  "2: Empfohlene Relay-Server",
+                  "3: Kontakte",
+                  "4: Verschlüsselte Direktnachricht"
+                ]
+              },
+              "tags": {
+                "title": "Tags",
+                "description": "Liste von Tags für zusätzliche Metadaten und Verknüpfungen.",
+                "common_tags": [
+                  "e: Verweis auf andere Events",
+                  "p: Verweis auf Public Keys",
+                  "t: Thematische Hashtags"
+                ]
+              },
+              "content": {
+                "title": "Inhalt",
+                "description": "Der eigentliche Inhalt des Events als Text.",
+                "notes": [
+                  "Kann beliebigen Text enthalten",
+                  "Format hängt vom Event-Kind ab",
+                  "Kann auch verschlüsselt sein"
+                ]
+              },
+              "sig": {
+                "title": "Signatur",
+                "description": "Kryptographische Signatur zur Verifizierung der Authentizität.",
+                "technical": "64-Byte Schnorr-Signatur des Event-ID-Wertes"
+              }
+            }
+          },
+    
+          "relay_communication": {
+            "title": "Relay-Kommunikation",
+            "description": "Die Kommunikation zwischen Clients und Relays erfolgt über WebSocket-Verbindungen.",
+            "messages": {
+              "types": {
+                "title": "Nachrichtentypen",
+                "EVENT": "Senden eines neuen Events",
+                "REQ": "Anfrage nach Events mit bestimmten Filtern",
+                "CLOSE": "Beenden einer Subscription",
+                "EOSE": "Ende des gespeicherten Event-Streams"
+              }
+            },
+            "subscription": {
+              "title": "Subscription-System",
+              "description": "Clients können Events über Filter abonnieren:",
+              "filter_options": [
+                "ids: Spezifische Event-IDs",
+                "authors: Events von bestimmten Autoren",
+                "kinds: Bestimmte Event-Typen",
+                "since: Events nach einem Zeitpunkt",
+                "until: Events bis zu einem Zeitpunkt",
+                "limit: Maximale Anzahl an Events"
+              ]
+            }
+          },
+    
+          "event_validation": {
+            "title": "Event-Validierung",
+            "steps": [
+              "Überprüfung der Event-ID (korrekte Berechnung)",
+              "Validierung der Signatur",
+              "Prüfung des Timestamps (nicht in der Zukunft)",
+              "Verifizierung der erforderlichen Felder"
+            ]
+          },
+    
+          "best_practices": {
+            "title": "Beste Praktiken",
+            "client_practices": [
+              "Verbindung zu mehreren Relays für Redundanz",
+              "Lokales Caching häufig genutzter Daten",
+              "Implementierung von Exponential Backoff bei Verbindungsfehlern",
+              "Validierung aller empfangenen Events"
+            ],
+            "relay_practices": [
+              "Effiziente Event-Speicherung und -Indizierung",
+              "Implementierung von Rate-Limiting",
+              "Konfigurierbare Event-Retention",
+              "Robuste Fehlerbehandlung"
+            ]
+          }
+        },
+    
+        "example_usage": "Praktisches Beispiel",
+        "example_usage_intro": "Im folgenden Beispiel sehen Sie, wie ein typisches Nostr-Event strukturiert ist:",
+        "example_usage_scenario": "Angenommen, ein Benutzer möchte eine öffentliche Nachricht veröffentlichen:",
+        "example_message_content": "Hallo Nostr-Welt! 👋",
+        
+        "example_explanation": "Aufschlüsselung des Beispiel-Events:",
+        "example_id": "Eindeutige ID des Events, berechnet aus den Event-Daten",
+        "example_pubkey": "Öffentlicher Schlüssel des Autors",
+        "example_created_at": "Erstellungszeitpunkt als Unix-Timestamp",
+        "example_kind": "Kind 1 zeigt an, dass es sich um eine öffentliche Textnachricht handelt",
+        "example_tags": "Optionale Metadaten und Verknüpfungen",
+        "example_content": "Der eigentliche Nachrichtentext",
+        "example_sig": "Kryptographische Signatur zur Verifizierung",
+        
+        "event_fetcher": "Event-Abfrage",
+        "fetched_event": "Abgerufenes Event",
+        "fetch_event": "Event abrufen",
+        "detailed_github_page": "Ausführliche Dokumentation auf GitHub",
+        
+        "validation_errors": {
+          "invalid_id": "Ungültige Event-ID",
+          "invalid_sig": "Ungültige Signatur",
+          "future_timestamp": "Zeitstempel liegt in der Zukunft",
+          "missing_fields": "Fehlende Pflichtfelder"
+        },
+
+        "example": {
+      "try_it_out": "Probieren Sie es mit diesem Beispiel-Event aus:",
+      "use_this_id": "Diese ID verwenden"
     },
+    "labels": {
+      "event_id": "Event ID",
+      "event_id_helper": "Geben Sie eine gültige Nostr Event ID ein"
+    },
+    "buttons": {
+      "fetch_event": "Event abrufen",
+      "fetching": "Wird abgerufen...",
+      "clear_input": "Eingabe löschen"
+    },
+    "placeholder": {
+      "enter_event_id": "Event ID eingeben..."
+    }
+      },
   
     "nip2": {
       "nip2_title": "NIP-02",

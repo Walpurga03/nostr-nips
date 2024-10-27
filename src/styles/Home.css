@@ -22,11 +22,11 @@
 
 .title-gradient {
   font-size: 1.5rem;
-  background: linear-gradient(135deg, var(--primary-color), #8B5CF6);
+  background: linear-gradient(135deg, var(--text-color), #000000);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
   padding: 0 0.5rem;
   word-break: break-word;
 }
@@ -258,7 +258,7 @@ h4 {
 /* Tablet Breakpoint */
 @media (min-width: 640px) {
   .home {
-    padding: 1rem;
+    padding: 0rem 1rem 1rem 1rem; 
   }
 
   .title-gradient {
@@ -294,7 +294,7 @@ h4 {
 @media (min-width: 1024px) {
   .home {
     max-width: 1200px;
-    padding: 2rem;
+    padding: 1rem 2rem 2rem 2rem; 
   }
 
   .title-gradient {
