@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivePage } from '../types';  // Stellen Sie sicher, dass der Pfad korrekt ist
+import { ActivePage } from '../types';
+import { Menu, X } from 'lucide-react';
 
-// Definiere die Props für die Navbar-Komponente
 interface NavbarProps {
   setActivePage: (page: ActivePage) => void;
   activePage: ActivePage;
 }
 
-// Definiere die Menüeinträge
 const menuItems: Array<{ id: ActivePage; label: string }> = [
   { id: 'home', label: 'Startseite' },
   { id: 'nip1', label: 'NIP-01' },
@@ -19,17 +18,14 @@ const Navbar: React.FC<NavbarProps> = ({ setActivePage, activePage }) => {
   const { i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Funktion zum Ändern der Sprache
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 
-  // Funktion zum Umschalten des Menüs
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-  // Funktion zum Handhaben des Klicks auf einen Menüeintrag
   const handleMenuItemClick = (page: ActivePage) => {
     setActivePage(page);
     setMenuOpen(false);
@@ -42,22 +38,27 @@ const Navbar: React.FC<NavbarProps> = ({ setActivePage, activePage }) => {
         <button onClick={() => changeLanguage('de')}>DE</button>
         <button onClick={() => changeLanguage('en')}>EN</button>
       </div>
-      {menuOpen && <div className="blur-background"></div>}
+      
+      {menuOpen && <div className="blur-background" onClick={toggleMenu} />}
+      
       <nav className="navbar">
-        <div className="menu-icon" onClick={toggleMenu}>
-          &#9776;
+        <button className="menu-icon" onClick={toggleMenu} aria-label="Toggle menu">
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+        
+        <div className="navbar-container">
+          <ul className={menuOpen ? 'show' : ''}>
+            {menuItems.map(({ id, label }) => (
+              <li
+                key={id}
+                onClick={() => handleMenuItemClick(id)}
+                className={activePage === id ? 'active' : ''}
+              >
+                {label}
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className={menuOpen ? 'show' : ''}>
-          {menuItems.map(({ id, label }) => (
-            <li
-              key={id}
-              onClick={() => handleMenuItemClick(id)}
-              className={activePage === id ? 'active' : ''}
-            >
-              {label}
-            </li>
-          ))}
-        </ul>
       </nav>
     </>
   );
