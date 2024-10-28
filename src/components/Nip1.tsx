@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import NDK from "@nostr-dev-kit/ndk";
-import { Alert, AlertDescription } from '../components/ui/alert';
+import { 
+  Alert, 
+  AlertDescription,
+  AlertTitle 
+} from '../components/ui/alert';
 import { 
   Activity, 
   ChevronDown, 
@@ -11,38 +15,14 @@ import {
   Clock, 
   Tag, 
   FileText, 
-  Shield 
+  Shield,
+  CheckCircle2,
+  XCircle 
 } from "lucide-react";
 import RelayConnector from './RelayConnector';
+import RelayStatus from './RelayStatus';
+import RelayController from './RelayController';
 import { getArrayTranslation, getObjectTranslation, TranslatedFields } from '../utils/translationUtils';
-
-interface SectionProps {
-  id: string;
-  title: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-  isExpanded: boolean;
-  onToggle: () => void;
-}
-
-const Section: React.FC<SectionProps> = ({ id, title, icon, children, isExpanded, onToggle }) => (
-  <div className="section">
-    <button 
-      className="section-header" 
-      onClick={onToggle}
-      aria-expanded={isExpanded}
-    >
-      {icon}
-      <h2>{title}</h2>
-      {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-    </button>
-    {isExpanded && (
-      <div className="section-content">
-        {children}
-      </div>
-    )}
-  </div>
-);
 
 interface EventData {
   id: string;
@@ -54,6 +34,49 @@ interface EventData {
   sig: string;
 }
 
+interface SectionProps {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  isExpanded: boolean;
+  onToggle: () => void;
+}
+
+const Section: React.FC<SectionProps> = ({
+  id,
+  title, 
+  icon, 
+  children, 
+  isExpanded, 
+  onToggle 
+}) => (
+  <div className="section" id={id}>
+    <button 
+      className="section-header" 
+      onClick={onToggle}
+      aria-expanded={isExpanded}
+      aria-controls={`section-content-${id}`}
+    >
+      {icon}
+      <h2>{title}</h2>
+      {isExpanded ? <ChevronUp className="transition-transform" /> : <ChevronDown className="transition-transform" />}
+    </button>
+    {isExpanded && (
+      <div 
+        className="section-content"
+        id={`section-content-${id}`}
+        role="region"
+        aria-labelledby={id}
+      >
+        {children}
+      </div>
+    )}
+  </div>
+);
+
+const EXAMPLE_EVENT_ID = "86885d03218abe92f1800fb2f0a306535710111d60e8c9aafd0179db11963ed7";
+
 const Nip1: React.FC = () => {
   const { t } = useTranslation('nip1');
   const [event, setEvent] = useState<EventData | null>(null);
@@ -62,35 +85,65 @@ const Nip1: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [expandedSection, setExpandedSection] = useState<string>('overview');
+  const [showRelayStatus, setShowRelayStatus] = useState<boolean>(false);
+  const [fetchSuccess, setFetchSuccess] = useState<boolean | null>(null);
 
-  const EXAMPLE_EVENT_ID = "86885d03218abe92f1800fb2f0a306535710111d60e8c9aafd0179db11963ed7";
-
-  const toggleSection = (sectionId: string) => {
+  const toggleSection = useCallback((sectionId: string) => {
     setExpandedSection(expandedSection === sectionId ? '' : sectionId);
+  }, [expandedSection]);
+
+  const handleExampleClick = useCallback(() => {
+    setEventId(EXAMPLE_EVENT_ID);
+    setError(null);
+    setFetchSuccess(null);
+  }, []);
+
+  const validateEventId = (id: string): boolean => {
+    // Prüft ob die ID ein gültiger 32-Byte hex string ist
+    return /^[0-9a-f]{64}$/.test(id);
   };
 
-  const handleExampleClick = () => {
-    setEventId(EXAMPLE_EVENT_ID);
+  const formatEventData = (data: EventData): EventData => {
+    return {
+      ...data,
+      created_at: data.created_at,
+      tags: data.tags.map(tag => tag.map(item => 
+        typeof item === 'string' ? item : JSON.stringify(item)
+      ))
+    };
   };
 
   const fetchEvent = async (id: string) => {
     if (!ndk) {
       setError(t('errors.no_relay_connection'));
+      setFetchSuccess(false);
+      return;
+    }
+
+    if (!validateEventId(id)) {
+      setError(t('validation_errors.invalid_id'));
+      setFetchSuccess(false);
       return;
     }
 
     setLoading(true);
     setError(null);
+    setFetchSuccess(null);
     
     try {
       const fetchedEvent = await ndk.fetchEvent(id);
       if (fetchedEvent) {
-        setEvent(fetchedEvent.rawEvent() as EventData);
+        const formattedEvent = formatEventData(fetchedEvent.rawEvent() as EventData);
+        setEvent(formattedEvent);
+        setFetchSuccess(true);
       } else {
         setError(t('errors.event_not_found'));
+        setFetchSuccess(false);
       }
     } catch (err) {
+      console.error('Fetch error:', err);
       setError(err instanceof Error ? err.message : t('errors.fetch_failed'));
+      setFetchSuccess(false);
     } finally {
       setLoading(false);
     }
@@ -101,8 +154,15 @@ const Nip1: React.FC = () => {
     await fetchEvent(eventId);
   };
 
-  // Renderfunktion für die Übersichtssektion
-  const renderOverview = () => (
+  const handleClearInput = useCallback(() => {
+    setEventId('');
+    setError(null);
+    setFetchSuccess(null);
+    setEvent(null);
+  }, []);
+
+  // Renderfunktionen für die verschiedenen Sektionen
+  const renderOverview = useCallback(() => (
     <div className="overview">
       <p className="description">{t('sections.overview.description')}</p>
       <ul className="overview-list">
@@ -111,10 +171,9 @@ const Nip1: React.FC = () => {
         ))}
       </ul>
     </div>
-  );
+  ), [t]);
 
-  // Renderfunktion für die Event-Struktur-Sektion
-  const renderEventStructure = () => (
+  const renderEventStructure = useCallback(() => (
     <div className="event-structure">
       <p className="description">{t('sections.event_structure.description')}</p>
       <div className="fields-grid">
@@ -131,21 +190,13 @@ const Nip1: React.FC = () => {
                   <code>{field.technical}</code>
                 </div>
               )}
-              {field.examples && (
-                <ul className="examples-list">
-                  {field.examples.map((example, index) => (
-                    <li key={index}>{example}</li>
-                  ))}
-                </ul>
-              )}
             </div>
           ))}
       </div>
     </div>
-  );
+  ), [t]);
 
-  // Renderfunktion für die Relay-Kommunikations-Sektion
-  const renderRelayCommunication = () => (
+  const renderRelayCommunication = useCallback(() => (
     <div className="relay-communication">
       <p className="description">{t('sections.relay_communication.description')}</p>
       <div className="message-types">
@@ -161,37 +212,14 @@ const Nip1: React.FC = () => {
             ))}
         </div>
       </div>
-      <div className="subscription-system">
-        <h3>{t('sections.relay_communication.subscription.title')}</h3>
-        <p>{t('sections.relay_communication.subscription.description')}</p>
-        <ul className="filter-options">
-          {getArrayTranslation(t, 'sections.relay_communication.subscription.filter_options')
-            .map((option, index) => (
-              <li key={index}>{option}</li>
-            ))}
-        </ul>
-      </div>
     </div>
-  );
+  ), [t]);
 
-  // Hilfsfunktion für Field Icons
-  const getFieldIcon = (key: string) => {
-    const iconSize = 18;
-    switch (key) {
-      case 'id': return <Hash size={iconSize} />;
-      case 'pubkey': return <Key size={iconSize} />;
-      case 'created_at': return <Clock size={iconSize} />;
-      case 'kind': return <Tag size={iconSize} />;
-      case 'tags': return <Tag size={iconSize} />;
-      case 'content': return <FileText size={iconSize} />;
-      case 'sig': return <Shield size={iconSize} />;
-      default: return null;
-    }
-  };
 
   return (
     <div className="nip1-container">
       <RelayConnector onConnect={setNdk} />
+      <RelayController ndk={ndk} />
       
       <header className="nip1-header">
         <h1>{t('nip1_title')}</h1>
@@ -229,12 +257,13 @@ const Nip1: React.FC = () => {
           {renderRelayCommunication()}
         </Section>
 
-        <section className="interactive-section">
-          <h2>{t('event_fetcher')}</h2>
+        <section className="interactive-section" aria-labelledby="event-fetcher-title">
+          <h2 id="event-fetcher-title" className="section-title">
+            {t('event_fetcher')}
+          </h2>
+          
           <div className="example-container">
-            <p className="example-text">
-              {t('example.try_it_out')}
-            </p>
+            <p className="example-text">{t('example.try_it_out')}</p>
             <div className="example-id-container">
               <code className="example-id">{EXAMPLE_EVENT_ID}</code>
               <button 
@@ -260,13 +289,15 @@ const Nip1: React.FC = () => {
                   value={eventId}
                   onChange={(e) => setEventId(e.target.value)}
                   placeholder={t('placeholder.enter_event_id')}
-                  className="event-input"
+                  className={`event-input ${fetchSuccess === true ? 'success' : ''} ${fetchSuccess === false ? 'error' : ''}`}
+                  aria-invalid={error ? 'true' : 'false'}
+                  aria-describedby={error ? 'input-error' : undefined}
                 />
                 {eventId && (
                   <button 
                     type="button" 
                     className="clear-button"
-                    onClick={() => setEventId('')}
+                    onClick={handleClearInput}
                     aria-label={t('buttons.clear_input')}
                   >
                     ×
@@ -274,28 +305,49 @@ const Nip1: React.FC = () => {
                 )}
               </div>
             </div>
-            <button 
-              type="submit" 
-              disabled={loading || !ndk || !eventId.trim()} 
-              className="fetch-button"
-            >
-              {loading ? (
-                <>
-                  <Activity className="animate-spin h-4 w-4" />
-                  {t('buttons.fetching')}
-                </>
-              ) : t('buttons.fetch_event')}
-            </button>
+
+            <div className="button-group">
+              <button 
+                type="submit" 
+                disabled={loading || !ndk || !eventId.trim()} 
+                className="fetch-button"
+                aria-busy={loading}
+              >
+                {loading ? (
+                  <>
+                    <Activity className="animate-spin" />
+                    {t('buttons.fetching')}
+                  </>
+                ) : (
+                  <>
+                    {fetchSuccess === true && <CheckCircle2 className="success-icon" />}
+                    {fetchSuccess === false && <XCircle className="error-icon" />}
+                    {t('buttons.fetch_event')}
+                  </>
+                )}
+              </button>
+
+              <button
+                type="button"
+                className="status-button"
+                onClick={() => setShowRelayStatus(!showRelayStatus)}
+                aria-expanded={showRelayStatus}
+              >
+                <Activity className="status-icon" />
+                {t('buttons.relay_status')}
+              </button>
+            </div>
           </form>
 
           {error && (
             <Alert variant="destructive" className="mt-4">
+              <AlertTitle>{t('error')}</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 
           {event && (
-            <div className="result-section">
+            <div className="result-section" role="region" aria-live="polite">
               <h3>{t('fetched_event')}</h3>
               <div className="json-result">
                 <pre>{JSON.stringify(event, null, 2)}</pre>
@@ -303,6 +355,12 @@ const Nip1: React.FC = () => {
             </div>
           )}
         </section>
+
+        {showRelayStatus && (
+          <div className="relay-status-wrapper">
+            <RelayStatus ndk={ndk} />
+          </div>
+        )}
       </main>
 
       <footer className="nip1-footer">
@@ -317,6 +375,21 @@ const Nip1: React.FC = () => {
       </footer>
     </div>
   );
+};
+
+// Hilfsfunktion für Field Icons
+const getFieldIcon = (key: string) => {
+  const iconProps = { size: 18, className: 'field-icon' };
+  switch (key) {
+    case 'id': return <Hash {...iconProps} />;
+    case 'pubkey': return <Key {...iconProps} />;
+    case 'created_at': return <Clock {...iconProps} />;
+    case 'kind': return <Tag {...iconProps} />;
+    case 'tags': return <Tag {...iconProps} />;
+    case 'content': return <FileText {...iconProps} />;
+    case 'sig': return <Shield {...iconProps} />;
+    default: return null;
+  }
 };
 
 export default Nip1;

@@ -283,8 +283,7 @@
       "use_this_id": "Diese ID verwenden"
     },
     "labels": {
-      "event_id": "Event ID",
-      "event_id_helper": "Geben Sie eine gültige Nostr Event ID ein"
+      "event_id": "Event ID"
     },
     "buttons": {
       "fetch_event": "Event abrufen",

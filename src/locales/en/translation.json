@@ -276,8 +276,7 @@
         "use_this_id": "Use this ID"
       },
       "labels": {
-        "event_id": "Event ID",
-        "event_id_helper": "Enter a valid Nostr event ID"
+        "event_id": "Event ID"
       },
       "buttons": {
         "fetch_event": "Fetch Event",
