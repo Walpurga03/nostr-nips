@@ -1,33 +1,64 @@
 import React, { Component, ErrorInfo } from 'react';
+import { AlertTriangle } from 'lucide-react';
 
-// Definiere die Props für die ErrorBoundary-Komponente
 interface Props {
   children: React.ReactNode;
 }
 
-// Definiere den State für die ErrorBoundary-Komponente
 interface State {
   hasError: boolean;
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  // Initialisiere den State
-  state = { hasError: false };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: null,
+      errorInfo: null
+    };
+  }
 
-  // Methode, um den State bei einem Fehler zu aktualisieren
-  static getDerivedStateFromError() {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true };
   }
 
-  // Methode, um Fehler zu loggen
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error:', error, errorInfo);
+    this.setState({
+      error: error,
+      errorInfo: errorInfo
+    });
+    
+    // Hier könnte man den Fehler an einen Error-Tracking-Service senden
+    console.error('Error caught by ErrorBoundary:', error, errorInfo);
   }
 
-  // Render-Methode, um entweder die Kinderkomponenten oder eine Fehlermeldung anzuzeigen
   render() {
     if (this.state.hasError) {
-      return <div>Something went wrong. Please refresh the page.</div>;
+      return (
+        <div className="error-boundary">
+          <div className="error-content">
+            <AlertTriangle className="error-icon" size={48} />
+            <h1>Oops, etwas ist schiefgelaufen</h1>
+            <p>Es tut uns leid, aber es ist ein Fehler aufgetreten. Bitte laden Sie die Seite neu.</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="refresh-button"
+            >
+              Seite neu laden
+            </button>
+            {this.state.error && (
+              <details className="error-details">
+                <summary>Technische Details</summary>
+                <pre>{this.state.error.toString()}</pre>
+                <pre>{this.state.errorInfo?.componentStack}</pre>
+              </details>
+            )}
+          </div>
+        </div>
+      );
     }
 
     return this.props.children;

@@ -20,7 +20,6 @@ import {
   XCircle 
 } from "lucide-react";
 import RelayConnector from './RelayConnector';
-import RelayStatus from './RelayStatus';
 import RelayController from './RelayController';
 import { getArrayTranslation, getObjectTranslation, TranslatedFields } from '../utils/translationUtils';
 
@@ -85,7 +84,6 @@ const Nip1: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [expandedSection, setExpandedSection] = useState<string>('overview');
-  const [showRelayStatus, setShowRelayStatus] = useState<boolean>(false);
   const [fetchSuccess, setFetchSuccess] = useState<boolean | null>(null);
 
   const toggleSection = useCallback((sectionId: string) => {
@@ -99,7 +97,6 @@ const Nip1: React.FC = () => {
   }, []);
 
   const validateEventId = (id: string): boolean => {
-    // Prüft ob die ID ein gültiger 32-Byte hex string ist
     return /^[0-9a-f]{64}$/.test(id);
   };
 
@@ -161,7 +158,6 @@ const Nip1: React.FC = () => {
     setEvent(null);
   }, []);
 
-  // Renderfunktionen für die verschiedenen Sektionen
   const renderOverview = useCallback(() => (
     <div className="overview">
       <p className="description">{t('sections.overview.description')}</p>
@@ -215,11 +211,9 @@ const Nip1: React.FC = () => {
     </div>
   ), [t]);
 
-
   return (
     <div className="nip1-container">
       <RelayConnector onConnect={setNdk} />
-      <RelayController ndk={ndk} />
       
       <header className="nip1-header">
         <h1>{t('nip1_title')}</h1>
@@ -227,86 +221,91 @@ const Nip1: React.FC = () => {
       </header>
 
       <main className="nip1-content">
-        <Section 
-          id="overview"
-          title={t('sections.overview.title')}
-          icon={<Hash className="section-icon" />}
-          isExpanded={expandedSection === 'overview'}
-          onToggle={() => toggleSection('overview')}
-        >
-          {renderOverview()}
-        </Section>
+        <div className="content-sections">
+          <Section 
+            id="overview"
+            title={t('sections.overview.title')}
+            icon={<Hash className="section-icon" />}
+            isExpanded={expandedSection === 'overview'}
+            onToggle={() => toggleSection('overview')}
+          >
+            {renderOverview()}
+          </Section>
 
-        <Section 
-          id="event-structure"
-          title={t('sections.event_structure.title')}
-          icon={<FileText className="section-icon" />}
-          isExpanded={expandedSection === 'event-structure'}
-          onToggle={() => toggleSection('event-structure')}
-        >
-          {renderEventStructure()}
-        </Section>
+          <Section 
+            id="event-structure"
+            title={t('sections.event_structure.title')}
+            icon={<FileText className="section-icon" />}
+            isExpanded={expandedSection === 'event-structure'}
+            onToggle={() => toggleSection('event-structure')}
+          >
+            {renderEventStructure()}
+          </Section>
 
-        <Section 
-          id="relay-communication"
-          title={t('sections.relay_communication.title')}
-          icon={<Activity className="section-icon" />}
-          isExpanded={expandedSection === 'relay-communication'}
-          onToggle={() => toggleSection('relay-communication')}
-        >
-          {renderRelayCommunication()}
-        </Section>
+          <Section 
+            id="relay-communication"
+            title={t('sections.relay_communication.title')}
+            icon={<Activity className="section-icon" />}
+            isExpanded={expandedSection === 'relay-communication'}
+            onToggle={() => toggleSection('relay-communication')}
+          >
+            {renderRelayCommunication()}
+          </Section>
+        </div>
 
-        <section className="interactive-section" aria-labelledby="event-fetcher-title">
-          <h2 id="event-fetcher-title" className="section-title">
-            {t('event_fetcher')}
-          </h2>
-          
-          <div className="example-container">
-            <p className="example-text">{t('example.try_it_out')}</p>
-            <div className="example-id-container">
-              <code className="example-id">{EXAMPLE_EVENT_ID}</code>
-              <button 
-                type="button" 
-                className="example-button"
-                onClick={handleExampleClick}
-              >
-                {t('example.use_this_id')}
-              </button>
-            </div>
+        <div className="interactive-container">
+          <div className="relay-control-section">
+            <RelayController ndk={ndk} />
           </div>
 
-          <form onSubmit={handleFetch} className="fetch-form">
-            <div className="input-group">
-              <label htmlFor="eventId">
-                {t('labels.event_id')}
-                <span className="input-helper">{t('labels.event_id_helper')}</span>
-              </label>
-              <div className="input-wrapper">
-                <input
-                  id="eventId"
-                  type="text"
-                  value={eventId}
-                  onChange={(e) => setEventId(e.target.value)}
-                  placeholder={t('placeholder.enter_event_id')}
-                  className={`event-input ${fetchSuccess === true ? 'success' : ''} ${fetchSuccess === false ? 'error' : ''}`}
-                  aria-invalid={error ? 'true' : 'false'}
-                  aria-describedby={error ? 'input-error' : undefined}
-                />
-                {eventId && (
-                  <button 
-                    type="button" 
-                    className="clear-button"
-                    onClick={handleClearInput}
-                    aria-label={t('buttons.clear_input')}
-                  >
-                    ×
-                  </button>
-                )}
+          <section className="interactive-section">
+            <h2 className="section-title">
+              {t('event_fetcher')}
+            </h2>
+            
+            <div className="example-container">
+              <p className="example-text">{t('example.try_it_out')}</p>
+              <div className="example-id-container">
+                <code className="example-id">{EXAMPLE_EVENT_ID}</code>
+                <button 
+                  type="button" 
+                  className="example-button"
+                  onClick={handleExampleClick}
+                >
+                  {t('example.use_this_id')}
+                </button>
               </div>
             </div>
 
-            <div className="button-group">
+            <form onSubmit={handleFetch} className="fetch-form">
+              <div className="input-group">
+                <label htmlFor="eventId">
+                  {t('labels.event_id')}
+                </label>
+                <div className="input-wrapper">
+                  <input
+                    id="eventId"
+                    type="text"
+                    value={eventId}
+                    onChange={(e) => setEventId(e.target.value)}
+                    placeholder={t('placeholder.enter_event_id')}
+                    className={`event-input ${fetchSuccess === true ? 'success' : ''} ${fetchSuccess === false ? 'error' : ''}`}
+                    aria-invalid={error ? 'true' : 'false'}
+                    aria-describedby={error ? 'input-error' : undefined}
+                  />
+                  {eventId && (
+                    <button 
+                      type="button" 
+                      className="clear-button"
+                      onClick={handleClearInput}
+                      aria-label={t('buttons.clear_input')}
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+              </div>
+
               <button 
                 type="submit" 
                 disabled={loading || !ndk || !eventId.trim()} 
@@ -326,41 +325,25 @@ const Nip1: React.FC = () => {
                   </>
                 )}
               </button>
+            </form>
 
-              <button
-                type="button"
-                className="status-button"
-                onClick={() => setShowRelayStatus(!showRelayStatus)}
-                aria-expanded={showRelayStatus}
-              >
-                <Activity className="status-icon" />
-                {t('buttons.relay_status')}
-              </button>
-            </div>
-          </form>
+            {error && (
+              <Alert variant="destructive" className="mt-4">
+                <AlertTitle>{t('error')}</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
 
-          {error && (
-            <Alert variant="destructive" className="mt-4">
-              <AlertTitle>{t('error')}</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-
-          {event && (
-            <div className="result-section" role="region" aria-live="polite">
-              <h3>{t('fetched_event')}</h3>
-              <div className="json-result">
-                <pre>{JSON.stringify(event, null, 2)}</pre>
+            {event && (
+              <div className="result-section" role="region" aria-live="polite">
+                <h3>{t('fetched_event')}</h3>
+                <div className="json-result">
+                  <pre>{JSON.stringify(event, null, 2)}</pre>
+                </div>
               </div>
-            </div>
-          )}
-        </section>
-
-        {showRelayStatus && (
-          <div className="relay-status-wrapper">
-            <RelayStatus ndk={ndk} />
-          </div>
-        )}
+            )}
+          </section>
+        </div>
       </main>
 
       <footer className="nip1-footer">
