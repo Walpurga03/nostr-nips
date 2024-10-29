@@ -1,0 +1,135 @@
+@import './variables.css';
+
+.kind-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: var(--background-color);
+  border-radius: var(--border-radius-md);
+  transition: transform var(--transition-normal);
+}
+
+.kind-item:hover {
+  transform: translateY(-2px);
+}
+
+.kind-item .card-icon {
+  margin-bottom: var(--spacing-sm);
+  color: var(--primary-color);
+}
+
+.feature-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: var(--background-color);
+  border-radius: var(--border-radius-md);
+  transition: transform var(--transition-normal);
+}
+
+.feature-item:hover {
+  transform: translateY(-2px);
+}
+
+.client-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: var(--background-color);
+  border-radius: var(--border-radius-md);
+  transition: transform var(--transition-normal);
+}
+
+.client-item:hover {
+  transform: translateY(-2px);
+}
+
+/* Grid Layout für verschiedene Breakpoints */
+.cards-grid {
+  display: grid;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+}
+
+/* Small devices and up */
+@media (min-width: 640px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Medium devices and up */
+@media (min-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .kind-item,
+  .feature-item,
+  .client-item {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* Large devices and up */
+@media (min-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .page-container {
+    padding: var(--spacing-xl);
+    max-width: var(--container-lg);
+  }
+}
+
+/* Extra large devices and up */
+@media (min-width: 1280px) {
+  .page-container {
+    max-width: var(--container-xl);
+  }
+}
+
+/* Additional responsive typography */
+@media (min-width: 1024px) {
+  .page-title {
+    font-size: var(--font-size-large);
+  }
+  
+  .page-intro {
+    font-size: var(--font-size-medium);
+    max-width: 800px;
+  }
+}
+
+/* Responsive spacing adjustments */
+@media (min-width: 768px) {
+  .section-content {
+    padding: var(--spacing-lg);
+  }
+}
+
+/* Add to your existing CSS file */
+.concept-box {
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.concept-box:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.kind-range-box {
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.central-concepts ul li {
+  list-style-type: none;
+}
+
+.text-purple-400 {
+  color: var(--primary-color);
+}
+
+.bg-purple-900 {
+  background-color: var(--secondary-color);
+}

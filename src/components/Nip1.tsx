@@ -1,23 +1,23 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import NDK from "@nostr-dev-kit/ndk";
-import { 
-  Alert, 
+import {
+  Alert,
   AlertDescription,
-  AlertTitle 
+  AlertTitle
 } from '../components/ui/alert';
-import { 
-  Activity, 
-  ChevronDown, 
-  ChevronUp, 
-  Hash, 
-  Key, 
-  Clock, 
-  Tag, 
-  FileText, 
+import {
+  Activity,
+  ChevronDown,
+  ChevronUp,
+  Hash,
+  Key,
+  Clock,
+  Tag,
+  FileText,
   Shield,
   CheckCircle2,
-  XCircle 
+  XCircle
 } from "lucide-react";
 import RelayConnector from './RelayConnector';
 import RelayController from './RelayController';
@@ -44,15 +44,15 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = ({
   id,
-  title, 
-  icon, 
-  children, 
-  isExpanded, 
-  onToggle 
+  title,
+  icon,
+  children,
+  isExpanded,
+  onToggle
 }) => (
   <div className="section" id={id}>
-    <button 
-      className="section-header" 
+    <button
+      className="section-header"
       onClick={onToggle}
       aria-expanded={isExpanded}
       aria-controls={`section-content-${id}`}
@@ -62,7 +62,7 @@ const Section: React.FC<SectionProps> = ({
       {isExpanded ? <ChevronUp className="transition-transform" /> : <ChevronDown className="transition-transform" />}
     </button>
     {isExpanded && (
-      <div 
+      <div
         className="section-content"
         id={`section-content-${id}`}
         role="region"
@@ -104,7 +104,7 @@ const Nip1: React.FC = () => {
     return {
       ...data,
       created_at: data.created_at,
-      tags: data.tags.map(tag => tag.map(item => 
+      tags: data.tags.map(tag => tag.map(item =>
         typeof item === 'string' ? item : JSON.stringify(item)
       ))
     };
@@ -126,7 +126,7 @@ const Nip1: React.FC = () => {
     setLoading(true);
     setError(null);
     setFetchSuccess(null);
-    
+
     try {
       const fetchedEvent = await ndk.fetchEvent(id);
       if (fetchedEvent) {
@@ -212,17 +212,18 @@ const Nip1: React.FC = () => {
   ), [t]);
 
   return (
-    <div className="nip1-container">
+    <div className="page-container">
       <RelayConnector onConnect={setNdk} />
-      
-      <header className="nip1-header">
-        <h1>{t('nip1_title')}</h1>
-        <p className="intro-text">{t('key_protocol_description')}</p>
+
+      <header className="page-header">
+        <h1 className="page-title">{t('nip1_title')}</h1>
+        <p className="page-intro">{t('key_protocol_description')}</p>
       </header>
 
-      <main className="nip1-content">
+      <main className="sections-container">
+        {/* Left Column: Content Sections */}
         <div className="content-sections">
-          <Section 
+          <Section
             id="overview"
             title={t('sections.overview.title')}
             icon={<Hash className="section-icon" />}
@@ -232,7 +233,7 @@ const Nip1: React.FC = () => {
             {renderOverview()}
           </Section>
 
-          <Section 
+          <Section
             id="event-structure"
             title={t('sections.event_structure.title')}
             icon={<FileText className="section-icon" />}
@@ -242,7 +243,7 @@ const Nip1: React.FC = () => {
             {renderEventStructure()}
           </Section>
 
-          <Section 
+          <Section
             id="relay-communication"
             title={t('sections.relay_communication.title')}
             icon={<Activity className="section-icon" />}
@@ -253,23 +254,24 @@ const Nip1: React.FC = () => {
           </Section>
         </div>
 
-        <div className="interactive-container">
-          <div className="relay-control-section">
+        {/* Right Column: Interactive Section */}
+        <div className="interactive-content">
+          <div className="relay-control-section card">
             <RelayController ndk={ndk} />
           </div>
 
-          <section className="interactive-section">
+          <section className="interactive-section card">
             <h2 className="section-title">
               {t('event_fetcher')}
             </h2>
-            
-            <div className="example-container">
-              <p className="example-text">{t('example.try_it_out')}</p>
-              <div className="example-id-container">
-                <code className="example-id">{EXAMPLE_EVENT_ID}</code>
-                <button 
-                  type="button" 
-                  className="example-button"
+
+            <div className="example-box">
+              <p className="content-text">{t('example.try_it_out')}</p>
+              <div className="example-container">
+                <code className="code-example">{EXAMPLE_EVENT_ID}</code>
+                <button
+                  type="button"
+                  className="primary-button"
                   onClick={handleExampleClick}
                 >
                   {t('example.use_this_id')}
@@ -277,25 +279,25 @@ const Nip1: React.FC = () => {
               </div>
             </div>
 
-            <form onSubmit={handleFetch} className="fetch-form">
-              <div className="input-group">
-                <label htmlFor="eventId">
+            <form onSubmit={handleFetch} className="form-container">
+              <div className="form-group">
+                <label htmlFor="eventId" className="form-label">
                   {t('labels.event_id')}
                 </label>
-                <div className="input-wrapper">
+                <div className="input-container">
                   <input
                     id="eventId"
                     type="text"
                     value={eventId}
                     onChange={(e) => setEventId(e.target.value)}
                     placeholder={t('placeholder.enter_event_id')}
-                    className={`event-input ${fetchSuccess === true ? 'success' : ''} ${fetchSuccess === false ? 'error' : ''}`}
+                    className={`form-input ${fetchSuccess === true ? 'success' : ''} ${fetchSuccess === false ? 'error' : ''}`}
                     aria-invalid={error ? 'true' : 'false'}
                     aria-describedby={error ? 'input-error' : undefined}
                   />
                   {eventId && (
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       className="clear-button"
                       onClick={handleClearInput}
                       aria-label={t('buttons.clear_input')}
@@ -306,10 +308,10 @@ const Nip1: React.FC = () => {
                 </div>
               </div>
 
-              <button 
-                type="submit" 
-                disabled={loading || !ndk || !eventId.trim()} 
-                className="fetch-button"
+              <button
+                type="submit"
+                disabled={loading || !ndk || !eventId.trim()}
+                className="primary-button"
                 aria-busy={loading}
               >
                 {loading ? (
@@ -337,7 +339,7 @@ const Nip1: React.FC = () => {
             {event && (
               <div className="result-section" role="region" aria-live="polite">
                 <h3>{t('fetched_event')}</h3>
-                <div className="json-result">
+                <div className="code-example">
                   <pre>{JSON.stringify(event, null, 2)}</pre>
                 </div>
               </div>
@@ -346,10 +348,10 @@ const Nip1: React.FC = () => {
         </div>
       </main>
 
-      <footer className="nip1-footer">
-        <a 
-          href="https://github.com/nostr-protocol/nips/blob/master/01.md" 
-          target="_blank" 
+      <footer className="page-footer">
+        <a
+          href="https://github.com/nostr-protocol/nips/blob/master/01.md"
+          target="_blank"
           rel="noopener noreferrer"
           className="github-link"
         >

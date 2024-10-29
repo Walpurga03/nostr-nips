@@ -1,9 +1,10 @@
 /* src/styles/index.css */
 @import './variables.css';
-@import './App.css';
-@import './Home.css';
-@import './Navbar.css';
-@import './Nip1.css';
+@import './breakpoints.css';
+@import './shared-layout.css';
+@import './home.css';
+@import './nip1.css';
+@import './navbar.css';
 @import './alert.css';
-@import './RelayController.css';
-@import './ErrorBoundary.css';
+@import './relay-controller.css';
+@import './error-boundary.css';
