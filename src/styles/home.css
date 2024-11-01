@@ -7,7 +7,6 @@
   box-sizing: border-box;
   overflow-x: auto;
 }
-
 .home-code-example pre {
   margin: 0;
   font-family: 'Courier New', Courier, monospace;
@@ -20,4 +19,888 @@
   padding: 1.5rem;
   border-top: 1px solid var(--border-color);
   animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Protocol Basics Sektion Styling */
+
+/* Basis-Container für den Protocol-Basics-Bereich */
+.home-protocol-basics-container {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+/* Einführungstext */
+.home-protocol-basics-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+/* Event-Struktur Container */
+.home-event-structure-container {
+  margin-top: 2rem;
+}
+
+/* Event-Struktur Überschrift */
+.home-event-structure-heading {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.home-event-structure-heading::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 24px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+/* Code-Beispiel Container */
+.home-code-example-container {
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border: 1px solid rgba(var(--primary-color-rgb), 0.2);
+  overflow-x: auto;
+  transition: all 0.3s ease;
+}
+
+/* Hover-Effekt für Code-Beispiel */
+.home-code-example-container:hover {
+  border-color: rgba(var(--primary-color-rgb), 0.4);
+  box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.1);
+}
+
+/* Code-Block Styling */
+.home-code-example-pre {
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #fff;
+  white-space: pre;
+}
+
+/* Styling für Kommentare im Code */
+.home-code-example-comment {
+  color: rgba(var(--text-color), 0.6);
+  font-style: italic;
+}
+
+/* Hervorhebung wichtiger Code-Elemente */
+.home-code-example-key {
+  color: #ff79c6;
+}
+
+.home-code-example-value {
+  color: #50fa7b;
+}
+
+/* Responsives Design */
+@media (max-width: 768px) {
+  .home-protocol-basics-container {
+    padding: 1rem;
+  }
+
+  .home-protocol-basics-intro {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .home-code-example-container {
+    padding: 1rem;
+  }
+
+  .home-code-example-pre {
+    font-size: 0.8rem;
+  }
+}
+
+/* Animation für expandierbare Inhalte */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-protocol-basics-content {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Scrollbar Styling für Code-Beispiel */
+.home-code-example-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.home-code-example-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.home-code-example-container::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+.home-code-example-container::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--primary-color) 80%, white);
+}
+
+/* Protocol Concepts Sektion Styling */
+
+/* Hauptcontainer für Protocol Concepts */
+.home-protocol-concepts-container {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Grid-Container für Event Kinds und NIPs */
+.home-concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Styling für die Konzept-Karten */
+.home-concept-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(var(--primary-color-rgb), 0.2);
+  transition: all 0.3s ease;
+}
+
+.home-concept-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(var(--primary-color-rgb), 0.15);
+  border-color: rgba(var(--primary-color-rgb), 0.4);
+}
+
+/* Header der Konzept-Karten */
+.home-concept-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.home-concept-card-header svg {
+  color: var(--primary-color);
+  padding: 0.5rem;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 0.5rem;
+}
+
+.home-concept-card-header h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+/* Liste der Konzept-Features */
+.home-concept-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home-concept-list li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+  color: rgba(var(--text-color), 0.9);
+}
+
+.home-concept-list li::before {
+  content: '•';
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* Beispiel-Box am Ende jeder Karte */
+.home-concept-example {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: rgba(var(--text-color), 0.8);
+}
+
+/* Bereichs-Grid für Event Kinds */
+.home-event-kinds-ranges {
+  margin-top: 3rem;
+}
+
+.home-event-kinds-ranges h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.home-ranges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Range-Karten */
+.home-range-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.home-range-number {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.home-range-description {
+  font-size: 0.9rem;
+  color: rgba(var(--text-color), 0.9);
+  line-height: 1.4;
+}
+
+/* Zusammenfassung am Ende */
+.home-concepts-summary {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 1rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.home-concepts-summary p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.home-concepts-summary strong {
+  color: var(--primary-color);
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+  .home-protocol-concepts-container {
+    padding: 1rem;
+  }
+
+  .home-concepts-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .home-concept-card {
+    padding: 1rem;
+  }
+
+  .home-ranges-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-concept-card-header h4 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Animationen */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.home-concept-card {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.home-concept-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+/* Relay Sektion Styling */
+
+/* Hauptcontainer für Relay-Sektion */
+.home-relays-container {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Einführungstext für Relays */
+.home-relays-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 1rem;
+  border-left: 4px solid var(--primary-color);
+  animation: slideInLeft 0.5s ease-out;
+}
+
+/* Features Grid Container */
+.home-relays-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Einzelne Feature Card */
+.home-relay-feature-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-relay-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.home-relay-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: rgba(var(--primary-color-rgb), 0.3);
+}
+
+.home-relay-feature-card:hover::before {
+  opacity: 1;
+}
+
+/* Feature Header mit Icon */
+.home-relay-feature-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.home-relay-feature-icon {
+  padding: 0.75rem;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-relay-feature-icon svg {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+}
+
+/* Feature Titel */
+.home-relay-feature-title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* Feature Beschreibung */
+.home-relay-feature-description {
+  color: rgba(var(--text-color), 0.9);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Status Indikator */
+.home-relay-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+
+.home-relay-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  animation: pulse 2s infinite;
+}
+
+/* Animationen */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-relays-container {
+    padding: 1rem;
+  }
+
+  .home-relays-intro {
+    font-size: 1rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .home-relays-features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .home-relay-feature-card {
+    padding: 1.25rem;
+  }
+
+  .home-relay-feature-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* Clients Sektion Styling */
+
+/* Hauptcontainer für Clients-Sektion */
+.home-clients-container {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Einführungstext für Clients */
+.home-clients-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 1rem;
+  border-left: 4px solid var(--primary-color);
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Client-Typen Grid Container */
+.home-client-types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Client-Typ Card */
+.home-client-type-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(var(--primary-color-rgb), 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.home-client-type-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(
+    circle,
+    rgba(var(--primary-color-rgb), 0.1) 0%,
+    transparent 70%
+  );
+  border-radius: 0 0 0 100%;
+  pointer-events: none;
+}
+
+.home-client-type-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: rgba(var(--primary-color-rgb), 0.3);
+}
+
+/* Client-Typ Icon Container */
+.home-client-type-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.home-client-type-icon svg {
+  color: var(--primary-color);
+  width: 24px;
+  height: 24px;
+}
+
+/* Client-Typ Titel */
+.home-client-type-title {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Client-Typ Beschreibung */
+.home-client-type-description {
+  color: rgba(var(--text-color), 0.9);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Feature Liste */
+.home-client-features {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.home-client-feature-tag {
+  background: rgba(var(--primary-color-rgb), 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Animationen */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-clients-container {
+    padding: 1rem;
+  }
+
+  .home-clients-intro {
+    font-size: 1rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .home-client-types-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .home-client-type-card {
+    padding: 1.5rem;
+  }
+
+  .home-client-type-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Spezifische Stile für verschiedene Client-Typen */
+.home-client-type-web {
+  border-top: 4px solid #60a5fa;
+}
+
+.home-client-type-mobile {
+  border-top: 4px solid #34d399;
+}
+
+.home-client-type-desktop {
+  border-top: 4px solid #a78bfa;
+}
+
+/* Summary Sektion Styling */
+
+/* Hauptcontainer für Summary */
+.home-summary-container {
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hintergrund-Effekt */
+.home-summary-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--primary-color-rgb), 0.1) 0%,
+    transparent 60%
+  );
+  animation: rotate 60s linear infinite;
+  z-index: 0;
+}
+
+/* Content-Wrapper für Z-Index-Kontrolle */
+.home-summary-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Summary Titel Styling */
+.home-summary-title {
+  font-size: 2rem;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.home-summary-title::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    transparent
+  );
+}
+
+/* Summary Text Container */
+.home-summary-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  border: 1px solid rgba(var(--primary-color-rgb), 0.2);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.home-summary-text:hover {
+  border-color: rgba(var(--primary-color-rgb), 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Hervorgehobene Schlüsselwörter */
+.home-summary-keyword {
+  color: var(--primary-color);
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+}
+
+.home-summary-keyword::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.home-summary-keyword:hover::after {
+  transform: scaleX(1);
+}
+
+/* Info-Box für zusätzliche Details */
+.home-summary-info-box {
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.home-summary-info-box svg {
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+/* Animationen */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-summary-container {
+    padding: 1.5rem;
+  }
+
+  .home-summary-title {
+    font-size: 1.5rem;
+  }
+
+  .home-summary-text {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .home-summary-info-box {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+}
+
+/* Highlight-Effekt für wichtige Wörter */
+.home-summary-highlight {
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(var(--primary-color-rgb), 0.2) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  animation: shimmer 3s infinite;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }

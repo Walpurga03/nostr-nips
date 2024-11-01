@@ -15,7 +15,7 @@ body {
 }
 /* Container and Layout main.tsc*/
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   width: 80%;
   padding-top: 30px;
   margin: auto;
