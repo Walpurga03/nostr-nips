@@ -42,8 +42,6 @@ interface SectionProps {
   onToggle: () => void;
 }
 
-
-
 const Section: React.FC<SectionProps> = ({
   id,
   title,
@@ -52,23 +50,20 @@ const Section: React.FC<SectionProps> = ({
   isExpanded,
   onToggle
 }) => (
-  <section className="sl_content-section">
+  <div className="section" id={id}>
     <button
-      className="sl_section-header sl_interactive"
+      className="section-header"
       onClick={onToggle}
       aria-expanded={isExpanded}
       aria-controls={`section-content-${id}`}
     >
-      <span className="sl_section-icon">{icon}</span>
+      {icon}
       <h2>{title}</h2>
-      {isExpanded ? 
-        <ChevronUp className="transition-transform" /> : 
-        <ChevronDown className="transition-transform" />
-      }
+      {isExpanded ? <ChevronUp className="transition-transform" /> : <ChevronDown className="transition-transform" />}
     </button>
     {isExpanded && (
       <div
-        className="sl_section-content"
+        className="section-content"
         id={`section-content-${id}`}
         role="region"
         aria-labelledby={id}
@@ -76,14 +71,14 @@ const Section: React.FC<SectionProps> = ({
         {children}
       </div>
     )}
-  </section>
+  </div>
 );
 
 const EXAMPLE_EVENT_ID = "86885d03218abe92f1800fb2f0a306535710111d60e8c9aafd0179db11963ed7";
 
 const Nip1: React.FC = () => {
   const { t } = useTranslation('nip1');
-  const [event, setEvent] = useState<any>(null);
+  const [event, setEvent] = useState<EventData | null>(null);
   const [ndk, setNdk] = useState<NDK | null>(null);
   const [eventId, setEventId] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -217,21 +212,17 @@ const Nip1: React.FC = () => {
   ), [t]);
 
   return (
-    <article className="page-container">
+    <div className="page-container">
       <RelayConnector onConnect={setNdk} />
 
-      <header className="sl_page-header">
-        <h1 className="sl_page-title">{t('nip1_title')}</h1>
-        <p className="sl_page-intro">{t('key_protocol_description')}</p>
+      <header className="page-header">
+        <h1 className="page-title">{t('nip1_title')}</h1>
+        <p className="page-intro">{t('key_protocol_description')}</p>
       </header>
 
       <main className="sections-container">
         {/* Left Column: Content Sections */}
         <div className="content-sections">
-          
-        <div className="relay-control-section card">
-            <RelayController ndk={ndk} />
-          </div>
           <Section
             id="overview"
             title={t('sections.overview.title')}
@@ -261,33 +252,26 @@ const Nip1: React.FC = () => {
           >
             {renderRelayCommunication()}
           </Section>
-
-          <Section
-            id="relay-connection"
-            title={t('sections.relay_connection.title')}
-            icon={<Key className="section-icon" />}
-            isExpanded={expandedSection === 'relay-connection'}
-            onToggle={() => toggleSection('relay-connection')}
-          >
-            <div>ttt</div>
-          </Section>           
-            </div>
+        </div>
 
         {/* Right Column: Interactive Section */}
         <div className="interactive-content">
+          <div className="relay-control-section card">
+            <RelayController ndk={ndk} />
+          </div>
 
-          <section className="sl_interactive-section card">
-            <h2 className="sl_section-title">
+          <section className="interactive-section card">
+            <h2 className="section-title">
               {t('event_fetcher')}
             </h2>
 
-            <div className="sl_example-box">
-              <p className="sl_content-text">{t('example.try_it_out')}</p>
-              <div className="sl_example-container">
-                <code className="sl_code-example">{EXAMPLE_EVENT_ID}</code>
+            <div className="example-box">
+              <p className="content-text">{t('example.try_it_out')}</p>
+              <div className="example-container">
+                <code className="code-example">{EXAMPLE_EVENT_ID}</code>
                 <button
                   type="button"
-                  className="sl_primary-button"
+                  className="primary-button"
                   onClick={handleExampleClick}
                 >
                   {t('example.use_this_id')}
@@ -359,7 +343,8 @@ const Nip1: React.FC = () => {
                   <pre>{JSON.stringify(event, null, 2)}</pre>
                 </div>
               </div>
-            )}          </section>
+            )}
+          </section>
         </div>
       </main>
 
@@ -373,10 +358,11 @@ const Nip1: React.FC = () => {
           {t('detailed_github_page')}
         </a>
       </footer>
-    </article>
+    </div>
   );
 };
 
+// Hilfsfunktion für Field Icons
 const getFieldIcon = (key: string) => {
   const iconProps = { size: 18, className: 'field-icon' };
   switch (key) {
