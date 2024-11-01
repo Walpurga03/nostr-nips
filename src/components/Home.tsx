@@ -434,10 +434,7 @@ const Home: React.FC = () => {
 
               <div className="home-summary-info-box">
                 <Layout size={24} />
-                <p>
-                  Erkunden Sie die verschiedenen NIPs und lernen Sie, wie Sie das Nostr-Protokoll
-                  für Ihre Anwendungen nutzen können.
-                </p>
+                <p>{t('summary.info_box')}</p>
               </div>
             </div>
           </div>

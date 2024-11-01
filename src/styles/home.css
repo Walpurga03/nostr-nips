@@ -878,6 +878,27 @@
     padding: 1.5rem;
   }
 }
+/* Responsive Design */
+@media (max-width: 400px) {
+  .home-summary-container {
+    padding: 1.2rem;
+  }
+
+  .home-summary-title {
+    font-size: 1.2rem;
+  }
+
+  .home-summary-text {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .home-summary-info-box {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+}
 
 /* Highlight-Effekt für wichtige Wörter */
 .home-summary-highlight {

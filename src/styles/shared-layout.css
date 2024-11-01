@@ -20,6 +20,22 @@ body {
   padding-top: 30px;
   margin: auto;
 }
+@media (max-width: 1000px) {
+  .container {
+    max-width: 800px;
+  }
+}
+@media (max-width: 800px) {
+  .container {
+    max-width: 600px;
+  }
+}
+@media (max-width: 600px) {
+  .container {
+    max-width: 400px;
+  }
+}
+
 /* Header Styles */
 .sl_page-header {
   text-align: center;

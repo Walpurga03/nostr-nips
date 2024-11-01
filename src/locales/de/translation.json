@@ -124,8 +124,9 @@
   
       "summary": {
         "title": "Zusammenfassung",
-        "text": "Nostr ist ein dezentrales Kommunikationsprotokoll, das auf Relays und Clients basiert. NIPs bieten die Standards und Vorschläge, die Entwicklern helfen, das Protokoll zu implementieren und zu erweitern. Diese Website bietet eine Einführung in Nostr und NIPs sowie Beispiele und Erklärungen, die Ihnen helfen, das Protokoll besser zu verstehen und zu nutzen."
-      }
+        "text": "Nostr ist ein dezentrales Kommunikationsprotokoll, das auf Relays und Clients basiert. NIPs bieten die Standards und Vorschläge, die Entwicklern helfen, das Protokoll zu implementieren und zu erweitern. Diese Website bietet eine Einführung in Nostr und NIPs sowie Beispiele und Erklärungen, die Ihnen helfen, das Protokoll besser zu verstehen und zu nutzen.",
+        "info_box": "Erkunden Sie die verschiedenen NIPs und lernen Sie, wie Sie das Nostr-Protokoll für Ihre Anwendungen nutzen können."
+  }
     },
       "nip1": {
         "nip1_title": "NIP-01: Grundprotokoll",
