@@ -1,5 +1,5 @@
 /* src/styles/ErrorBoundary.css */
-@import './variables.css';
+@import url('./variables.css');
 
 .error-boundary {
   display: flex;
@@ -13,7 +13,7 @@
 .error-content {
   text-align: center;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgb(255 255 255 / 5%);
   border-radius: 1rem;
   border: 1px solid var(--border-color);
   max-width: 600px;
@@ -64,7 +64,7 @@
 }
 
 .error-details pre {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgb(0 0 0 / 20%);
   padding: 1rem;
   border-radius: 0.5rem;
   overflow-x: auto;

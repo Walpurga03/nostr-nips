@@ -1,9 +1,19 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import purgecss from '@fullhuman/postcss-purgecss';
 
 export default defineConfig({
   base: '/nostr-nips/',
   plugins: [react()],
+  css: {
+    postcss: {
+      plugins: [
+        purgecss({
+          content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+        }),
+      ],
+    },
+  },
   build: {
     rollupOptions: {
       output: {

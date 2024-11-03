@@ -94,17 +94,15 @@ const CentralConcepts = ({ t }: { t: any }) => {
         <div className="home-concept-card">
           <div className="home-concept-card-header">
             <Filter size={24} />
-            <h4>Event Kinds</h4>
+            <h4>{t('central_concepts.event_kinds.title')}</h4>
           </div>
           <ul className="home-concept-list">
-            <li>Numerische Identifikatoren für Ereignistypen</li>
-            <li>Praktisch für Abfragen und Filterung von Events</li>
-            <li>Ermöglichen gezielte Suche nach bestimmten Datentypen</li>
-            <li>Teil der technischen Event-Struktur</li>
-            <li>Helfen Relays bei der effizienten Verarbeitung</li>
+            {t('central_concepts.event_kinds.list_items', { returnObjects: true }).map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
           <div className="home-concept-example">
-            Beispiel: Kind 1 = öffentliche Textnachricht
+            {t('central_concepts.event_kinds.example')}
           </div>
         </div>
 
@@ -112,17 +110,15 @@ const CentralConcepts = ({ t }: { t: any }) => {
         <div className="home-concept-card">
           <div className="home-concept-card-header">
             <Book size={24} />
-            <h4>NIPs</h4>
+            <h4>{t('central_concepts.nips.title')}</h4>
           </div>
           <ul className="home-concept-list">
-            <li>Entwicklungsrichtlinien und Standards</li>
-            <li>Definieren neue Protokoll-Funktionen</li>
-            <li>Sichern Kompatibilität zwischen Clients/Relays</li>
-            <li>Dokumentieren Best Practices</li>
-            <li>Ermöglichen kontrollierte Evolution des Protokolls</li>
+            {t('central_concepts.nips.list_items', { returnObjects: true }).map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
           <div className="home-concept-example">
-            Beispiel: NIP-01 definiert das Basisprotokoll
+            {t('central_concepts.nips.example')}
           </div>
         </div>
       </div>
@@ -153,10 +149,7 @@ const CentralConcepts = ({ t }: { t: any }) => {
       {/* Summary */}
       <div className="home-concepts-summary">
         <p>
-          <strong>Zusammenfassend:</strong> Während Event Kinds die technische Kategorisierung und
-          Filterung von Ereignissen ermöglichen, bieten NIPs den Rahmen für die standardisierte
-          Weiterentwicklung des Protokolls. Diese Kombination ermöglicht es Nostr, flexibel und
-          dennoch kompatibel zu bleiben.
+          <strong>{t('central_concepts.summary.title')}:</strong> {t('central_concepts.summary.text')}
         </p>
       </div>
     </div>

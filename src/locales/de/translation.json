@@ -19,6 +19,34 @@
       "nips_vs_kinds": "NIPs und Nachrichtenarten",
       "nips_vs_kinds_explanation": "NIPs sind wie Bauanleitungen für Nostr, und Nachrichtenarten sagen uns, um welche Art von Mitteilung es sich handelt:"
     },
+    "central_concepts": {
+      "event_kinds": {
+        "title": "Event Kinds (Nachrichtentypen)",
+        "list_items": [
+          "Jede Nachricht hat eine Nummer, die uns sagt, was sie ist - wie ein Etikett auf einem Paket",
+          "Mit diesen Nummern können Apps schnell die richtigen Nachrichten finden - wie bei einer Sortiermaschine",
+          "Du kannst gezielt nach bestimmten Nachrichtentypen suchen - zum Beispiel nur nach Textnachrichten",
+          "Diese Nummern sind ein wichtiger Teil jeder Nachricht - wie ein Barcode auf einem Produkt",
+          "Die Nummern helfen den Servern, deine Nachrichten schnell weiterzuleiten - wie eine Postleitzahl"
+        ],
+        "example": "Ganz einfach: Wenn eine Nachricht die Nummer 1 hat, dann ist es ein normaler Text, wie bei WhatsApp oder Twitter"
+      },
+      "nips": {
+        "title": "NIPs (Nostr Bauanleitungen)",
+        "list_items": [
+          "NIPs sind wie Spielregeln für Nostr - damit alle Apps fair zusammenspielen können",
+          "Sie beschreiben, wie neue Funktionen in Nostr eingebaut werden - wie eine LEGO-Bauanleitung",
+          "Sie sorgen dafür, dass alle Apps miteinander sprechen können - wie eine gemeinsame Sprache",
+          "Sie zeigen den besten Weg, etwas zu bauen - wie ein Rezeptbuch",
+          "Sie helfen dabei, dass Nostr wachsen kann, ohne kaputt zu gehen - wie ein guter Bauplan"
+        ],
+        "example": "Zum Beispiel: NIP-01 ist wie das erste Kapitel im Nostr-Regelbuch. Es erklärt die wichtigsten Grundregeln."
+      },
+      "summary": {
+        "title": "Einfach gesagt",
+        "text": "Stell dir Nostr wie ein großes Postsystem vor: Die Event Kinds sind wie verschiedene Arten von Briefen (normale Briefe, Eilbriefe, Postkarten), und die NIPs sind wie die Postregeln, die allen sagen, wie man Briefe richtig verschickt. Zusammen sorgen sie dafür, dass deine Nachrichten immer gut ankommen!"
+      }
+    },
     "nips_section": {
       "title": "Was sind NIPs?",
       "intro": "NIPs sind wie Bauanleitungen für Nostr. Sie erklären, wie verschiedene Teile von Nostr funktionieren sollen, damit alle Apps miteinander sprechen können.",
@@ -120,204 +148,204 @@
     }
   },
   "nip1": {
-    "nip1_title": "NIP-01: Grundprotokoll",
-    "key_protocol": "Grundprotokoll",
-    "key_protocol_description": "NIP-01 definiert die fundamentalen Konzepte und Mechanismen des Nostr-Protokolls. Es ist der Grundstein für alle weiteren NIPs und muss von allen Nostr-Implementierungen unterstützt werden.",
+    "nip1_title": "NIP-01: Die Grundregeln",
+    "key_protocol": "Die Grundregeln",
+    "key_protocol_description": "NIP-01 ist wie das Grundrezept für Nostr. Es erklärt die wichtigsten Regeln, die alle Apps befolgen müssen, damit sie miteinander funktionieren können.",
     "sections": {
       "connection": {
-        "title": "Relay-Verbindung",
-        "description": "Verbindungsstatus und Steuerung der Relay-Server"
+        "title": "Verbindung zu Nostr",
+        "description": "Hier siehst du, ob du mit Nostr verbunden bist und kannst die Verbindung steuern"
       },
       "overview": {
-        "title": "Überblick",
-        "description": "NIP-01 etabliert die grundlegende Struktur für alle Nostr-Kommunikation",
+        "title": "Das Wichtigste kurz erklärt",
+        "description": "NIP-01 ist wie das Kochbuch für Nostr - es enthält alle grundlegenden Rezepte",
         "core_aspects": {
-          "title": "Kernaspekte",
+          "title": "Die Bausteine von Nostr",
           "items": [
             {
-              "title": "Event-Struktur",
-              "description": "Standardisiertes Format für alle Nostr-Daten",
+              "title": "Nachrichtenform",
+              "description": "Der Bauplan für jeden Beitrag in Nostr",
               "icon": "file-text"
             },
             {
-              "title": "Kryptographische Sicherheit",
-              "description": "Schnorr-Signaturen zur Authentifizierung",
+              "title": "Sicherheit",
+              "description": "Wie wir sicherstellen, dass Nachrichten echt sind",
               "icon": "shield"
             },
             {
-              "title": "Relay-Protokoll",
-              "description": "WebSocket-basierte Client-Server-Kommunikation",
+              "title": "Verbindungsregeln",
+              "description": "Wie Apps mit Nostr sprechen",
               "icon": "server"
             },
             {
-              "title": "Pub/Sub-Modell",
-              "description": "Effiziente Echtzeitübertragung von Events",
+              "title": "Nachrichtenverteilung",
+              "description": "Wie Nachrichten schnell an alle kommen",
               "icon": "zap"
             }
           ]
         },
         "points": [
-          "NIP-01 legt die grundlegende Struktur von Events fest",
-          "Definiert die Kommunikation zwischen Clients und Relays",
-          "Beschreibt die Authentifizierung und Validierung von Events",
-          "Etabliert das Publish/Subscribe-Modell für Datenaustausch"
+          "Legt fest, wie Nachrichten aussehen müssen",
+          "Erklärt, wie Apps mit Nostr sprechen",
+          "Zeigt, wie man prüft, ob Nachrichten echt sind",
+          "Beschreibt, wie Nachrichten verteilt werden"
         ],
         "implementation_goals": {
-          "title": "Implementierungsziele",
+          "title": "Was wir erreichen wollen",
           "items": [
-            "Einfache Integration in bestehende Systeme",
-            "Maximale Interoperabilität zwischen Clients",
-            "Minimale Einstiegshürden für Entwickler",
-            "Zukunftssichere Erweiterbarkeit"
+            "Jeder soll Nostr leicht nutzen können",
+            "Alle Apps sollen zusammenarbeiten",
+            "Entwickler sollen schnell loslegen können",
+            "Nostr soll auch in Zukunft gut funktionieren"
           ]
         }
       },
       "event_structure": {
-        "title": "Event-Struktur",
-        "description": "Ein Event ist die grundlegende Dateneinheit in Nostr. Jede Aktion und jede Information wird als Event übertragen.",
+        "title": "Wie eine Nachricht aufgebaut ist",
+        "description": "Jede Aktion in Nostr ist eine Nachricht - egal ob du etwas postest, jemandem folgst oder dein Profil änderst.",
         "fields": {
           "id": {
-            "title": "ID",
-            "description": "Ein SHA-256-Hash aller anderen Event-Felder. Dient als eindeutiger Identifier.",
-            "technical": "Wird aus der Serialisierung der Event-Daten (ohne 'id' und 'sig') berechnet"
+            "title": "Nachrichten-ID",
+            "description": "Jede Nachricht hat eine einzigartige Nummer, wie ein Fingerabdruck",
+            "technical": "Wird automatisch aus der Nachricht erstellt"
           },
           "pubkey": {
-            "title": "Public Key",
-            "description": "Der öffentliche Schlüssel des Event-Autors in hexadezimaler Form.",
-            "technical": "32-Byte Schnorr-Schlüssel"
+            "title": "Absender",
+            "description": "Dein persönlicher Code, der zeigt, dass die Nachricht von dir ist",
+            "technical": "Dein öffentlicher Schlüssel"
           },
           "created_at": {
-            "title": "Erstellungszeitpunkt",
-            "description": "Unix-Timestamp der Event-Erstellung in Sekunden.",
-            "technical": "Muss ein gültiger Unix-Timestamp sein"
+            "title": "Zeitpunkt",
+            "description": "Wann die Nachricht geschrieben wurde",
+            "technical": "Der genaue Zeitpunkt der Erstellung"
           },
           "kind": {
-            "title": "Event-Art",
-            "description": "Numerischer Wert, der den Typ des Events definiert.",
+            "title": "Art der Nachricht",
+            "description": "Was für eine Nachricht es ist",
             "examples": [
-              "0: Metadaten (Profilinformationen)",
-              "1: Kurznachricht",
-              "2: Empfohlene Relay-Server",
-              "3: Kontakte",
-              "4: Verschlüsselte Direktnachricht"
+              "0: Dein Profil",
+              "1: Normaler Text",
+              "2: Empfehlungen für Server",
+              "3: Deine Kontakte",
+              "4: Private Nachricht"
             ]
           },
           "tags": {
-            "title": "Tags",
-            "description": "Liste von Tags für zusätzliche Metadaten und Verknüpfungen.",
+            "title": "Zusatzinfos",
+            "description": "Weitere wichtige Informationen zur Nachricht",
             "common_tags": [
-              "e: Verweis auf andere Events",
-              "p: Verweis auf Public Keys",
-              "t: Thematische Hashtags"
+              "e: Verweise auf andere Nachrichten",
+              "p: Verweise auf andere Nutzer",
+              "t: Themen (Hashtags)"
             ]
           },
           "content": {
             "title": "Inhalt",
-            "description": "Der eigentliche Inhalt des Events als Text.",
+            "description": "Was in deiner Nachricht steht",
             "notes": [
-              "Kann beliebigen Text enthalten",
-              "Format hängt vom Event-Kind ab",
-              "Kann auch verschlüsselt sein"
+              "Kann normaler Text sein",
+              "Sieht je nach Nachrichtenart anders aus",
+              "Kann auch privat/verschlüsselt sein"
             ]
           },
           "sig": {
-            "title": "Signatur",
-            "description": "Kryptographische Signatur zur Verifizierung der Authentizität.",
-            "technical": "64-Byte Schnorr-Signatur des Event-ID-Wertes"
+            "title": "Unterschrift",
+            "description": "Deine digitale Unterschrift, die beweist, dass die Nachricht wirklich von dir ist",
+            "technical": "Deine persönliche Signatur"
           }
         }
       },
       "relay_communication": {
-        "title": "Relay-Kommunikation",
-        "description": "Die Kommunikation zwischen Clients und Relays erfolgt über WebSocket-Verbindungen.",
+        "title": "Wie Nachrichten verschickt werden",
+        "description": "Wie deine App mit Nostr spricht und Nachrichten austauscht",
         "messages": {
           "types": {
-            "title": "Nachrichtentypen",
-            "EVENT": "Senden eines neuen Events",
-            "REQ": "Anfrage nach Events mit bestimmten Filtern",
-            "CLOSE": "Beenden einer Subscription",
-            "EOSE": "Ende des gespeicherten Event-Streams"
+            "title": "Was du machen kannst",
+            "EVENT": "Eine neue Nachricht senden",
+            "REQ": "Nach bestimmten Nachrichten suchen",
+            "CLOSE": "Suche beenden",
+            "EOSE": "Keine weiteren Nachrichten vorhanden"
           }
         },
         "subscription": {
-          "title": "Subscription-System",
-          "description": "Clients können Events über Filter abonnieren:",
+          "title": "Nachrichten finden",
+          "description": "Du kannst nach bestimmten Nachrichten suchen:",
           "filter_options": [
-            "ids: Spezifische Event-IDs",
-            "authors: Events von bestimmten Autoren",
-            "kinds: Bestimmte Event-Typen",
-            "since: Events nach einem Zeitpunkt",
-            "until: Events bis zu einem Zeitpunkt",
-            "limit: Maximale Anzahl an Events"
+            "Nach bestimmten Nachrichten-IDs",
+            "Nach bestimmten Personen",
+            "Nach bestimmten Arten von Nachrichten",
+            "Nach Nachrichten ab einem Zeitpunkt",
+            "Nach Nachrichten bis zu einem Zeitpunkt",
+            "Maximale Anzahl an Nachrichten"
           ]
         }
       },
       "event_validation": {
-        "title": "Event-Validierung",
+        "title": "Prüfung von Nachrichten",
         "steps": [
-          "Überprüfung der Event-ID (korrekte Berechnung)",
-          "Validierung der Signatur",
-          "Prüfung des Timestamps (nicht in der Zukunft)",
-          "Verifizierung der erforderlichen Felder"
+          "Ist die Nachrichten-ID richtig?",
+          "Ist die Unterschrift echt?",
+          "Ist der Zeitpunkt möglich?",
+          "Sind alle wichtigen Infos da?"
         ]
       },
       "best_practices": {
-        "title": "Beste Praktiken",
+        "title": "Tipps für die Nutzung",
         "client_practices": [
-          "Verbindung zu mehreren Relays für Redundanz",
-          "Lokales Caching häufig genutzter Daten",
-          "Implementierung von Exponential Backoff bei Verbindungsfehlern",
-          "Validierung aller empfangenen Events"
+          "Verbinde dich mit mehreren Servern für mehr Sicherheit",
+          "Speichere wichtige Infos lokal",
+          "Versuche es später nochmal, wenn etwas nicht klappt",
+          "Prüfe alle eingehenden Nachrichten"
         ],
         "relay_practices": [
-          "Effiziente Event-Speicherung und -Indizierung",
-          "Implementierung von Rate-Limiting",
-          "Konfigurierbare Event-Retention",
-          "Robuste Fehlerbehandlung"
+          "Speichere Nachrichten clever",
+          "Verhindere Überlastung",
+          "Räume regelmäßig auf",
+          "Geh mit Fehlern richtig um"
         ]
       }
     },
-    "example_usage": "Praktisches Beispiel",
-    "example_usage_intro": "Im folgenden Beispiel sehen Sie, wie ein typisches Nostr-Event strukturiert ist:",
-    "example_usage_scenario": "Angenommen, ein Benutzer möchte eine öffentliche Nachricht veröffentlichen:",
+    "example_usage": "Ein Beispiel",
+    "example_usage_intro": "So sieht eine normale Nachricht in Nostr aus:",
+    "example_usage_scenario": "Stell dir vor, du willst eine Nachricht an alle schreiben:",
     "example_message_content": "Hallo Nostr-Welt! 👋",
-    "example_explanation": "Aufschlüsselung des Beispiel-Events:",
-    "example_id": "Eindeutige ID des Events, berechnet aus den Event-Daten",
-    "example_pubkey": "Öffentlicher Schlüssel des Autors",
-    "example_created_at": "Erstellungszeitpunkt als Unix-Timestamp",
-    "example_kind": "Kind 1 zeigt an, dass es sich um eine öffentliche Textnachricht handelt",
-    "example_tags": "Optionale Metadaten und Verknüpfungen",
-    "example_content": "Der eigentliche Nachrichtentext",
-    "example_sig": "Kryptographische Signatur zur Verifizierung",
-    "event_fetcher": "Event-Abfrage",
-    "fetched_event": "Abgerufenes Event",
-    "fetch_event": "Event abrufen",
-    "detailed_github_page": "Ausführliche Dokumentation auf GitHub",
+    "example_explanation": "Das steckt in der Nachricht:",
+    "example_id": "Die einzigartige Nummer der Nachricht",
+    "example_pubkey": "Dein persönlicher Code",
+    "example_created_at": "Wann du die Nachricht geschrieben hast",
+    "example_kind": "Art 1 bedeutet: Eine normale Textnachricht",
+    "example_tags": "Zusätzliche Infos",
+    "example_content": "Dein Text",
+    "example_sig": "Deine digitale Unterschrift",
+    "event_fetcher": "Nachrichten finden",
+    "fetched_event": "Gefundene Nachricht",
+    "fetch_event": "Nachricht suchen",
+    "detailed_github_page": "Mehr Details auf GitHub",
     "example": {
-      "try_it_out": "Probieren Sie es mit diesem Beispiel-Event aus:",
-      "use_this_id": "Diese ID verwenden"
+      "try_it_out": "Probier's mal mit dieser Nachricht aus:",
+      "use_this_id": "Diese Nummer verwenden"
     },
     "labels": {
-      "event_id": "Event ID"
+      "event_id": "Nachrichten-Nummer"
     },
     "buttons": {
-      "fetch_event": "Event abrufen",
-      "fetching": "Wird abgerufen...",
-      "clear_input": "Eingabe löschen"
+      "fetch_event": "Nachricht suchen",
+      "fetching": "Suche läuft...",
+      "clear_input": "Neu eingeben"
     },
     "placeholder": {
-      "enter_event_id": "Event ID eingeben..."
+      "enter_event_id": "Gib die Nachrichten-Nummer ein..."
     },
     "errors": {
-      "no_relay_connection": "Keine Relay-Verbindung verfügbar",
-      "event_not_found": "Event nicht gefunden",
-      "fetch_failed": "Abruf des Events fehlgeschlagen"
+      "no_relay_connection": "Keine Verbindung zu Nostr möglich",
+      "event_not_found": "Nachricht nicht gefunden",
+      "fetch_failed": "Konnte die Nachricht nicht finden"
     },
     "validation_errors": {
-      "invalid_id": "Ungültige Event-ID",
-      "invalid_sig": "Ungültige Signatur",
-      "future_timestamp": "Zeitstempel liegt in der Zukunft",
-      "missing_fields": "Fehlende Pflichtfelder"
+      "invalid_id": "Diese Nummer gibt es nicht",
+      "invalid_sig": "Die Unterschrift stimmt nicht",
+      "future_timestamp": "Der Zeitpunkt liegt in der Zukunft",
+      "missing_fields": "Es fehlen wichtige Informationen"
     }
   },
   "nip2": {

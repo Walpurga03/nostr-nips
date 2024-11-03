@@ -1,4 +1,4 @@
-@import './variables.css';
+@import url('./variables.css');
 
 .navbar {
   background: var(--navbar-background-color);
@@ -32,7 +32,6 @@
   padding: var(--spacing-sm);
   border-radius: var(--border-radius-md);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .language-switcher button {
@@ -95,8 +94,7 @@
   position: fixed;
   inset: 0;
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
   z-index: 999;
   opacity: 0;
   animation: fadeIn var(--transition-normal) ease forwards;
@@ -108,7 +106,7 @@
 }
 
 /* Mobile styles */
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .menu-icon {
     display: block;
   }
@@ -126,7 +124,7 @@
     background-color: var(--background-color);
     padding: var(--spacing-md);
     border-radius: var(--border-radius-md);
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
   }
 
   .navbar ul.show {
@@ -135,9 +133,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(31, 24, 39, 0.95);
+    background: rgb(31 24 39 / 95%);
     border-radius: var(--border-radius-md);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
     min-width: 200px;
     z-index: 1000;
   }

@@ -1,9 +1,9 @@
 /* src/styles/index.css */
-@import './variables.css';
-@import './breakpoints.css';
-@import './shared-layout.css';
-@import './home.css';
-@import './nip1.css';
-@import './navbar.css';
-@import './alert.css';
-@import './error-boundary.css';
+@import url('./variables.css');
+@import url('./breakpoints.css');
+@import url('./shared-layout.css');
+@import url('./home.css');
+@import url('./nip1.css');
+@import url('./navbar.css');
+@import url('./alert.css');
+@import url('./error-boundary.css');

@@ -1,57 +1,58 @@
 /* breakpoints.css */
+
 /* Small devices (640px and up) */
-@media (min-width: 640px) {
-  .sm\:container {
+@media (width >= 640px) {
+  .sm-container {
     max-width: var(--container-sm);
   }
 }
 
 /* Medium devices (768px and up) */
-@media (min-width: 768px) {
-  .md\:container {
+@media (width >= 768px) {
+  .md-container {
     max-width: var(--container-md);
   }
 }
 
 /* Large devices (1024px and up) */
-@media (min-width: 1024px) {
-  .lg\:container {
+@media (width >= 1024px) {
+  .lg-container {
     max-width: var(--container-lg);
   }
 }
 
 /* Extra large devices (1280px and up) */
-@media (min-width: 1280px) {
-  .xl\:container {
+@media (width >= 1280px) {
+  .xl-container {
     max-width: var(--container-xl);
   }
 }
 
 /* Utility classes für häufig verwendete responsive Styles */
-@media (min-width: 640px) {
-  .sm\:flex { display: flex; }
-  .sm\:grid { display: grid; }
-  .sm\:hidden { display: none; }
-  .sm\:block { display: block; }
+@media (width >= 640px) {
+  .sm-flex { display: flex; }
+  .sm-grid { display: grid; }
+  .sm-hidden { display: none; }
+  .sm-block { display: block; }
 }
 
-@media (min-width: 768px) {
-  .md\:flex { display: flex; }
-  .md\:grid { display: grid; }
-  .md\:hidden { display: none; }
-  .md\:block { display: block; }
+@media (width >= 768px) {
+  .md-flex { display: flex; }
+  .md-grid { display: grid; }
+  .md-hidden { display: none; }
+  .md-block { display: block; }
 }
 
-@media (min-width: 1024px) {
-  .lg\:flex { display: flex; }
-  .lg\:grid { display: grid; }
-  .lg\:hidden { display: none; }
-  .lg\:block { display: block; }
+@media (width >= 1024px) {
+  .lg-flex { display: flex; }
+  .lg-grid { display: grid; }
+  .lg-hidden { display: none; }
+  .lg-block { display: block; }
 }
 
-@media (min-width: 1280px) {
-  .xl\:flex { display: flex; }
-  .xl\:grid { display: grid; }
-  .xl\:hidden { display: none; }
-  .xl\:block { display: block; }
+@media (width >= 1280px) {
+  .xl-flex { display: flex; }
+  .xl-grid { display: grid; }
+  .xl-hidden { display: none; }
+  .xl-block { display: block; }
 }
