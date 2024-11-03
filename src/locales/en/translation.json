@@ -1,307 +1,325 @@
 {
   "home": {
     "welcome": "NIPs Explorer",
-    "nostr_intro": "Nostr is an open protocol for decentralized communication. It enables users to send and receive messages and other data over a network of relays.",
-    
-    "protocol_basics": "Protocol Basics",
-    "protocol_basics_intro": "Nostr is based on a simple but powerful event model. Every interaction in the network is an event with a defined structure.",
-    
+    "nostr_intro": "Nostr is like a worldwide messaging system where anyone can participate. You can share messages and information with others, and here's what's special about it: it doesn't belong to anyone but works through a network of connected computers (relays).",
+    "protocol_basics": "Basics",
+    "protocol_basics_intro": "In Nostr, everything that happens is a message (event). Whether you post something, follow someone, or change your profile - everything is sent as a message with a specific format.",
     "event_structure": {
-      "title": "Event Structure",
-      "id_desc": "Unique ID (SHA256 hash of event data)",
-      "pubkey_desc": "Public key of the author",
-      "created_at_desc": "Creation timestamp (Unix timestamp)",
-      "kind_desc": "Type of event (e.g., 1 for text message)",
-      "tags_desc": "Additional metadata and references",
-      "content_desc": "The actual content of the event",
-      "sig_desc": "Digital signature for verification"
+      "title": "Message Structure",
+      "id_desc": "A unique number for each message (like a fingerprint)",
+      "pubkey_desc": "Your public key (like your digital signature)",
+      "created_at_desc": "When the message was created",
+      "kind_desc": "What type of message it is (e.g., text, profile change)",
+      "tags_desc": "Additional information (e.g., who was mentioned)",
+      "content_desc": "The actual content of your message",
+      "sig_desc": "Your digital signature that proves the message is from you"
     },
-
     "protocol_concepts": {
-      "title": "Core Concepts",
-      "nips_vs_kinds": "NIPs vs Event Kinds",
-      "nips_vs_kinds_explanation": "NIPs (Nostr Implementation Possibilities) and Event Kinds are two different but important concepts in Nostr:"
+      "title": "Important Basic Terms",
+      "nips_vs_kinds": "NIPs and Message Types",
+      "nips_vs_kinds_explanation": "NIPs are like building instructions for Nostr, and message types tell us what kind of message it is:"
     },
-
     "nips_section": {
       "title": "What are NIPs?",
-      "intro": "NIPs (Nostr Implementation Possibilities) are proposals and standards that describe how various aspects of the Nostr protocol can be implemented. They help developers create compatible and interoperable applications.",
-      "docs": "NIPs are documents that describe various aspects of the Nostr protocol. They can propose new features, improve existing features, or provide best practices for implementing the protocol.",
-      "website": "On this website, you will find explanations and examples of various NIPs to help you better understand and use the Nostr protocol.",
+      "intro": "NIPs are like building instructions for Nostr. They explain how different parts of Nostr should work so all apps can talk to each other.",
+      "docs": "NIPs are documents with instructions for Nostr. They suggest new features, improve existing ones, or show the best way to implement something.",
+      "website": "Here you'll find simple explanations and examples of the different NIPs to help you better understand how Nostr works.",
       "explanation": {
-        "title": "NIPs (Nostr Implementation Possibilities)",
-        "description": "NIPs are technical specification documents that describe:",
+        "title": "NIPs (Nostr Building Instructions)",
+        "description": "NIPs explain us:",
         "points": [
-          "How new features should be implemented in the Nostr protocol",
-          "What standards all clients and relays must follow",
-          "How different types of data are structured",
-          "How communication between clients and relays works"
+          "How new features should be built into Nostr",
+          "What rules all apps must follow",
+          "How information should be passed along correctly",
+          "How apps talk to each other"
         ],
-        "example": "For example, NIP-01 describes the basic protocol, while NIP-02 defines the format for contact lists."
+        "example": "For example, NIP-01 is like the basic rulebook, and NIP-02 explains how contact lists work."
       },
       "examples": {
         "title": "NIP Examples:",
-        "nip01": "NIP-01: Basic Protocol",
-        "nip02": "NIP-02: Contact List",
-        "nip03": "NIP-03: OpenTimestamps Attestations",
-        "nip04": "NIP-04: Encrypted Direct Messages"
+        "nip01": "NIP-01: The Basic Rules",
+        "nip02": "NIP-02: How Contact Lists Work",
+        "nip03": "NIP-03: Timestamps for Messages",
+        "nip04": "NIP-04: Sending Private Messages"
       }
     },
-
     "event_kinds": {
-      "title": "Event Kinds",
-      "explanation_title": "What are Event Kinds?",
-      "explanation_intro": "Event Kinds are numerical identifiers that define the type and purpose of a single event. They are part of the actual data and determine:",
+      "title": "Message Types",
+      "explanation_title": "What are Message Types?",
+      "explanation_intro": "Every message in Nostr has a number that tells us what kind of message it is. This number determines:",
       "purpose_points": [
-        "What type of content an event contains",
-        "How clients should display the content",
-        "How relays should process the event",
-        "How long the event should be stored"
+        "What's in the message (text, image, etc.)",
+        "How apps should display the message",
+        "How the message gets forwarded",
+        "How long the message is stored"
       ],
-      "connection_to_nips": "Event Kinds are defined and standardized in various NIPs. For example, the basic Kinds 0-3 were established in NIP-01.",
+      "connection_to_nips": "The NIPs tell us what each number means. The most important numbers (0-3) were set in the first NIP.",
       "ranges": {
-        "title": "Kind Ranges and Their Meaning",
-        "regular": "Regular events like metadata, text messages, and contact lists",
-        "regular_replaceable": "Replaceable events where only the latest version is relevant",
-        "ephemeral": "Short-lived events that don't need permanent storage",
-        "parameterized": "Parameterized events for special use cases"
+        "title": "Types of Messages and their Numbers (Kinds)",
+        "regular": "Regular messages (Kind 0-999): Your profile, texts, and your contacts",
+        "regular_replaceable": "Updatable messages (Kind 1000-9999): Only the latest version matters",
+        "ephemeral": "Temporary messages (Kind 10000-19999): These aren't stored permanently",
+        "parameterized": "Special messages (Kind 20000-29999): For specific applications"
       },
-      "common_title": "Commonly Used Event Kinds",
-      "metadata": "Profile information like name, picture, and description",
-      "text_note": "Public text messages (similar to tweets)",
-      "recommend_server": "Recommendations for relay servers",
-      "contacts": "List of followed users and their preferred relays",
-      "direct_message": "Encrypted direct messages",
-      "deletion": "Deletes previously published events"
+      "common_title": "Commonly Used Message Types",
+      "metadata": "Your profile (name, picture, description)",
+      "text_note": "Regular text (like on Twitter)",
+      "recommend_server": "Recommendations for good relays",
+      "contacts": "Who you follow and which relays you use",
+      "direct_message": "Private messages to others",
+      "deletion": "Deleting old messages"
     },
-
     "implementation_example": {
-      "title": "Example of the Connection:",
-      "content": "NIP-01 defines that an event of Kind 1 is a public text message. So when a client receives an event with kind: 1, it knows thanks to NIP-01 that it should display the content as a text message."
+      "title": "An Example:",
+      "content": "When a message has the number 1, every app knows: This is a regular text that everyone should be able to read - like a public post."
     },
-
     "relays_section": {
       "title": "What are Relays?",
-      "intro": "Relays are servers that forward messages and other data in the Nostr network. They act as intermediaries between clients and ensure that messages are delivered to the correct recipients.",
+      "intro": "Relays are like post offices on the internet. They receive your messages and make sure they reach the right people. Anyone can run such a 'post office', and you can use several of them.",
       "features": {
         "decentralized": {
-          "title": "Decentralized",
-          "description": "Anyone can operate a relay"
+          "title": "Open to All",
+          "description": "Anyone can run a relay"
         },
         "redundant": {
-          "title": "Redundant",
-          "description": "Multiple relays for reliability"
+          "title": "Fail-safe",
+          "description": "Multiple relays ensure safety"
         },
         "flexible": {
-          "title": "Flexible",
-          "description": "Free choice of relays"
+          "title": "Freely Selectable",
+          "description": "You decide which relays to use"
         },
         "scalable": {
-          "title": "Scalable",
-          "description": "Distributed load balancing"
+          "title": "Well Distributed",
+          "description": "Many relays share the work"
         }
       }
     },
-
     "clients_section": {
       "title": "What are Clients?",
-      "intro": "Clients are applications that users use to interact with the Nostr network. They allow users to send and receive messages, publish data, and access information shared by other users.",
+      "intro": "Clients are apps you can use to access Nostr. They help you write and read messages, edit your profile, and stay in touch with others.",
       "types": {
         "web": {
-          "title": "Web Clients",
-          "description": "Direct access via browser"
+          "title": "Web Apps",
+          "description": "Easy to use in your browser"
         },
         "mobile": {
-          "title": "Mobile Apps",
-          "description": "For iOS and Android on the go"
+          "title": "Phone Apps",
+          "description": "For your smartphone"
         },
         "desktop": {
-          "title": "Desktop Apps",
-          "description": "Full functionality on computer"
+          "title": "Computer Apps",
+          "description": "Programs for your PC"
         }
       }
     },
-
     "summary": {
       "title": "Summary",
-      "text": "Nostr is a decentralized communication protocol based on relays and clients. NIPs provide the standards and proposals that help developers implement and extend the protocol. This website offers an introduction to Nostr and NIPs, as well as examples and explanations to help you better understand and use the protocol.",
-      "info_box": "Explore the various NIPs and learn how to use the Nostr protocol for your applications."
+      "text": "Nostr is like a big network of post offices (relays) and apps (clients) through which you can communicate with others. The NIPs are like a rulebook that tells everyone how they can participate. This website helps you understand all of this better.",
+      "info_box": "Explore the different NIPs and learn how you can become part of Nostr."
     }
   },
-    "nip1": {
-      "nip1_title": "NIP-01: Basic Protocol",
-      "key_protocol": "Basic Protocol",
-      "key_protocol_description": "NIP-01 defines the fundamental concepts and mechanisms of the Nostr protocol. It is the cornerstone for all other NIPs and must be supported by all Nostr implementations.",
-      
-      "sections": {
-        "overview": {
-          "title": "Overview",
-          "points": [
-            "NIP-01 establishes the basic structure of events",
-            "Defines communication between clients and relays",
-            "Describes authentication and validation of events",
-            "Establishes the publish/subscribe model for data exchange"
+  "nip1": {
+    "nip1_title": "NIP-01: Basic Protocol",
+    "key_protocol": "Basic Protocol",
+    "key_protocol_description": "NIP-01 defines the fundamental concepts and mechanisms of the Nostr protocol. It is the cornerstone for all other NIPs and must be supported by all Nostr implementations.",
+    "sections": {
+      "connection": {
+        "title": "Relay Connection",
+        "description": "Connection status and control of relay servers"
+      },
+      "overview": {
+        "title": "Overview",
+        "description": "NIP-01 establishes the foundational structure for all Nostr communication",
+        "core_aspects": {
+          "title": "Core Aspects",
+          "items": [
+            {
+              "title": "Event Structure",
+              "description": "Standardized format for all Nostr data",
+              "icon": "file-text"
+            },
+            {
+              "title": "Cryptographic Security",
+              "description": "Schnorr signatures for authentication",
+              "icon": "shield"
+            },
+            {
+              "title": "Relay Protocol",
+              "description": "WebSocket-based client-server communication",
+              "icon": "server"
+            },
+            {
+              "title": "Pub/Sub Model",
+              "description": "Efficient real-time event transmission",
+              "icon": "zap"
+            }
           ]
         },
-  
-        "event_structure": {
-          "title": "Event Structure",
-          "description": "An event is the basic data unit in Nostr. Every action and piece of information is transmitted as an event.",
-          "fields": {
-            "id": {
-              "title": "ID",
-              "description": "A SHA-256 hash of all other event fields. Serves as a unique identifier.",
-              "technical": "Calculated from the serialization of event data (excluding 'id' and 'sig')"
-            },
-            "pubkey": {
-              "title": "Public Key",
-              "description": "The event author's public key in hexadecimal format.",
-              "technical": "32-byte Schnorr key"
-            },
-            "created_at": {
-              "title": "Creation Timestamp",
-              "description": "Unix timestamp of event creation in seconds.",
-              "technical": "Must be a valid Unix timestamp"
-            },
-            "kind": {
-              "title": "Event Kind",
-              "description": "Numerical value defining the type of event.",
-              "examples": [
-                "0: Metadata (profile information)",
-                "1: Short text note",
-                "2: Recommended relay servers",
-                "3: Contacts",
-                "4: Encrypted direct message"
-              ]
-            },
-            "tags": {
-              "title": "Tags",
-              "description": "List of tags for additional metadata and references.",
-              "common_tags": [
-                "e: Reference to other events",
-                "p: Reference to public keys",
-                "t: Thematic hashtags"
-              ]
-            },
-            "content": {
-              "title": "Content",
-              "description": "The actual content of the event as text.",
-              "notes": [
-                "Can contain any text",
-                "Format depends on event kind",
-                "Can be encrypted"
-              ]
-            },
-            "sig": {
-              "title": "Signature",
-              "description": "Cryptographic signature to verify authenticity.",
-              "technical": "64-byte Schnorr signature of the event ID value"
-            }
-          }
-        },
-  
-        "relay_communication": {
-          "title": "Relay Communication",
-          "description": "Communication between clients and relays occurs via WebSocket connections.",
-          "messages": {
-            "types": {
-              "title": "Message Types",
-              "EVENT": "Send a new event",
-              "REQ": "Request events with specific filters",
-              "CLOSE": "End a subscription",
-              "EOSE": "End of stored event stream"
-            }
-          },
-          "subscription": {
-            "title": "Subscription System",
-            "description": "Clients can subscribe to events using filters:",
-            "filter_options": [
-              "ids: Specific event IDs",
-              "authors: Events from specific authors",
-              "kinds: Specific event types",
-              "since: Events after a timestamp",
-              "until: Events up to a timestamp",
-              "limit: Maximum number of events"
-            ]
-          }
-        },
-  
-        "event_validation": {
-          "title": "Event Validation",
-          "steps": [
-            "Verify event ID (correct calculation)",
-            "Validate signature",
-            "Check timestamp (not in future)",
-            "Verify required fields"
-          ]
-        },
-  
-        "best_practices": {
-          "title": "Best Practices",
-          "client_practices": [
-            "Connect to multiple relays for redundancy",
-            "Local caching of frequently used data",
-            "Implement exponential backoff for connection errors",
-            "Validate all received events"
-          ],
-          "relay_practices": [
-            "Efficient event storage and indexing",
-            "Implementation of rate limiting",
-            "Configurable event retention",
-            "Robust error handling"
+        "points": [
+          "NIP-01 establishes the basic structure of events",
+          "Defines communication between clients and relays",
+          "Describes authentication and validation of events",
+          "Establishes the publish/subscribe model for data exchange"
+        ],
+        "implementation_goals": {
+          "title": "Implementation Goals",
+          "items": [
+            "Easy integration with existing systems",
+            "Maximum interoperability between clients",
+            "Minimal barriers for developers",
+            "Future-proof extensibility"
           ]
         }
       },
-  
-      "example_usage": "Practical Example",
-      "example_usage_intro": "The following example shows how a typical Nostr event is structured:",
-      "example_usage_scenario": "Suppose a user wants to publish a public message:",
-      "example_message_content": "Hello Nostr world! 👋",
-      
-      "example_explanation": "Breakdown of the example event:",
-      "example_id": "Unique ID of the event, calculated from event data",
-      "example_pubkey": "Author's public key",
-      "example_created_at": "Creation timestamp as Unix timestamp",
-      "example_kind": "Kind 1 indicates this is a public text note",
-      "example_tags": "Optional metadata and references",
-      "example_content": "The actual message text",
-      "example_sig": "Cryptographic signature for verification",
-      
-      "event_fetcher": "Event Fetcher",
-      "fetched_event": "Fetched Event",
-      "fetch_event": "Fetch Event",
-      "detailed_github_page": "Detailed Documentation on GitHub",
-  
-      "example": {
-        "try_it_out": "Try it out with this example event:",
-        "use_this_id": "Use this ID"
+      "event_structure": {
+        "title": "Event Structure",
+        "description": "An event is the basic data unit in Nostr. Every action and piece of information is transmitted as an event.",
+        "fields": {
+          "id": {
+            "title": "ID",
+            "description": "A SHA-256 hash of all other event fields. Serves as a unique identifier.",
+            "technical": "Calculated from the serialization of event data (excluding 'id' and 'sig')"
+          },
+          "pubkey": {
+            "title": "Public Key",
+            "description": "The event author's public key in hexadecimal format.",
+            "technical": "32-byte Schnorr key"
+          },
+          "created_at": {
+            "title": "Creation Timestamp",
+            "description": "Unix timestamp of event creation in seconds.",
+            "technical": "Must be a valid Unix timestamp"
+          },
+          "kind": {
+            "title": "Event Kind",
+            "description": "Numerical value defining the type of event.",
+            "examples": [
+              "0: Metadata (profile information)",
+              "1: Short text note",
+              "2: Recommended relay servers",
+              "3: Contacts",
+              "4: Encrypted direct message"
+            ]
+          },
+          "tags": {
+            "title": "Tags",
+            "description": "List of tags for additional metadata and references.",
+            "common_tags": [
+              "e: Reference to other events",
+              "p: Reference to public keys",
+              "t: Thematic hashtags"
+            ]
+          },
+          "content": {
+            "title": "Content",
+            "description": "The actual content of the event as text.",
+            "notes": [
+              "Can contain any text",
+              "Format depends on event kind",
+              "Can be encrypted"
+            ]
+          },
+          "sig": {
+            "title": "Signature",
+            "description": "Cryptographic signature to verify authenticity.",
+            "technical": "64-byte Schnorr signature of the event ID value"
+          }
+        }
       },
-      "labels": {
-        "event_id": "Event ID"
+      "relay_communication": {
+        "title": "Relay Communication",
+        "description": "Communication between clients and relays occurs via WebSocket connections.",
+        "messages": {
+          "types": {
+            "title": "Message Types",
+            "EVENT": "Send a new event",
+            "REQ": "Request events with specific filters",
+            "CLOSE": "End a subscription",
+            "EOSE": "End of stored event stream"
+          }
+        },
+        "subscription": {
+          "title": "Subscription System",
+          "description": "Clients can subscribe to events using filters:",
+          "filter_options": [
+            "ids: Specific event IDs",
+            "authors: Events from specific authors",
+            "kinds: Specific event types",
+            "since: Events after a timestamp",
+            "until: Events up to a timestamp",
+            "limit: Maximum number of events"
+          ]
+        }
       },
-      "buttons": {
-        "fetch_event": "Fetch Event",
-        "fetching": "Fetching...",
-        "clear_input": "Clear input"
+      "event_validation": {
+        "title": "Event Validation",
+        "steps": [
+          "Verify event ID (correct calculation)",
+          "Validate signature",
+          "Check timestamp (not in future)",
+          "Verify required fields"
+        ]
       },
-      "placeholder": {
-        "enter_event_id": "Enter event ID..."
-      },
-      
-      "validation_errors": {
-        "invalid_id": "Invalid event ID",
-        "invalid_sig": "Invalid signature",
-        "future_timestamp": "Timestamp is in the future",
-        "missing_fields": "Missing required fields"
-      },
-      
-      "errors": {
-        "no_relay_connection": "No relay connection available",
-        "event_not_found": "Event not found",
-        "fetch_failed": "Failed to fetch event"
+      "best_practices": {
+        "title": "Best Practices",
+        "client_practices": [
+          "Connect to multiple relays for redundancy",
+          "Local caching of frequently used data",
+          "Implement exponential backoff for connection errors",
+          "Validate all received events"
+        ],
+        "relay_practices": [
+          "Efficient event storage and indexing",
+          "Implementation of rate limiting",
+          "Configurable event retention",
+          "Robust error handling"
+        ]
       }
     },
-
+    "example_usage": "Practical Example",
+    "example_usage_intro": "The following example shows how a typical Nostr event is structured:",
+    "example_usage_scenario": "Suppose a user wants to publish a public message:",
+    "example_message_content": "Hello Nostr world! 👋",
+    "example_explanation": "Breakdown of the example event:",
+    "example_id": "Unique ID of the event, calculated from event data",
+    "example_pubkey": "Author's public key",
+    "example_created_at": "Creation timestamp as Unix timestamp",
+    "example_kind": "Kind 1 indicates this is a public text note",
+    "example_tags": "Optional metadata and references",
+    "example_content": "The actual message text",
+    "example_sig": "Cryptographic signature for verification",
+    "event_fetcher": "Event Fetcher",
+    "fetched_event": "Fetched Event",
+    "fetch_event": "Fetch Event",
+    "detailed_github_page": "Detailed Documentation on GitHub",
+    "example": {
+      "try_it_out": "Try it out with this example event:",
+      "use_this_id": "Use this ID"
+    },
+    "labels": {
+      "event_id": "Event ID"
+    },
+    "buttons": {
+      "fetch_event": "Fetch Event",
+      "fetching": "Fetching...",
+      "clear_input": "Clear input"
+    },
+    "placeholder": {
+      "enter_event_id": "Enter event ID..."
+    },
+    "errors": {
+      "no_relay_connection": "No relay connection available",
+      "event_not_found": "Event not found",
+      "fetch_failed": "Failed to fetch event"
+    },
+    "validation_errors": {
+      "invalid_id": "Invalid event ID",
+      "invalid_sig": "Invalid signature",
+      "future_timestamp": "Timestamp is in the future",
+      "missing_fields": "Missing required fields"
+    }
+  },
   "nip2": {
     "nip2_title": "NIP-02",
     "description": "This NIP describes the second implementation possibility for the Nostr protocol.",

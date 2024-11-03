@@ -17,6 +17,7 @@ import {
   FileText,
   Shield,
   CheckCircle2,
+  Search,
   XCircle
 } from "lucide-react";
 import RelayConnector from './RelayConnector';
@@ -42,8 +43,6 @@ interface SectionProps {
   onToggle: () => void;
 }
 
-
-
 const Section: React.FC<SectionProps> = ({
   id,
   title,
@@ -61,8 +60,8 @@ const Section: React.FC<SectionProps> = ({
     >
       <span className="sl_section-icon">{icon}</span>
       <h2>{title}</h2>
-      {isExpanded ? 
-        <ChevronUp className="transition-transform" /> : 
+      {isExpanded ?
+        <ChevronUp className="transition-transform" /> :
         <ChevronDown className="transition-transform" />
       }
     </button>
@@ -226,61 +225,61 @@ const Nip1: React.FC = () => {
       </header>
 
       <main className="sections-container">
-        {/* Left Column: Content Sections */}
-        <div className="content-sections">
-          
-        <div className="relay-control-section card">
+        {/* Overview Section */}
+        <Section
+          id="overview"
+          title={t('sections.overview.title')}
+          icon={<Hash className="section-icon" />}
+          isExpanded={expandedSection === 'overview'}
+          onToggle={() => toggleSection('overview')}
+        >
+          {renderOverview()}
+        </Section>
+
+        {/* Event Structure Section */}
+        <Section
+          id="event-structure"
+          title={t('sections.event_structure.title')}
+          icon={<FileText className="section-icon" />}
+          isExpanded={expandedSection === 'event-structure'}
+          onToggle={() => toggleSection('event-structure')}
+        >
+          {renderEventStructure()}
+        </Section>
+
+        {/* Relay Communication Section */}
+        <Section
+          id="relay-communication"
+          title={t('sections.relay_communication.title')}
+          icon={<Activity className="section-icon" />}
+          isExpanded={expandedSection === 'relay-communication'}
+          onToggle={() => toggleSection('relay-communication')}
+        >
+          {renderRelayCommunication()}
+        </Section>
+
+        {/* Connection Section */}
+        <Section
+          id="connection"
+          title={t('sections.connection.title')}
+          icon={<Activity className="sl_section-icon" size={24} />}
+          isExpanded={expandedSection === 'connection'}
+          onToggle={() => toggleSection('connection')}
+        >
+          <div className="relay-control-section card">
             <RelayController ndk={ndk} />
           </div>
-          <Section
-            id="overview"
-            title={t('sections.overview.title')}
-            icon={<Hash className="section-icon" />}
-            isExpanded={expandedSection === 'overview'}
-            onToggle={() => toggleSection('overview')}
-          >
-            {renderOverview()}
-          </Section>
+        </Section>
 
-          <Section
-            id="event-structure"
-            title={t('sections.event_structure.title')}
-            icon={<FileText className="section-icon" />}
-            isExpanded={expandedSection === 'event-structure'}
-            onToggle={() => toggleSection('event-structure')}
-          >
-            {renderEventStructure()}
-          </Section>
-
-          <Section
-            id="relay-communication"
-            title={t('sections.relay_communication.title')}
-            icon={<Activity className="section-icon" />}
-            isExpanded={expandedSection === 'relay-communication'}
-            onToggle={() => toggleSection('relay-communication')}
-          >
-            {renderRelayCommunication()}
-          </Section>
-
-          <Section
-            id="relay-connection"
-            title={t('sections.relay_connection.title')}
-            icon={<Key className="section-icon" />}
-            isExpanded={expandedSection === 'relay-connection'}
-            onToggle={() => toggleSection('relay-connection')}
-          >
-            <div>ttt</div>
-          </Section>           
-            </div>
-
-        {/* Right Column: Interactive Section */}
-        <div className="interactive-content">
-
-          <section className="sl_interactive-section card">
-            <h2 className="sl_section-title">
-              {t('event_fetcher')}
-            </h2>
-
+        {/* Event Fetcher Section */}
+        <Section
+          id="event-fetcher"
+          title={t('event_fetcher')}
+          icon={<Search className="section-icon" />}
+          isExpanded={expandedSection === 'event-fetcher'}
+          onToggle={() => toggleSection('event-fetcher')}
+        >
+          <div className="event-fetcher-section card">
             <div className="sl_example-box">
               <p className="sl_content-text">{t('example.try_it_out')}</p>
               <div className="sl_example-container">
@@ -359,8 +358,9 @@ const Nip1: React.FC = () => {
                   <pre>{JSON.stringify(event, null, 2)}</pre>
                 </div>
               </div>
-            )}          </section>
-        </div>
+            )}
+          </div>
+        </Section>
       </main>
 
       <footer className="page-footer">
