@@ -1,0 +1,24 @@
+:root {
+  /* Farben */
+  --primary-color: #CA36B9;
+  --text-color: #fff;
+
+  /* RGB-Werte der Hauptfarben */
+  --primary-color-rgb: 202, 54, 185;
+  --tertiary-color-rgb: 32, 25, 40;
+
+  /* Abgeleitete Farben */
+  --border-color: rgba(var(--tertiary-color-rgb), 0.5);
+
+  /* Schriftgrößen */
+
+  /* Breakpoints */  /* Smartphones */  /* Tablets */ /* Laptops */ /* Desktop */
+
+  /* Container Breiten */
+
+  /* Spacing */
+
+  /* Border Radius */
+
+  /* Transitions */
+}

@@ -281,6 +281,7 @@ const Nip1: React.FC = () => {
         >
           <div className="event-fetcher-section card">
             <div className="example-box">
+              <p className="content-text">{t('event_id_explanation.description')}</p>
               <p className="content-text">{t('example.try_it_out')}</p>
               <div className="example-container">
                 <code className="code-example">{EXAMPLE_EVENT_ID}</code>

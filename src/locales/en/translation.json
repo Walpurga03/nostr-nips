@@ -322,11 +322,11 @@
     "fetch_event": "Search Message",
     "detailed_github_page": "More Details on GitHub",
     "example": {
-      "try_it_out": "Try it out with this message:",
+      "try_it_out": "Try it out with this Event ID:",
       "use_this_id": "Use this number"
     },
     "labels": {
-      "event_id": "Message Number"
+      "event_id": "Event ID"
     },
     "buttons": {
       "fetch_event": "Search Message",
@@ -340,6 +340,9 @@
       "no_relay_connection": "Can't connect to Nostr",
       "event_not_found": "Message not found",
       "fetch_failed": "Couldn't find the message"
+    },
+    "event_id_explanation": {
+      "description": "An Event ID is a unique 64-character hexadecimal string (0-9 and a-f) that uniquely identifies each Nostr message."
     },
     "validation_errors": {
       "invalid_id": "This number doesn't exist",
