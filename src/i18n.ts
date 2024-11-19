@@ -1,4 +1,5 @@
-// Importiere notwendige Module und Übersetzungen
+/// <reference path="./types/translations.d.ts" />
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -6,42 +7,61 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import translationEN from './locales/en/translation.json';
 import translationDE from './locales/de/translation.json';
 
-// Definiere verfügbare Sprachen
+// Verfügbare Sprachen
 export const AVAILABLE_LANGUAGES = ['en', 'de'] as const;
 export type AvailableLanguage = typeof AVAILABLE_LANGUAGES[number];
-export type TranslationNamespace = 'home' | 'nip1' | 'nip2';
 
-// Typsichere Version des resources-Objekts
-const resources: Record<AvailableLanguage, Record<TranslationNamespace, any>> = {
-  en: {
-    home: translationEN.home,
-    nip1: translationEN.nip1,
-    nip2: translationEN.nip2
-  },
-  de: {
-    home: translationDE.home,
-    nip1: translationDE.nip1,
-    nip2: translationDE.nip2
-  }
-};
+// Verfügbare Namespaces
+export const NAMESPACES = ['nav', 'home', 'nip1', 'nip2', 'keyGenerator'] as const;
+export type TranslationNamespace = typeof NAMESPACES[number];
 
-// Initialisiere i18n mit den Ressourcen und Konfigurationen
+// Ressourcen mit Typsicherheit
+const resources = {
+  en: translationEN,
+  de: translationDE
+} as const;
+
 i18n
-  .use(LanguageDetector) // Verwende LanguageDetector für die Spracherkennung
-  .use(initReactI18next) // Initialisiere react-i18next
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
-    resources, // Übersetzungsressourcen
-    fallbackLng: 'en', // Fallback-Sprache
+    resources,
+    fallbackLng: 'en',
+    supportedLngs: AVAILABLE_LANGUAGES,
+    
+    // Interpolation
     interpolation: {
-      escapeValue: false // Keine Escapes für React
+      escapeValue: false
     },
-    debug: false, // Debugging deaktiviert
-    defaultNS: 'home', // Standard-Namespace
-    ns: ['home', 'nip1', 'nip2'], // Verfügbare Namespaces
+    
+    // Namespaces
+    defaultNS: 'nav',
+    ns: NAMESPACES,
+    
+    // Spracherkennung
     detection: {
-      order: ['localStorage', 'navigator'], // Reihenfolge der Spracherkennung
-      caches: ['localStorage'] // Caching-Mechanismus
+      order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
+      lookupQuerystring: 'lang',
+      lookupLocalStorage: 'i18nextLng',
+      caches: ['localStorage'],
+      htmlTag: document.documentElement
+    },
+    
+    // Debug-Modus (nur in Entwicklung)
+    debug: process.env.NODE_ENV === 'development',
+    
+    // React-spezifische Optionen
+    react: {
+      useSuspense: true,
+      bindI18n: 'languageChanged loaded',
+      bindI18nStore: 'added removed',
+      nsMode: 'default'
     }
   });
+
+// Setze die HTML lang attribute
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.setAttribute('lang', lng);
+});
 
 export default i18n;

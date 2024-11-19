@@ -191,7 +191,7 @@ const Home: React.FC = () => {
       </header>
 
       {/* Hauptinhaltsbereiche */}
-      <div>
+      <main className="sections-container">
         {/* Protokoll-Grundlagen Abschnitt */}
         <Section
           id="protocol-basics"
@@ -432,7 +432,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </Section>
-      </div>
+      </main>
     </article>
   );
 };

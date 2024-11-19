@@ -780,3 +780,252 @@
     font-size: 1.2rem;
   }
 }
+
+/* Language Switch Button */
+.language-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--sl-color-primary-100);
+  color: var(--sl-color-primary-900);
+  transition: background-color 0.2s;
+}
+
+.language-switch:hover {
+  background: var(--sl-color-primary-200);
+}
+
+.language-switch span {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Mobile Language Switch */
+.home-nav-mobile .language-switch {
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+  background: var(--sl-color-primary-100);
+}
+
+/* Navigation */
+.home-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--background-rgb);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+}
+
+.home-nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.home-nav-item {
+  padding: 0.5rem 1rem;
+  color: var(--text-color);
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.home-nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.home-nav-item.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Mobile Menu Button */
+.home-nav-mobile-button {
+  display: none;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-color);
+  position: relative;
+  transition: all 0.3s;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: var(--text-color);
+  transition: all 0.3s;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  bottom: -8px;
+}
+
+.hamburger.open {
+  transform: rotate(45deg);
+}
+
+.hamburger.open::before {
+  transform: rotate(90deg);
+  top: 0;
+}
+
+.hamburger.open::after {
+  transform: rotate(90deg);
+  bottom: 0;
+}
+
+/* Mobile Menu */
+.home-nav-mobile {
+  display: none;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: var(--background-rgb);
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.home-nav-mobile.open {
+  transform: translateY(0);
+}
+
+.home-nav-mobile-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  color: var(--text-color);
+  border-radius: 8px;
+  transition: all 0.2s;
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+.home-nav-mobile-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.home-nav-mobile-item.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-nav-content {
+    display: none;
+  }
+
+  .home-nav-mobile-button {
+    display: block;
+  }
+
+  .home-nav-mobile {
+    display: block;
+  }
+}
+
+/* Main Content */
+.home-container {
+  min-height: 100vh;
+  background: var(--background-rgb);
+  color: var(--text-color);
+}
+
+.home-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Home Page Sections */
+.home-section {
+  margin-bottom: 4rem;
+}
+
+.home-section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.home-section-content {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.home-protocol-basics-container {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.home-protocol-basics-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-protocol-basics-intro {
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.home-code-example {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
