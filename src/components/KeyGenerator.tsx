@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { nip19, getPublicKey, generateSecretKey } from 'nostr-tools';
+import { bytesToHex } from '@noble/hashes/utils';
 import { AlertTriangle, Copy, Download, Key, Lock, Shield, Code, ChevronUp, ChevronDown } from 'lucide-react';
 import '../styles/keyGenerator.css';
 
@@ -10,6 +11,10 @@ interface SectionProps {
   icon: React.ReactNode;
   children: React.ReactNode;
   defaultExpanded?: boolean;
+}
+
+interface KeyGeneratorProps {
+  onKeyGenerated?: (privKey: string, pubKey: string) => void;
 }
 
 const Section: React.FC<SectionProps> = ({
@@ -51,7 +56,7 @@ const Section: React.FC<SectionProps> = ({
   );
 };
 
-const KeyGenerator: React.FC = () => {
+const KeyGenerator: React.FC<KeyGeneratorProps> = ({ onKeyGenerated }) => {
   const { t } = useTranslation('keyGenerator');
   const [privateKey, setPrivateKey] = useState('');
   const [publicKey, setPublicKey] = useState('');
@@ -65,21 +70,27 @@ const KeyGenerator: React.FC = () => {
       setError(null);
 
       // Generate private key
-      const privKey = generateSecretKey();
-      if (!privKey) {
+      const privKeyBytes = generateSecretKey();
+      if (!privKeyBytes) {
         throw new Error('Failed to generate private key');
       }
-
+      
       // Get public key
-      const pubKey = getPublicKey(privKey);
+      const pubKey = getPublicKey(privKeyBytes);
       if (!pubKey) {
         throw new Error('Failed to generate public key');
       }
 
       // Convert to bech32 format
-      const nsec = nip19.nsecEncode(privKey);
+      const nsec = nip19.nsecEncode(privKeyBytes);
       const npub = nip19.npubEncode(pubKey);
-      
+
+      // Convert private key to hex for the callback
+      const privKeyHex = bytesToHex(privKeyBytes);
+
+      // Call the callback if provided
+      onKeyGenerated?.(privKeyHex, pubKey);
+
       setPrivateKey(nsec);
       setPublicKey(npub);
       setError(null);

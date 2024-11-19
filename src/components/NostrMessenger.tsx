@@ -143,7 +143,7 @@ const NostrMessenger: React.FC = () => {
     }
   };
 
-  const handleKeyGenerated = (privKey: string, pubKey: string) => {
+  const handleKeyGenerated = (privKey: string, _pubKey: string) => {
     setPrivateKey(privKey);
     setShowKeyGenerator(false);
   };
