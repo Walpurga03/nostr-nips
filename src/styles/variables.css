@@ -17,24 +17,59 @@
   --border-color: rgba(var(--tertiary-color-rgb), 0.5);
   --button-hover-background-color: rgba(var(--primary-color-rgb), 0.1);
 
-  /* Schriftgrößen */
-  --font-size-large: 3em;
-  --font-size-medium: 1.2em;
-  --font-size-small: 1em;
-  --font-size-xsmall: 0.9em;
-  --font-size-xxsmall: 0.8em;
+  /* Moderne Schriftgrößen für Breakpoints */
+  --font-size-base: 16px;
+  --font-size-large: clamp(2rem, 4vw, 3rem);      /* 32-48px */
+  --font-size-medium: clamp(1.25rem, 2vw, 1.5rem); /* 20-24px */
+  --font-size-small: clamp(1rem, 1.5vw, 1.125rem); /* 16-18px */
+  --font-size-xsmall: 0.875rem;                    /* 14px */
+  --font-size-xxsmall: 0.75rem;                    /* 12px */
 
-  /* Breakpoints */
-  --breakpoint-sm: 640px;  /* Smartphones */
-  --breakpoint-md: 768px;  /* Tablets */
-  --breakpoint-lg: 1024px; /* Laptops */
-  --breakpoint-xl: 1280px; /* Desktop */
+  /* Zeilenhöhen */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
 
-  /* Container Breiten */
-  --container-sm: 100%;
-  --container-md: 90%;
-  --container-lg: 1024px;
-  --container-xl: 1200px;
+  /* Layout und Container */
+  --container-width: min(95%, 1800px);
+  --container-max-width: 1800px;
+  --section-width: min(95%, 1600px);
+  --section-max-width: 1600px;
+
+  /* Section Padding */
+  --section-padding-y: clamp(1.5rem, 4vh, 3rem);
+  --section-padding-x: clamp(1rem, 3vw, 2rem);
+
+  /* Content Höhen */
+  --content-height: clamp(250px, 60vh, 800px);
+  --content-max-height: 80vh;
+
+  /* Responsive Breakpoints */
+  --breakpoint-sm: 640px;   /* Smartphones */
+  --breakpoint-md: 768px;   /* Tablets */
+  --breakpoint-lg: 1024px;  /* Laptops */
+  --breakpoint-xl: 1280px;  /* Desktop */
+  --breakpoint-2xl: 1536px; /* Large Screens */
+
+  /* Container Breiten pro Breakpoint */
+  --container-width-sm: 100%;
+  --container-width-md: 98%;
+  --container-width-lg: 95%;
+  --container-width-xl: 90%;
+  --container-width-2xl: 85%;
+  --container-width-xl: 95%;
+  --container-width-lg: 98%;
+  --container-width-md: 100%;
+
+  /* Section Breiten pro Breakpoint */
+  --section-width-sm: 100%;
+  --section-width-md: 98%;
+  --section-width-lg: 95%;
+  --section-width-xl: 90%;
+  --section-width-2xl: 85%;
+  --section-width-xl: 95%;
+  --section-width-lg: 98%;
+  --section-width-md: 100%;
 
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -49,7 +84,6 @@
   --border-radius-lg: 1rem;
 
   /* Transitions */
-  --transition-fast: 150ms;
-  --transition-normal: 300ms;
-  --transition-slow: 500ms;
+  --transition-speed: 0.3s;
+  --transition-timing: ease;
 }

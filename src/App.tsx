@@ -8,13 +8,16 @@ import KeyGenerator from './components/KeyGenerator';
 import NostrMessenger from './components/NostrMessenger';
 import Nip1 from './components/Nip1';
 import Nip2 from './components/Nip2';
+import ExamplePage from './components/ExamplePage';
 import './styles/shared-layout.css';
 
 const App: React.FC = () => {
-  const [activePage, setActivePage] = useState<ActivePage>('home');
+  const [activePage, setActivePage] = useState<ActivePage>('example');
 
   const renderContent = () => {
     switch (activePage) {
+      case 'example':
+        return <ExamplePage />;
       case 'home':
         return <Home />;
       case 'keyGenerator':
@@ -32,9 +35,9 @@ const App: React.FC = () => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <div className="container">
+      <div className="pl_app">
         <Navbar activePage={activePage} setActivePage={setActivePage} />
-        <main className="content">
+        <main className="pl_app__main">
           {renderContent()}
         </main>
       </div>

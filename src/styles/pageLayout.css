@@ -1,0 +1,233 @@
+/* Root Styles */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Base Styles */
+body {
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* App Layout */
+.pl_app {
+  width: clamp(300px, 90%, 1600px);
+  margin: 0 auto;
+  padding: clamp(15px, 2vw, 30px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pl_app__main {
+  flex: 1;
+  width: clamp(280px, 95%, 1400px);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin: var(--spacing-lg) auto 0;
+}
+
+/* Page Layout */
+.pl_page {
+  width: var(--container-width);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.pl_page__header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.pl_page__title {
+  font-size: 3rem;
+  background: linear-gradient(135deg, var(--text-color), #000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
+  word-break: break-word;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.pl_page__subtitle {
+  font-size: var(--font-size-medium);
+  color: var(--text-color);
+  opacity: 0.8;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Section Styles */
+.pl_section {
+  background: black;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+  overflow: hidden;
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(var(--primary-color-rgb), 0.2);
+  transform: translateX(-100%);
+  animation: slideIn 1s forwards ease-out;
+}
+
+.pl_section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(var(--primary-color-rgb), 0.3);
+}
+
+/* Stagger section animations */
+.pl_section:nth-child(1) { animation-delay: 0.2s; }
+.pl_section:nth-child(2) { animation-delay: 0.4s; }
+.pl_section:nth-child(3) { animation-delay: 0.6s; }
+.pl_section:nth-child(4) { animation-delay: 0.8s; }
+.pl_section:nth-child(5) { animation-delay: 1s; }
+
+.pl_section__header {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--secondary-color);
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.pl_section__header:hover {
+  background-color: var(--hover-background-color);
+  padding-left: calc(var(--spacing-lg) + 4px);
+}
+
+.pl_section__header-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.pl_section__icon {
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+.pl_section__title {
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-tight);
+  margin: 0;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.pl_section__toggle {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+}
+
+.pl_section__toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.pl_section__header[aria-expanded="true"] .pl_section__toggle-icon {
+  transform: rotate(180deg);
+}
+
+.pl_section__content {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid rgba(var(--primary-color-rgb), 0.3);
+  transform-origin: top;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  background: #ffffff;
+}
+
+/* Animations */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  #root {
+    width: 95%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .pl_app {
+    width: 85%;
+    padding: var(--spacing-sm);
+  }
+  
+  .pl_app__main {
+    width: 100%;
+    padding: var(--spacing-sm);
+  }
+  
+  .pl_section__header {
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .pl_page{
+    padding: var(--spacing-sm);
+  }
+  .pl_page__title{
+    font-size: var(--font-size-large);
+    padding: 0;
+    margin-bottom: var(--spacing-md);
+  }
+  .pl_page__subtitle, 
+  .pl_section__title {
+    font-size: var(--font-size-small);
+  }
+
+  .pl_section {
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl_section {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .pl_section:hover {
+    transform: none;
+  }
+}
