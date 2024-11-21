@@ -1,0 +1,119 @@
+{
+  "title": "Nostr verstehen",
+  "subtitle": "Das Protokoll hinter einer dezentralen, zensurresistenten Kommunikation im Detail erklärt",
+  "nostr_intro": "Nostr (Notes and Other Stuff Transmitted by Relays) ist ein minimalistisches, zensurresistentes Kommunikationsprotokoll, das auf der Idee basiert, Nachrichten (Events) über ein dezentrales Netzwerk aus Relays zu verbreiten. Es löst zentrale Abhängigkeiten durch kryptografische Mechanismen und bietet robuste, erweiterbare Strukturen für verschiedene Anwendungsfälle – von Social-Media-Plattformen bis hin zu dezentralisierten Marktplätzen.",
+  "protocol_basics": "Grundlagen",
+  "protocol_basics_intro": "Das Protokoll basiert auf der simplen Idee von Events, die über eine standardisierte JSON-Struktur verschickt werden. Ein Event ist eine atomare Einheit, die sämtliche Informationen für die Verarbeitung und Validierung enthält. Dadurch wird eine vollständig interoperable und erweiterbare Grundlage geschaffen.",
+  "event_structure": {
+    "title": "Aufbau einer Nachricht",
+    "id_desc": "Die ID eines Events wird als SHA-256-Hash des serialisierten Inhalts generiert. Dieser Mechanismus stellt sicher, dass jede Nachricht einzigartig und unveränderlich ist.",
+    "pubkey_desc": "Der öffentliche Schlüssel (Public Key) des Absenders dient als Identifikator und ermöglicht die Überprüfung der Signatur.",
+    "created_at_desc": "Ein Unix-Timestamp, der die Erstellungszeit des Events angibt. Er ist essenziell für die zeitliche Ordnung und Konfliktlösung bei konkurrierenden Events.",
+    "kind_desc": "Der Typ des Events (Kind) ist ein numerischer Wert, der die Bedeutung und Verarbeitung des Events beschreibt (z. B. 1 für Textnachrichten, 0 für Profildaten).",
+    "tags_desc": "Ein Array von Schlüssel-Wert-Paaren, das Metadaten wie Verweise auf andere Events, öffentliche Schlüssel oder URLs enthalten kann. Tags erweitern die Funktionalität von Events erheblich.",
+    "content_desc": "Der eigentliche Inhalt des Events, typischerweise als Freitext oder JSON-Datenstruktur. Dieser Inhalt wird nicht verschlüsselt, es sei denn, das Event ist für private Kommunikation gedacht.",
+    "sig_desc": "Die digitale Signatur wird mit dem privaten Schlüssel des Absenders erzeugt und validiert die Authentizität des Events. Sie ist integraler Bestandteil des zensurresistenten Designs."
+  },
+  "protocol_concepts": {
+    "title": "Wichtige Grundbegriffe",
+    "nips_vs_kinds": "NIPs und Nachrichtenarten",
+    "nips_vs_kinds_explanation": "NIPs (Nostr Implementation Possibilities) sind Spezifikationen, die Standards für die Interoperabilität zwischen Clients und Relays definieren. Sie erweitern die Kernfunktionalitäten des Protokolls, ohne die Basiskompatibilität zu gefährden. Jede Art von Event wird durch ihren Kind-Wert klassifiziert, der eine semantische Grundlage für die Interpretation des Events schafft."
+  },
+  "central_concepts": {
+    "title": "Zentrale Konzepte",
+    "event_kinds": {
+      "title": "Event Kinds",
+      "list_items": [
+        "Numerische Klassifikation von Events, z. B. 0 für Profildaten, 1 für Textnachrichten oder 2 für Empfehlung von Relays.",
+        "Bietet eine einheitliche Struktur für die Interpretation und Verarbeitung von Events durch Clients.",
+        "Ermöglicht zukünftige Erweiterungen durch die Definition reservierter Kind-Werte und NIPs."
+      ]
+    },
+    "nips": {
+      "title": "NIPs (Nostr Implementation Possibilities)",
+      "list_items": [
+        "Spezifikationen für Protokollerweiterungen und Verhaltensrichtlinien, z. B. für verschlüsselte private Nachrichten oder Multi-Signatur-Mechanismen.",
+        "Definieren wichtige Standards wie die Validierung von Relays oder die Implementierung von Client-spezifischen Features.",
+        "Ermöglichen modularen Ausbau des Protokolls, ohne grundlegende Änderungen am Kern vorzunehmen."
+      ]
+    },
+    "summary": {
+      "title": "Zusammenfassung",
+      "text": "Nostr ist ein Protokoll mit minimalistischem Design, das durch die Kombination von Event Kinds und NIPs maximale Flexibilität und Erweiterbarkeit bietet. Diese Konzepte ermöglichen es Entwicklern, verschiedenste Anwendungsfälle auf einer robusten, interoperablen Basis umzusetzen."
+    }
+  },
+  "relays_section": {
+    "title": "Relays",
+    "intro": "Relays sind einfache Server, die Events empfangen, speichern und an Clients weiterleiten. Sie bilden das Rückgrat des Nostr-Netzwerks und sorgen für die Verbreitung von Events ohne zentrale Kontrolle.",
+    "features": {
+      "decentralized": {
+        "title": "Dezentralisiert",
+        "description": "Das Fehlen zentraler Autoritäten macht das System widerstandsfähig gegen Zensur und Ausfälle. Jeder kann einen Relay betreiben und so das Netzwerk stärken."
+      },
+      "simple": {
+        "title": "Minimalistische Architektur",
+        "description": "Relays nutzen ein einfaches WebSocket-Protokoll, das die Kommunikation zwischen Clients und Relays effizient und leicht implementierbar macht."
+      },
+      "efficient": {
+        "title": "Effizient",
+        "description": "Optimiert für hohe Durchsatzraten und minimalen Ressourcenverbrauch, was eine skalierbare Infrastruktur ermöglicht."
+      }
+    }
+  },
+  "clients_section": {
+    "title": "Clients",
+    "intro": "Clients sind die Benutzeroberflächen des Nostr-Protokolls. Sie bieten Nutzern die Möglichkeit, Nachrichten zu senden, Relays zu abonnieren und Events zu verarbeiten.",
+    "types": {
+      "web": {
+        "title": "Web Clients",
+        "description": "Webbasierte Clients nutzen den Browser als Plattform, wodurch keine zusätzliche Softwareinstallation erforderlich ist. Diese Clients sind ideal für eine schnelle und flexible Nutzung.",
+        "features": {
+          "browser_based": "Einfacher Zugang über gängige Browser",
+          "everywhere_available": "Erreichbar von jedem internetfähigen Gerät"
+        }
+      },
+      "mobile": {
+        "title": "Mobile Apps",
+        "description": "Mobile Clients sind speziell für iOS- und Android-Geräte optimiert und bieten zusätzliche Funktionen wie Push-Benachrichtigungen für Echtzeit-Updates.",
+        "features": {
+          "ios_android": "Native Unterstützung für mobile Plattformen",
+          "push_support": "Echtzeit-Kommunikation durch Push-Benachrichtigungen"
+        }
+      },
+      "desktop": {
+        "title": "Desktop Apps",
+        "description": "Desktop-Clients bieten umfassende Funktionalität und oft zusätzliche Features wie Offline-Support oder die Möglichkeit, eigene Relays zu betreiben.",
+        "features": {
+          "full_control": "Erweiterte Kontrolle über Daten und Einstellungen",
+          "offline_support": "Lokal gespeicherte Events für Offline-Nutzung"
+        }
+      }
+    }
+  },
+  "summary_section": {
+    "title": "Zusammengefasst",
+    "intro": "Nostr bietet eine robuste und minimalistische Plattform für dezentrale Kommunikation. Durch die Kombination aus einfacher Architektur, kryptografischer Sicherheit und flexiblen Erweiterungsmöglichkeiten schafft es neue Standards für offene Netzwerke.",
+    "key_points": {
+      "protocol": {
+        "title": "Minimalistisches Protokoll",
+        "description": "Die Einfachheit des Protokolls erleichtert Implementierungen und macht es für Entwickler attraktiv."
+      },
+      "decentralized": {
+        "title": "Dezentralität",
+        "description": "Nostr eliminiert zentrale Kontrollpunkte und ermöglicht ein vollständig nutzerkontrolliertes Netzwerk."
+      },
+      "flexible": {
+        "title": "Erweiterbar",
+        "description": "Die modularen NIPs ermöglichen kontinuierliche Verbesserungen und Anpassungen an spezifische Anwendungsfälle."
+      },
+      "secure": {
+        "title": "Kryptografisch gesichert",
+        "description": "Digitale Signaturen garantieren die Authentizität und Unveränderlichkeit aller Nachrichten."
+      }
+    },
+    "conclusion": "Mit seiner simplen, aber leistungsstarken Architektur bietet Nostr eine ideale Basis für Anwendungen, die Dezentralität, Sicherheit und Interoperabilität erfordern.",
+    "info_box": "Erkunde die NIPs, entdecke die Architektur und werde Teil eines revolutionären Kommunikationsnetzwerks!"
+  },
+  "start_speaking": "Text vorlesen",
+  "stop_speaking": "Vorlesen stoppen"
+}

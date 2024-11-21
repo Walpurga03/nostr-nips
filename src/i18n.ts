@@ -4,21 +4,48 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import translationEN from './locales/en/translation.json';
-import translationDE from './locales/de/translation.json';
+// Deutsche Übersetzungen
+import deNav from './locales/de/nav.json';
+import deHome from './locales/de/home.json';
+import deNip1 from './locales/de/nip1.json';
+import deNip2 from './locales/de/nip2.json';
+import deKeyGenerator from './locales/de/keyGenerator.json';
+import dePageLayout from './locales/de/pageLayout.json';
+
+// Englische Übersetzungen
+import enNav from './locales/en/nav.json';
+import enHome from './locales/en/home.json';
+import enNip1 from './locales/en/nip1.json';
+import enNip2 from './locales/en/nip2.json';
+import enKeyGenerator from './locales/en/keyGenerator.json';
+import enPageLayout from './locales/en/pageLayout.json';
 
 // Verfügbare Sprachen
 export const AVAILABLE_LANGUAGES = ['en', 'de'] as const;
 export type AvailableLanguage = typeof AVAILABLE_LANGUAGES[number];
 
 // Verfügbare Namespaces
-export const NAMESPACES = ['nav', 'home', 'nip1', 'nip2', 'keyGenerator'] as const;
+export const NAMESPACES = ['nav', 'home', 'nip1', 'nip2', 'keyGenerator', 'pageLayout'] as const;
 export type TranslationNamespace = typeof NAMESPACES[number];
 
 // Ressourcen mit Typsicherheit
 const resources = {
-  en: translationEN,
-  de: translationDE
+  de: {
+    nav: deNav,
+    home: deHome,
+    nip1: deNip1,
+    nip2: deNip2,
+    keyGenerator: deKeyGenerator,
+    pageLayout: dePageLayout
+  },
+  en: {
+    nav: enNav,
+    home: enHome,
+    nip1: enNip1,
+    nip2: enNip2,
+    keyGenerator: enKeyGenerator,
+    pageLayout: enPageLayout
+  }
 } as const;
 
 i18n

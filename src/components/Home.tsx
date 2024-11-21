@@ -1,212 +1,161 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { Book, Filter, Hash, Network, Server, Users, Layout, Shield, Workflow, Boxes, Volume2, VolumeX } from 'lucide-react';
+import PageLayout from './layout/PageLayout';
 import { useTranslation } from 'react-i18next';
-import {
-  Server,
-  Users,
-  Network,
-  Hash,
-  Layout,
-  Filter,
-  Book,
-  Shield,
-  Settings,
-  TrendingUp
-} from "lucide-react";
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import '../styles/home.css';
 
-// Typen und Interfaces
-/**
- * Props für ausklappbare Abschnitte auf der Startseite
- * @interface SectionProps
- * @property {string} id - Eindeutiger Identifikator für den Abschnitt
- * @property {string} title - Überschrift des Abschnitts
- * @property {React.ReactNode} icon - Icon-Komponente zur Anzeige
- * @property {React.ReactNode} children - Inhalt, der beim Ausklappen angezeigt wird
- * @property {boolean} [defaultExpanded] - Ob der Abschnitt standardmäßig ausgeklappt sein soll
- */
-interface SectionProps {
-  id: string;
-  title: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-  defaultExpanded?: boolean;
-}
-
-/**
- * Ausklappbare Abschnittskomponente mit Animation und Barrierefreiheitsfunktionen
- * @component Section
- * @param {SectionProps} props - Komponentenprops
- */
-const Section: React.FC<SectionProps> = ({
-  id,
-  title,
-  icon,
-  children,
-  defaultExpanded = false
-}) => {
-  // Zustand für das Tracking des ausgeklappten Status
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
-
-  return (
-    <section className="sl_content-section" id={id}>
-      <button
-        className="sl_section-header sl_interactive"
-        onClick={() => setIsExpanded(!isExpanded)}
-        aria-expanded={isExpanded}
-        aria-controls={`section-content-${id}`}
-      >
-        {icon}
-        <h2>{title}</h2>
-        {/* Icon je nach Ausklappzustand wechseln */}
-        {isExpanded ?
-          <ChevronUp className="sl_transition-transform" /> :
-          <ChevronDown className="sl_transition-transform" />
-        }
-      </button>
-
-      {/* Inhalt mit ARIA-Attributen für Barrierefreiheit bedingt rendern */}
-      {isExpanded && (
-        <div
-          className="home-section-content"
-          id={`section-content-${id}`}
-          role="region"
-          aria-labelledby={id}
-        >
-          {children}
-        </div>
-      )}
-    </section>
-  );
-};
-
-/**
- * Zentrale Konzepte-Komponente zur Erklärung von Event Kinds und NIPs
- * Diese Komponente wurde für bessere Organisation und mögliche Wiederverwendung separiert
- * @component CentralConcepts
- * @param {{ t: any }} props - Übersetzungsfunktion von i18next
- */
-const CentralConcepts = ({ t }: { t: any }) => {
-  return (
-    <div className="home-protocol-concepts-container">
-      {/* Event Kinds und NIPs Grid */}
-      <div className="home-concepts-grid">
-        {/* Event Kinds Card */}
-        <div className="home-concept-card">
-          <div className="home-concept-card-header">
-            <Filter size={24} />
-            <h4>{t('central_concepts.event_kinds.title')}</h4>
-          </div>
-          <ul className="home-concept-list">
-            {t('central_concepts.event_kinds.list_items', { returnObjects: true }).map((item: string, index: number) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-          <div className="home-concept-example">
-            {t('central_concepts.event_kinds.example')}
-          </div>
-        </div>
-
-        {/* NIPs Card */}
-        <div className="home-concept-card">
-          <div className="home-concept-card-header">
-            <Book size={24} />
-            <h4>{t('central_concepts.nips.title')}</h4>
-          </div>
-          <ul className="home-concept-list">
-            {t('central_concepts.nips.list_items', { returnObjects: true }).map((item: string, index: number) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-          <div className="home-concept-example">
-            {t('central_concepts.nips.example')}
-          </div>
-        </div>
-      </div>
-
-      {/* Event Kinds Ranges */}
-      <div className="home-event-kinds-ranges">
-        <h3>{t('event_kinds.ranges.title')}</h3>
-        <div className="home-ranges-grid">
-          <div className="home-range-card">
-            <div className="home-range-number">0-999</div>
-            <p className="home-range-description">{t('event_kinds.ranges.regular')}</p>
-          </div>
-          <div className="home-range-card">
-            <div className="home-range-number">1000-9999</div>
-            <p className="home-range-description">{t('event_kinds.ranges.regular_replaceable')}</p>
-          </div>
-          <div className="home-range-card">
-            <div className="home-range-number">10000-19999</div>
-            <p className="home-range-description">{t('event_kinds.ranges.ephemeral')}</p>
-          </div>
-          <div className="home-range-card">
-            <div className="home-range-number">20000-29999</div>
-            <p className="home-range-description">{t('event_kinds.ranges.parameterized')}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Summary */}
-      <div className="home-concepts-summary">
-        <p>
-          <strong>{t('central_concepts.summary.title')}:</strong> {t('central_concepts.summary.text')}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-/**
- * Home-Komponente als Hauptlandingpage für den Nostr NIPs Explorer
- * Bietet einen Überblick über Kernkonzepte und Protokoll-Grundlagen
- * 
- * Designentscheidungen:
- * - Verwendung von ausklappbaren Abschnitten für bessere Übersichtlichkeit
- * - Standardmäßiges Ausklappen des Basics-Abschnitts für direkte Informationsvermittlung
- * - Icon-basierte Navigation für intuitive Bedienung
- * - Responsive Design für verschiedene Bildschirmgrößen
- * 
- * @component Home
- */
 const Home: React.FC = () => {
-  // Initialisierung des Übersetzungs-Hooks mit 'home' Namespace
-  const { t, ready } = useTranslation('home');
+  const { t, i18n } = useTranslation('home');
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
+  const [isSpeaking, setIsSpeaking] = useState<string | null>(null);
 
-  // Ladezustand anzeigen, während Übersetzungen geladen werden
-  if (!ready) {
-    return (
-      <div>
-        <div />
-        <p>Loading...</p>
-      </div>
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections(prev =>
+      prev.includes(sectionId)
+        ? prev.filter(id => id !== sectionId)
+        : [...prev, sectionId]
     );
-  }
+  };
 
-  return (
-    <article>
-      {/* Seitenkopf */}
-      <header className="sl_page-header">
-        <h1 className="sl_page-title">{t('welcome')}</h1>
-        <p className="sl_page-intro">{t('nostr_intro')}</p>
-      </header>
+  const getSectionText = (sectionId: string): string => {
+    switch (sectionId) {
+      case 'protocol-basics':
+        return `${t('protocol_basics')}. 
+                ${t('protocol_basics_intro')}. 
+                ${t('event_structure.title')}. 
+                ${t('event_structure.id_desc')}. 
+                ${t('event_structure.pubkey_desc')}. 
+                ${t('event_structure.created_at_desc')}. 
+                ${t('event_structure.kind_desc')}. 
+                ${t('event_structure.tags_desc')}. 
+                ${t('event_structure.content_desc')}. 
+                ${t('event_structure.sig_desc')}.`;
+      
+      case 'central-concepts':
+        return `${t('central_concepts.title')}. 
+                ${t('protocol_concepts.nips_vs_kinds')}. 
+                ${t('protocol_concepts.nips_vs_kinds_explanation')}. 
+                ${t('central_concepts.event_kinds.title')}. 
+                ${t('central_concepts.event_kinds.list_items.0')}. 
+                ${t('central_concepts.event_kinds.list_items.1')}. 
+                ${t('central_concepts.event_kinds.list_items.2')}. 
+                ${t('central_concepts.nips.title')}. 
+                ${t('central_concepts.nips.list_items.0')}. 
+                ${t('central_concepts.nips.list_items.1')}. 
+                ${t('central_concepts.nips.list_items.2')}. 
+                ${t('central_concepts.summary.title')}. 
+                ${t('central_concepts.summary.text')}.`;
+      
+      case 'relays':
+        return `${t('relays_section.title')}. 
+                ${t('relays_section.intro')}. 
+                ${t('relays_section.features.decentralized.title')}. 
+                ${t('relays_section.features.decentralized.description')}. 
+                ${t('relays_section.features.simple.title')}. 
+                ${t('relays_section.features.simple.description')}. 
+                ${t('relays_section.features.efficient.title')}. 
+                ${t('relays_section.features.efficient.description')}.`;
+      
+      case 'clients':
+        return `${t('clients_section.title')}. 
+                ${t('clients_section.intro')}. 
+                ${t('clients_section.types.web.title')}. 
+                ${t('clients_section.types.web.description')}. 
+                ${t('clients_section.types.web.features.browser_based')}. 
+                ${t('clients_section.types.web.features.everywhere_available')}. 
+                ${t('clients_section.types.mobile.title')}. 
+                ${t('clients_section.types.mobile.description')}. 
+                ${t('clients_section.types.mobile.features.ios_android')}. 
+                ${t('clients_section.types.mobile.features.push_support')}. 
+                ${t('clients_section.types.desktop.title')}. 
+                ${t('clients_section.types.desktop.description')}. 
+                ${t('clients_section.types.desktop.features.full_control')}. 
+                ${t('clients_section.types.desktop.features.offline_support')}.`;
+      
+      case 'summary':
+        return `${t('summary_section.title')}. 
+                ${t('summary_section.intro')}. 
+                ${t('summary_section.key_points.protocol.title')}. 
+                ${t('summary_section.key_points.protocol.description')}. 
+                ${t('summary_section.key_points.decentralized.title')}. 
+                ${t('summary_section.key_points.decentralized.description')}. 
+                ${t('summary_section.key_points.flexible.title')}. 
+                ${t('summary_section.key_points.flexible.description')}. 
+                ${t('summary_section.key_points.secure.title')}. 
+                ${t('summary_section.key_points.secure.description')}. 
+                ${t('summary_section.conclusion')}. 
+                ${t('summary_section.info_box')}.`;
+      
+      default:
+        return '';
+    }
+  };
 
-      {/* Hauptinhaltsbereiche */}
-      <main className="sections-container">
-        {/* Protokoll-Grundlagen Abschnitt */}
-        <Section
-          id="protocol-basics"
-          title={t('protocol_basics')}
-          icon={<Hash className="sl_section-icon" size={24} />}
-          defaultExpanded={true}
-        >
-          <div className="home-protocol-basics-container">
-            <p className="home-protocol-basics-intro">{t('protocol_basics_intro')}</p>
-            <div className="home-event-structure-container">
-              <h3 className="home-event-structure-heading">{t('event_structure.title')}</h3>
-              <div className="home-code-example-container">
-                <pre className="home-code-example-pre">
-                  <code>
-                    {`{
+  const speakText = useCallback((text: string, sectionId: string) => {
+    // Stoppe vorherige Sprachausgabe
+    window.speechSynthesis.cancel();
+
+    if (isSpeaking === sectionId) {
+      setIsSpeaking(null);
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Wähle deutsche oder englische Stimme basierend auf der aktuellen Sprache
+    const voices = window.speechSynthesis.getVoices();
+    const lang = i18n.language;
+    const voice = voices.find(voice => voice.lang.startsWith(lang)) || 
+                 voices.find(voice => voice.lang === 'de-DE') ||
+                 voices.find(voice => voice.lang === 'en-US');
+    
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    }
+    
+    utterance.onend = () => {
+      setIsSpeaking(null);
+    };
+
+    setIsSpeaking(sectionId);
+    window.speechSynthesis.speak(utterance);
+  }, [i18n.language, isSpeaking, t]);
+
+  const SpeakButton: React.FC<{ sectionId: string }> = ({ sectionId }) => (
+    <button 
+      className="speak-button"
+      onClick={(e) => {
+        e.stopPropagation();
+        const text = getSectionText(sectionId);
+        speakText(text, sectionId);
+      }}
+      title={isSpeaking === sectionId ? t('stop_speaking') : t('start_speaking')}
+      data-speaking={isSpeaking === sectionId}
+      aria-label={isSpeaking === sectionId ? t('stop_speaking') : t('start_speaking')}
+    >
+      {isSpeaking === sectionId ? <VolumeX size={20} /> : <Volume2 size={20} />}
+    </button>
+  );
+
+  const sections = [
+    {
+      id: 'protocol-basics',
+      title: t('protocol_basics'),
+      icon: <Hash size={20} />,
+      children: (
+        <div className="home-protocol-basics-container">
+          <div className="section-header">
+            <h2>{t('protocol_basics')}</h2>
+            <SpeakButton sectionId="protocol-basics" />
+          </div>
+          <p className="home-protocol-basics-intro">{t('protocol_basics_intro')}</p>
+          <div className="home-event-structure-container">
+            <h3 className="home-event-structure-heading">{t('event_structure.title')}</h3>
+            <div className="home-code-example-container">
+              <pre className="home-code-example-pre">
+                <code>
+                  {`{
   `}<span className="home-code-example-key">"id"</span>{`: "...",        // ${t('event_structure.id_desc')}
   `}<span className="home-code-example-key">"pubkey"</span>{`: "...",    // ${t('event_structure.pubkey_desc')}
   `}<span className="home-code-example-key">"created_at"</span>{`: ...,  // ${t('event_structure.created_at_desc')}
@@ -215,224 +164,244 @@ const Home: React.FC = () => {
   `}<span className="home-code-example-key">"content"</span>{`: "...",   // ${t('event_structure.content_desc')}
   `}<span className="home-code-example-key">"sig"</span>{`: "..."        // ${t('event_structure.sig_desc')}
 }`}
-                  </code>
-                </pre>
-              </div>
+                </code>
+              </pre>
             </div>
           </div>
-        </Section>
-
-        {/* Protokoll-Konzepte Abschnitt */}
-        <Section
-          id="protocol-concepts"
-          title={t('protocol_concepts.title')}
-          icon={<Layout className="sl_section-icon" size={24} />}
-        >
-          <CentralConcepts t={t} />
-        </Section>
-
-        {/* Relays Abschnitt */}
-        <Section
-          id="relays"
-          title={t('relays_section.title')}
-          icon={<Server className="sl_section-icon" size={24} />}
-        >
-          <div className="home-relays-container">
-            <p className="home-relays-intro">{t('relays_section.intro')}</p>
-
-            <div className="home-relays-features-grid">
-              {/* Dezentralisiert Feature */}
-              <div className="home-relay-feature-card">
-                <div className="home-relay-feature-header">
-                  <div className="home-relay-feature-icon">
-                    <Network size={24} />
-                  </div>
-                  <h4 className="home-relay-feature-title">
-                    {t('relays_section.features.decentralized.title')}
-                  </h4>
-                </div>
-                <p className="home-relay-feature-description">
-                  {t('relays_section.features.decentralized.description')}
-                </p>
-                <div className="home-relay-status">Active Nodes</div>
+        </div>
+      ),
+      isExpanded: expandedSections.includes('protocol-basics'),
+      onToggle: () => toggleSection('protocol-basics')
+    },
+    {
+      id: 'central-concepts',
+      title: t('central_concepts.title'),
+      icon: <Filter size={20} />,
+      children: (
+        <div className="home-protocol-concepts-container">
+          <div className="section-header">
+            <h2>{t('central_concepts.title')}</h2>
+            <SpeakButton sectionId="central-concepts" />
+          </div>
+          <div className="home-concepts-grid">
+            <div className="home-concept-card">
+              <div className="home-concept-card-header">
+                <Filter size={24} />
+                <h4>{t('central_concepts.event_kinds.title')}</h4>
               </div>
-
-              {/* Redundant Feature */}
-              <div className="home-relay-feature-card">
-                <div className="home-relay-feature-header">
-                  <div className="home-relay-feature-icon">
-                    <Shield size={24} />
-                  </div>
-                  <h4 className="home-relay-feature-title">
-                    {t('relays_section.features.redundant.title')}
-                  </h4>
-                </div>
-                <p className="home-relay-feature-description">
-                  {t('relays_section.features.redundant.description')}
-                </p>
-                <div className="home-relay-status">Backup Ready</div>
+              <ul className="home-concept-list">
+                {Object.values(t('central_concepts.event_kinds.list_items', { returnObjects: true })).map((item: string, index: number) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="home-concept-card">
+              <div className="home-concept-card-header">
+                <Book size={24} />
+                <h4>{t('central_concepts.nips.title')}</h4>
               </div>
-
-              {/* Flexibel Feature */}
-              <div className="home-relay-feature-card">
-                <div className="home-relay-feature-header">
-                  <div className="home-relay-feature-icon">
-                    <Settings size={24} />
-                  </div>
-                  <h4 className="home-relay-feature-title">
-                    {t('relays_section.features.flexible.title')}
-                  </h4>
-                </div>
-                <p className="home-relay-feature-description">
-                  {t('relays_section.features.flexible.description')}
-                </p>
-                <div className="home-relay-status">Configurable</div>
-              </div>
-
-              {/* Skalierbar Feature */}
-              <div className="home-relay-feature-card">
-                <div className="home-relay-feature-header">
-                  <div className="home-relay-feature-icon">
-                    <TrendingUp size={24} />
-                  </div>
-                  <h4 className="home-relay-feature-title">
-                    {t('relays_section.features.scalable.title')}
-                  </h4>
-                </div>
-                <p className="home-relay-feature-description">
-                  {t('relays_section.features.scalable.description')}
-                </p>
-                <div className="home-relay-status">High Performance</div>
-              </div>
+              <ul className="home-concept-list">
+                {Object.values(t('central_concepts.nips.list_items', { returnObjects: true })).map((item: string, index: number) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
             </div>
           </div>
-        </Section>
-
-        {/* Clients Abschnitt */}
-        <Section
-          id="clients"
-          title={t('clients_section.title')}
-          icon={<Users className="sl_section-icon" size={24} />}
-        >
-          <div className="home-clients-container">
-            <p className="home-clients-intro">{t('clients_section.intro')}</p>
-
-            <div className="home-client-types-grid">
-              {/* Web Client Card */}
-              <div className="home-client-type-card home-client-type-web">
-                <div className="home-client-type-icon">
-                  <Layout size={24} />
-                </div>
-                <h4 className="home-client-type-title">
-                  {t('clients_section.types.web.title')}
-                </h4>
-                <p className="home-client-type-description">
-                  {t('clients_section.types.web.description')}
-                </p>
-                <div className="home-client-features">
-                  <span className="home-client-feature-tag">
-                    <Layout size={14} />
-                    Browser-basiert
-                  </span>
-                  <span className="home-client-feature-tag">
-                    <Network size={14} />
-                    Überall verfügbar
-                  </span>
-                </div>
-              </div>
-
-              {/* Mobile Client Card */}
-              <div className="home-client-type-card home-client-type-mobile">
-                <div className="home-client-type-icon">
-                  <Users size={24} />
-                </div>
-                <h4 className="home-client-type-title">
-                  {t('clients_section.types.mobile.title')}
-                </h4>
-                <p className="home-client-type-description">
-                  {t('clients_section.types.mobile.description')}
-                </p>
-                <div className="home-client-features">
-                  <span className="home-client-feature-tag">
-                    <Users size={14} />
-                    iOS & Android
-                  </span>
-                  <span className="home-client-feature-tag">
-                    <Server size={14} />
-                    Push Support
-                  </span>
-                </div>
-              </div>
-
-              {/* Desktop Client Card */}
-              <div className="home-client-type-card home-client-type-desktop">
-                <div className="home-client-type-icon">
-                  <Server size={24} />
-                </div>
-                <h4 className="home-client-type-title">
-                  {t('clients_section.types.desktop.title')}
-                </h4>
-                <p className="home-client-type-description">
-                  {t('clients_section.types.desktop.description')}
-                </p>
-                <div className="home-client-features">
-                  <span className="home-client-feature-tag">
-                    <Server size={14} />
-                    Volle Kontrolle
-                  </span>
-                  <span className="home-client-feature-tag">
-                    <Network size={14} />
-                    Offline Support
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="home-concept-summary">
+            <h4>{t('central_concepts.summary.title')}</h4>
+            <p>{t('central_concepts.summary.text')}</p>
           </div>
-        </Section>
-
-        {/* Zusammenfassungs-Abschnitt */}
-        <Section
-          id="summary"
-          title={t('summary.title')}
-          icon={<Network className="sl_section-icon" size={24} />}
-        >
-          <div className="home-summary-container">
-            <div className="home-summary-content">
-              <h2 className="home-summary-title">
-                <Network size={32} />
-                {t('summary.title')}
-              </h2>
-
-              <div className="home-summary-text">
-                {/* Split text and highlight key terms */}
-                {t('summary.text').split(' ').map((word, index) => {
-                  const isKeyword = [
-                    'Nostr',
-                    'NIPs',
-                    'Protokoll',
-                    'dezentral',
-                    'Relays',
-                    'Clients'
-                  ].includes(word);
-
-                  return isKeyword ? (
-                    <span key={index} className="home-summary-keyword">
-                      {word}{' '}
-                    </span>
-                  ) : (
-                    word + ' '
-                  );
-                })}
+          <div className="home-protocol-concepts">
+            <h4>{t('protocol_concepts.nips_vs_kinds')}</h4>
+            <p>{t('protocol_concepts.nips_vs_kinds_explanation')}</p>
+          </div>
+        </div>
+      ),
+      isExpanded: expandedSections.includes('central-concepts'),
+      onToggle: () => toggleSection('central-concepts')
+    },
+    {
+      id: 'relays',
+      title: t('relays_section.title'),
+      icon: <Server size={20} />,
+      children: (
+        <div className="home-relays-container">
+          <div className="section-header">
+            <h2>{t('relays_section.title')}</h2>
+            <SpeakButton sectionId="relays" />
+          </div>
+          <p className="home-relays-intro">{t('relays_section.intro')}</p>
+          <div className="home-relays-features-grid">
+            <div className="home-relay-feature-card">
+              <div className="home-relay-feature-header">
+                <Network size={24} />
+                <h4>{t('relays_section.features.decentralized.title')}</h4>
               </div>
-
-              <div className="home-summary-info-box">
+              <p>{t('relays_section.features.decentralized.description')}</p>
+            </div>
+            <div className="home-relay-feature-card">
+              <div className="home-relay-feature-header">
                 <Layout size={24} />
-                <p>{t('summary.info_box')}</p>
+                <h4>{t('relays_section.features.simple.title')}</h4>
               </div>
+              <p>{t('relays_section.features.simple.description')}</p>
+            </div>
+            <div className="home-relay-feature-card">
+              <div className="home-relay-feature-header">
+                <Workflow size={24} />
+                <h4>{t('relays_section.features.efficient.title')}</h4>
+              </div>
+              <p>{t('relays_section.features.efficient.description')}</p>
             </div>
           </div>
-        </Section>
-      </main>
+        </div>
+      ),
+      isExpanded: expandedSections.includes('relays'),
+      onToggle: () => toggleSection('relays')
+    },
+    {
+      id: 'clients',
+      title: t('clients_section.title'),
+      icon: <Users size={20} />,
+      children: (
+        <div className="home-clients-container">
+          <div className="section-header">
+            <h2>{t('clients_section.title')}</h2>
+            <SpeakButton sectionId="clients" />
+          </div>
+          <p className="home-clients-intro">{t('clients_section.intro')}</p>
+          <div className="home-clients-grid">
+            <div className="home-client-card">
+              <div className="home-client-header">
+                <Layout size={24} />
+                <h4>{t('clients_section.types.web.title')}</h4>
+              </div>
+              <p>{t('clients_section.types.web.description')}</p>
+              <ul className="home-client-features">
+                <li>{t('clients_section.types.web.features.browser_based')}</li>
+                <li>{t('clients_section.types.web.features.everywhere_available')}</li>
+              </ul>
+            </div>
+            <div className="home-client-card">
+              <div className="home-client-header">
+                <Boxes size={24} />
+                <h4>{t('clients_section.types.mobile.title')}</h4>
+              </div>
+              <p>{t('clients_section.types.mobile.description')}</p>
+              <ul className="home-client-features">
+                <li>{t('clients_section.types.mobile.features.ios_android')}</li>
+                <li>{t('clients_section.types.mobile.features.push_support')}</li>
+              </ul>
+            </div>
+            <div className="home-client-card">
+              <div className="home-client-header">
+                <Shield size={24} />
+                <h4>{t('clients_section.types.desktop.title')}</h4>
+              </div>
+              <p>{t('clients_section.types.desktop.description')}</p>
+              <ul className="home-client-features">
+                <li>{t('clients_section.types.desktop.features.full_control')}</li>
+                <li>{t('clients_section.types.desktop.features.offline_support')}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      ),
+      isExpanded: expandedSections.includes('clients'),
+      onToggle: () => toggleSection('clients')
+    },
+    {
+      id: 'summary',
+      title: t('summary_section.title'),
+      icon: <Network size={20} />,
+      children: (
+        <div className="home-summary-container">
+          <div className="section-header">
+            <h2>{t('summary_section.title')}</h2>
+            <SpeakButton sectionId="summary" />
+          </div>
+          <p className="home-summary-intro">{t('summary_section.intro')}</p>
+          <div className="home-summary-points">
+            {/* Protocol Point */}
+            <div className="home-summary-point">
+              <div className="home-summary-point-header">
+                <div className="home-summary-point-icon">
+                  <Workflow size={24} />
+                </div>
+                <h4 className="home-summary-point-title">
+                  {t('summary_section.key_points.protocol.title')}
+                </h4>
+              </div>
+              <p className="home-summary-point-description">
+                {t('summary_section.key_points.protocol.description')}
+              </p>
+            </div>
+
+            {/* Decentralized Point */}
+            <div className="home-summary-point">
+              <div className="home-summary-point-header">
+                <div className="home-summary-point-icon">
+                  <Network size={24} />
+                </div>
+                <h4 className="home-summary-point-title">
+                  {t('summary_section.key_points.decentralized.title')}
+                </h4>
+              </div>
+              <p className="home-summary-point-description">
+                {t('summary_section.key_points.decentralized.description')}
+              </p>
+            </div>
+
+            {/* Flexible Point */}
+            <div className="home-summary-point">
+              <div className="home-summary-point-header">
+                <div className="home-summary-point-icon">
+                  <Boxes size={24} />
+                </div>
+                <h4 className="home-summary-point-title">
+                  {t('summary_section.key_points.flexible.title')}
+                </h4>
+              </div>
+              <p className="home-summary-point-description">
+                {t('summary_section.key_points.flexible.description')}
+              </p>
+            </div>
+
+            {/* Secure Point */}
+            <div className="home-summary-point">
+              <div className="home-summary-point-header">
+                <div className="home-summary-point-icon">
+                  <Shield size={24} />
+                </div>
+                <h4 className="home-summary-point-title">
+                  {t('summary_section.key_points.secure.title')}
+                </h4>
+              </div>
+              <p className="home-summary-point-description">
+                {t('summary_section.key_points.secure.description')}
+              </p>
+            </div>
+          </div>
+          <div className="home-summary-info-box">
+            <p>{t('summary_section.info_box')}</p>
+          </div>
+          <p className="home-summary-conclusion">
+            {t('summary_section.conclusion')}
+          </p>
+        </div>
+      ),
+      isExpanded: expandedSections.includes('summary'),
+      onToggle: () => toggleSection('summary')
+    }
+  ];
+
+  return (
+    <article className="home">
+      <PageLayout
+        title={t('title')}
+        subtitle={t('subtitle')}
+        sections={sections}
+      />
     </article>
   );
 };

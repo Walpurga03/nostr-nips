@@ -1,0 +1,21 @@
+{
+  "nip2_title": "NIP-02",
+  "description": "Dieses NIP beschreibt die zweite Implementierungsmöglichkeit für das Nostr-Protokoll.",
+  "details": "Hier ist eine detaillierte Erklärung von NIP-02.",
+  "example_usage": "Beispiel für die Verwendung",
+  "example_usage_intro": "Hier ist ein einfaches Beispiel für die Verwendung von NIP-02 in einem Protokoll:",
+  "example_usage_scenario": "Stell dir vor, du möchtest ein Ereignis erstellen, das eine Benutzeraktion darstellt. Das Ereignis könnte so aussehen:",
+  "example_message_content": "Beispielinhalt für Benutzeraktion",
+  "example_explanation": "In diesem Beispiel:",
+  "example_id": "Eine eindeutige Kennung für das Ereignis.",
+  "example_pubkey": "Der Benutzername oder die ID des Autors.",
+  "example_created_at": "Das Erstellungsdatum des Ereignisses in Unix-Zeitstempel.",
+  "example_kind": "Die Art des Ereignisses, in diesem Fall eine Benutzeraktion.",
+  "example_tags": "Eine Liste von Tags, die das Ereignis kategorisieren.",
+  "example_content": "Der eigentliche Inhalt der Benutzeraktion.",
+  "example_sig": "Eine digitale Signatur, die die Integrität und Authentizität des Ereignisses sicherstellt.",
+  "example_filters": "Clients können dann Filter verwenden, um nur bestimmte Ereignisse zu abonnieren, z.B. alle Aktionen von 'user123' oder alle Ereignisse mit dem Tag 'action'.",
+  "event_fetcher": "Event Fetcher",
+  "fetched_event": "Fetched Event",
+  "detailed_github_page": "Detaillierte GitHub-Seite"
+}

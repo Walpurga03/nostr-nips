@@ -1,0 +1,204 @@
+{
+  "nip1_title": "NIP-01: Die Grundregeln",
+  "key_protocol": "Die Grundregeln",
+  "key_protocol_description": "NIP-01 ist wie das Grundrezept für Nostr. Es erklärt die wichtigsten Regeln, die alle Apps befolgen müssen, damit sie miteinander funktionieren können.",
+  "sections": {
+    "connection": {
+      "title": "Verbindung zu Nostr",
+      "description": "Hier siehst du, ob du mit Nostr verbunden bist und kannst die Verbindung steuern"
+    },
+    "overview": {
+      "title": "Das Wichtigste kurz erklärt",
+      "description": "NIP-01 ist wie das Kochbuch für Nostr - es enthält alle grundlegenden Rezepte",
+      "core_aspects": {
+        "title": "Die Bausteine von Nostr",
+        "items": [
+          {
+            "title": "Nachrichtenform",
+            "description": "Der Bauplan für jeden Beitrag in Nostr",
+            "icon": "file-text"
+          },
+          {
+            "title": "Sicherheit",
+            "description": "Wie wir sicherstellen, dass Nachrichten echt sind",
+            "icon": "shield"
+          },
+          {
+            "title": "Verbindungsregeln",
+            "description": "Wie Apps mit Nostr sprechen",
+            "icon": "server"
+          },
+          {
+            "title": "Nachrichtenverteilung",
+            "description": "Wie Nachrichten schnell an alle kommen",
+            "icon": "zap"
+          }
+        ]
+      },
+      "points": [
+        "Legt fest, wie Nachrichten aussehen müssen",
+        "Erklärt, wie Apps mit Nostr sprechen",
+        "Zeigt, wie man prüft, ob Nachrichten echt sind",
+        "Beschreibt, wie Nachrichten verteilt werden"
+      ],
+      "implementation_goals": {
+        "title": "Was wir erreichen wollen",
+        "items": [
+          "Jeder soll Nostr leicht nutzen können",
+          "Alle Apps sollen zusammenarbeiten",
+          "Entwickler sollen schnell loslegen können",
+          "Nostr soll auch in Zukunft gut funktionieren"
+        ]
+      }
+    },
+    "event_structure": {
+      "title": "Wie eine Nachricht aufgebaut ist",
+      "description": "Jede Aktion in Nostr ist eine Nachricht - egal ob du etwas postest, jemandem folgst oder dein Profil änderst.",
+      "fields": {
+        "id": {
+          "title": "Nachrichten-ID",
+          "description": "Jede Nachricht hat eine einzigartige Nummer, wie ein Fingerabdruck",
+          "technical": "Wird automatisch aus der Nachricht erstellt"
+        },
+        "pubkey": {
+          "title": "Absender",
+          "description": "Dein persönlicher Code, der zeigt, dass die Nachricht von dir ist",
+          "technical": "Dein öffentlicher Schlüssel"
+        },
+        "created_at": {
+          "title": "Zeitpunkt",
+          "description": "Wann die Nachricht geschrieben wurde",
+          "technical": "Der genaue Zeitpunkt der Erstellung"
+        },
+        "kind": {
+          "title": "Art der Nachricht",
+          "description": "Was für eine Nachricht es ist",
+          "examples": [
+            "0: Dein Profil",
+            "1: Normaler Text",
+            "2: Empfehlungen für Server",
+            "3: Deine Kontakte",
+            "4: Private Nachricht"
+          ]
+        },
+        "tags": {
+          "title": "Zusatzinfos",
+          "description": "Weitere wichtige Informationen zur Nachricht",
+          "common_tags": [
+            "e: Verweise auf andere Nachrichten",
+            "p: Verweise auf andere Nutzer",
+            "t: Themen (Hashtags)"
+          ]
+        },
+        "content": {
+          "title": "Inhalt",
+          "description": "Was in deiner Nachricht steht",
+          "notes": [
+            "Kann normaler Text sein",
+            "Sieht je nach Nachrichtenart anders aus",
+            "Kann auch privat/verschlüsselt sein"
+          ]
+        },
+        "sig": {
+          "title": "Unterschrift",
+          "description": "Deine digitale Unterschrift, die beweist, dass die Nachricht wirklich von dir ist",
+          "technical": "Deine persönliche Signatur"
+        }
+      }
+    },
+    "relay_communication": {
+      "title": "Wie Nachrichten verschickt werden",
+      "description": "Wie deine App mit Nostr spricht und Nachrichten austauscht",
+      "messages": {
+        "types": {
+          "title": "Was du machen kannst",
+          "EVENT": "Eine neue Nachricht senden",
+          "REQ": "Nach bestimmten Nachrichten suchen",
+          "CLOSE": "Suche beenden",
+          "EOSE": "Keine weiteren Nachrichten vorhanden"
+        }
+      },
+      "subscription": {
+        "title": "Nachrichten finden",
+        "description": "Du kannst nach bestimmten Nachrichten suchen:",
+        "filter_options": [
+          "Nach bestimmten Nachrichten-IDs",
+          "Nach bestimmten Personen",
+          "Nach bestimmten Arten von Nachrichten",
+          "Nach Nachrichten ab einem Zeitpunkt",
+          "Nach Nachrichten bis zu einem Zeitpunkt",
+          "Maximale Anzahl an Nachrichten"
+        ]
+      }
+    },
+    "event_validation": {
+      "title": "Prüfung von Nachrichten",
+      "steps": [
+        "Ist die Nachrichten-ID richtig?",
+        "Ist die Unterschrift echt?",
+        "Ist der Zeitpunkt möglich?",
+        "Sind alle wichtigen Infos da?"
+      ]
+    },
+    "best_practices": {
+      "title": "Tipps für die Nutzung",
+      "client_practices": [
+        "Verbinde dich mit mehreren Servern für mehr Sicherheit",
+        "Speichere wichtige Infos lokal",
+        "Versuche es später nochmal, wenn etwas nicht klappt",
+        "Prüfe alle eingehenden Nachrichten"
+      ],
+      "relay_practices": [
+        "Speichere Nachrichten clever",
+        "Verhindere Überlastung",
+        "Räume regelmäßig auf",
+        "Geh mit Fehlern richtig um"
+      ]
+    }
+  },
+  "example_usage": "Ein Beispiel",
+  "example_usage_intro": "So sieht eine normale Nachricht in Nostr aus:",
+  "example_usage_scenario": "Stell dir vor, du willst eine Nachricht an alle schreiben:",
+  "example_message_content": "Hallo Nostr-Welt! 👋",
+  "example_explanation": "Das steckt in der Nachricht:",
+  "example_id": "Die einzigartige Nummer der Nachricht",
+  "example_pubkey": "Dein persönlicher Code",
+  "example_created_at": "Wann du die Nachricht geschrieben hast",
+  "example_kind": "Art 1 bedeutet: Eine normale Textnachricht",
+  "example_tags": "Zusätzliche Infos",
+  "example_content": "Dein Text",
+  "example_sig": "Deine digitale Unterschrift",
+  "event_fetcher": "Nachrichten finden",
+  "fetched_event": "Gefundene Nachricht",
+  "fetch_event": "Nachricht suchen",
+  "detailed_github_page": "Mehr Details auf GitHub",
+  "example": {
+    "try_it_out": "Probier's mal mit dieser Event ID aus:",
+    "use_this_id": "Diese Nummer verwenden"
+  },
+  "labels": {
+    "event_id": "Event ID"
+  },
+  "buttons": {
+    "fetch_event": "Nachricht suchen",
+    "fetching": "Suche läuft...",
+    "clear_input": "Neu eingeben"
+  },
+  "placeholder": {
+    "enter_event_id": "Gib die Nachrichten-Nummer ein..."
+  },
+  "errors": {
+    "no_relay_connection": "Keine Verbindung zu Nostr möglich",
+    "event_not_found": "Nachricht nicht gefunden",
+    "fetch_failed": "Konnte die Nachricht nicht finden"
+  },
+  "event_id_explanation": {
+    "description": "Eine Event ID ist ein einzigartiger 64-stelliger Hex-String (0-9 und a-f), der jede Nostr-Nachricht eindeutig identifiziert."
+  },
+  "validation_errors": {
+    "invalid_id": "Diese Nummer gibt es nicht",
+    "invalid_sig": "Die Unterschrift stimmt nicht",
+    "future_timestamp": "Der Zeitpunkt liegt in der Zukunft",
+    "missing_fields": "Es fehlen wichtige Informationen"
+  }
+}

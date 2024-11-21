@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import { Github } from 'lucide-react';
 import '../../styles/pageLayout.css';
 
 interface SectionProps {
@@ -13,9 +14,10 @@ interface SectionProps {
 }
 
 interface PageLayoutProps {
-  title: string;
+  title?: string;
   subtitle?: string;
-  sections: SectionProps[];
+  sections?: SectionProps[];
+  children?: React.ReactNode;
 }
 
 const Section: React.FC<SectionProps> = ({
@@ -58,24 +60,35 @@ const Section: React.FC<SectionProps> = ({
   );
 };
 
-const PageLayout: React.FC<PageLayoutProps> = ({
-  title,
-  subtitle,
-  sections
-}) => {
-  const { t } = useTranslation();
+const PageLayout: React.FC<PageLayoutProps> = ({ title, subtitle, sections, children }) => {
+  const { t } = useTranslation('pageLayout');
 
   return (
-    <div className="pl_page">
-      <header className="pl_page__header">
-        <h1 className="pl_page__title">{title}</h1>
-        {subtitle && <p className="pl_page__subtitle">{subtitle}</p>}
-      </header>
-      <div className="pl_page__content">
-        {sections.map((section) => (
-          <Section key={section.id} {...section} />
-        ))}
+    <div className="pl_app">
+      <div className="pl_page">
+        <header className="pl_page__header">
+          <h1 className="pl_page__title">{title}</h1>
+          {subtitle && <p className="pl_page__subtitle">{subtitle}</p>}
+        </header>
+        <main className="pl_page__main">
+          {sections?.map((section) => (
+            <Section key={section.id} {...section} />
+          ))}
+          {children}
+        </main>
       </div>
+      <footer className="page-footer">
+        <a
+          href="https://github.com/nostr-protocol"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="github-link"
+          aria-label={t('footer.github_aria_label')}
+        >
+          <Github size={20} />
+          <span>{t('footer.github_link')}</span>
+        </a>
+      </footer>
     </div>
   );
 };
