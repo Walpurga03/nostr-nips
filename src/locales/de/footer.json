@@ -1,0 +1,18 @@
+{
+  "about": "Über Nostr",
+  "description": "Nostr ist ein dezentrales Protokoll für globale Kommunikation. Diese NIPs Explorer hilft dir, die verschiedenen Nostr Implementation Proposals zu verstehen und zu testen.",
+  "resources": "Ressourcen",
+  "nips": "NIPs auf GitHub",
+  "documentation": "Dokumentation",
+  "wiki": "Wiki",
+  "community": "Community",
+  "telegram": "Telegram Gruppe",
+  "discord": "Discord Server",
+  "discussions": "GitHub Diskussionen",
+  "made_with": "Gemacht mit",
+  "by_community": "von der Nostr Community",
+  "rights": "Alle Rechte vorbehalten",
+  "created_by": "Entwickelt von",
+  "npub": "npub1hht9umpeet75w55uzs9lq6ksayfpcvl9lk64hye75j0yj4husq5ss8xsry",
+  "lightning": "aldobarazutti@getalby.com"
+}

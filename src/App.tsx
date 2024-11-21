@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import { ActivePage } from './types/navigation';
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 import Home from './components/Home';
 import KeyGenerator from './components/KeyGenerator';
 import NostrMessenger from './components/NostrMessenger';
@@ -40,6 +41,7 @@ const App: React.FC = () => {
         <main className="pl_app__main">
           {renderContent()}
         </main>
+        <Footer />
       </div>
     </I18nextProvider>
   );

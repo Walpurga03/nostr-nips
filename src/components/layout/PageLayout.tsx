@@ -77,18 +77,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({ title, subtitle, sections, chil
           {children}
         </main>
       </div>
-      <footer className="page-footer">
-        <a
-          href="https://github.com/nostr-protocol"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="github-link"
-          aria-label={t('footer.github_aria_label')}
-        >
-          <Github size={20} />
-          <span>{t('footer.github_link')}</span>
-        </a>
-      </footer>
     </div>
   );
 };

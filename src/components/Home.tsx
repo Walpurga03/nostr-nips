@@ -92,7 +92,7 @@ const Home: React.FC = () => {
   };
 
   const speakText = useCallback((text: string, sectionId: string) => {
-    // Stoppe vorherige Sprachausgabe
+    // Stop previous speech
     window.speechSynthesis.cancel();
 
     if (isSpeaking === sectionId) {
@@ -102,25 +102,45 @@ const Home: React.FC = () => {
 
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // Wähle deutsche oder englische Stimme basierend auf der aktuellen Sprache
-    const voices = window.speechSynthesis.getVoices();
-    const lang = i18n.language;
-    const voice = voices.find(voice => voice.lang.startsWith(lang)) || 
-                 voices.find(voice => voice.lang === 'de-DE') ||
-                 voices.find(voice => voice.lang === 'en-US');
-    
-    if (voice) {
-      utterance.voice = voice;
-      utterance.lang = voice.lang;
-    }
-    
-    utterance.onend = () => {
-      setIsSpeaking(null);
+    // Wait for voices to be loaded
+    const loadVoices = () => {
+      const voices = window.speechSynthesis.getVoices();
+      const currentLang = i18n.language === 'de' ? 'de-DE' : 'en-US';
+      
+      // First try to find an exact match for the current language
+      let voice = voices.find(v => v.lang === currentLang);
+      
+      // If no exact match, try to find any voice that starts with the language code
+      if (!voice) {
+        voice = voices.find(v => v.lang.startsWith(currentLang.split('-')[0]));
+      }
+      
+      // Fallback to any available voice if no matching voice found
+      if (!voice && voices.length > 0) {
+        voice = voices[0];
+      }
+      
+      if (voice) {
+        utterance.voice = voice;
+        utterance.lang = voice.lang;
+      }
+      
+      utterance.onend = () => {
+        setIsSpeaking(null);
+      };
+
+      setIsSpeaking(sectionId);
+      window.speechSynthesis.speak(utterance);
     };
 
-    setIsSpeaking(sectionId);
-    window.speechSynthesis.speak(utterance);
-  }, [i18n.language, isSpeaking, t]);
+    // If voices are already loaded, use them immediately
+    if (window.speechSynthesis.getVoices().length > 0) {
+      loadVoices();
+    } else {
+      // Otherwise wait for voices to be loaded
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+  }, [i18n.language, isSpeaking]);
 
   const SpeakButton: React.FC<{ sectionId: string }> = ({ sectionId }) => (
     <button 

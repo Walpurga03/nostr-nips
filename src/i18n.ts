@@ -11,6 +11,7 @@ import deNip1 from './locales/de/nip1.json';
 import deNip2 from './locales/de/nip2.json';
 import deKeyGenerator from './locales/de/keyGenerator.json';
 import dePageLayout from './locales/de/pageLayout.json';
+import deFooter from './locales/de/footer.json';
 
 // Englische Übersetzungen
 import enNav from './locales/en/nav.json';
@@ -19,13 +20,14 @@ import enNip1 from './locales/en/nip1.json';
 import enNip2 from './locales/en/nip2.json';
 import enKeyGenerator from './locales/en/keyGenerator.json';
 import enPageLayout from './locales/en/pageLayout.json';
+import enFooter from './locales/en/footer.json';
 
 // Verfügbare Sprachen
 export const AVAILABLE_LANGUAGES = ['en', 'de'] as const;
 export type AvailableLanguage = typeof AVAILABLE_LANGUAGES[number];
 
 // Verfügbare Namespaces
-export const NAMESPACES = ['nav', 'home', 'nip1', 'nip2', 'keyGenerator', 'pageLayout'] as const;
+export const NAMESPACES = ['nav', 'home', 'nip1', 'nip2', 'keyGenerator', 'pageLayout', 'footer'] as const;
 export type TranslationNamespace = typeof NAMESPACES[number];
 
 // Ressourcen mit Typsicherheit
@@ -36,7 +38,8 @@ const resources = {
     nip1: deNip1,
     nip2: deNip2,
     keyGenerator: deKeyGenerator,
-    pageLayout: dePageLayout
+    pageLayout: dePageLayout,
+    footer: deFooter
   },
   en: {
     nav: enNav,
@@ -44,7 +47,8 @@ const resources = {
     nip1: enNip1,
     nip2: enNip2,
     keyGenerator: enKeyGenerator,
-    pageLayout: enPageLayout
+    pageLayout: enPageLayout,
+    footer: enFooter
   }
 } as const;
 
