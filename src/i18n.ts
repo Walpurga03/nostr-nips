@@ -7,18 +7,14 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 // Deutsche Übersetzungen
 import deNav from './locales/de/nav.json';
 import deHome from './locales/de/home.json';
-import deNip1 from './locales/de/nip1.json';
-import deNip2 from './locales/de/nip2.json';
-import deKeyGenerator from './locales/de/keyGenerator.json';
+import deKeys from './locales/de/keys.json';
 import dePageLayout from './locales/de/pageLayout.json';
 import deFooter from './locales/de/footer.json';
 
 // Englische Übersetzungen
 import enNav from './locales/en/nav.json';
 import enHome from './locales/en/home.json';
-import enNip1 from './locales/en/nip1.json';
-import enNip2 from './locales/en/nip2.json';
-import enKeyGenerator from './locales/en/keyGenerator.json';
+import enKeys from './locales/en/keys.json';
 import enPageLayout from './locales/en/pageLayout.json';
 import enFooter from './locales/en/footer.json';
 
@@ -27,7 +23,7 @@ export const AVAILABLE_LANGUAGES = ['en', 'de'] as const;
 export type AvailableLanguage = typeof AVAILABLE_LANGUAGES[number];
 
 // Verfügbare Namespaces
-export const NAMESPACES = ['nav', 'home', 'nip1', 'nip2', 'keyGenerator', 'pageLayout', 'footer'] as const;
+export const NAMESPACES = ['nav', 'home', 'keys', 'pageLayout', 'footer'] as const;
 export type TranslationNamespace = typeof NAMESPACES[number];
 
 // Ressourcen mit Typsicherheit
@@ -35,18 +31,14 @@ const resources = {
   de: {
     nav: deNav,
     home: deHome,
-    nip1: deNip1,
-    nip2: deNip2,
-    keyGenerator: deKeyGenerator,
+    keys: deKeys,
     pageLayout: dePageLayout,
     footer: deFooter
   },
   en: {
     nav: enNav,
     home: enHome,
-    nip1: enNip1,
-    nip2: enNip2,
-    keyGenerator: enKeyGenerator,
+    keys: enKeys,
     pageLayout: enPageLayout,
     footer: enFooter
   }

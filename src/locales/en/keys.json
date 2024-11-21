@@ -1,0 +1,51 @@
+{
+  "pageTitle": "Nostr Keys",
+  "pageSubtitle": "Understanding and Managing Nostr Keys",
+  "sections": {
+    "explanation": {
+      "title": "Key Explanation",
+      "privateKey": {
+        "title": "The Private Key",
+        "description": "The private key serves as the primary authentication source for your Nostr account. It is a 256-bit value generated using the secp256k1 elliptic curve. This key is crucial for creating digital signatures that ensure the integrity and authenticity of your messages. Keeping this key secret is of utmost importance, as its loss or disclosure can result in complete loss of control over your account.",
+        "point1": "Enables the creation of cryptographic signatures for messages and transactions",
+        "point2": "Provides the foundation for asymmetric encryption and authentication",
+        "point3": "Must be handled with extreme care and stored securely",
+        "format": {
+          "title": "Private Key Format",
+          "description": "Private keys can be represented in two formats: as a Base58Check-encoded string starting with 'nsec1', or as a 64-character hexadecimal number. The nsec1 format is more user-friendly and includes an integrated checksum for error detection.",
+          "hex": "7b6d1b5f0e4d3c2b1a9f8e7d6c5b4a3927162534435261708090a0b0c0d0e0f",
+          "bech32": "nsec1..."
+        }
+      },
+      "publicKey": {
+        "title": "The Public Key",
+        "description": "The public key is a cryptographic counterpart to the private key and serves as your public identity in the Nostr network. It is derived from the private key through an elliptic curve operation and can be safely shared. The public key allows others to verify messages you've signed and send encrypted messages to you.",
+        "point1": "Serves as a public verification point for your digital signatures",
+        "point2": "Enables secure communication through asymmetric encryption",
+        "point3": "Can be freely shared with others to enable interactions",
+        "format": {
+          "title": "Public Key Format",
+          "description": "Public keys can also be represented in two formats: as a Base58Check-encoded string starting with 'npub1', or as a 64-character hexadecimal number. The npub1 format is more user-friendly and is used in most Nostr clients.",
+          "hex": "3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d",
+          "bech32": "npub1..."
+        }
+      },
+      "usage": {
+        "title": "Key Usage",
+        "description": "In the Nostr network, private and public keys work as a pair to ensure secure and authentic communication. They provide the foundation for creating and verifying digital signatures, as well as encrypting and decrypting messages.",
+        "signing": {
+          "title": "Content Signing",
+          "description": "You use your private key to sign messages and transactions, ensuring their authenticity. The signature is cryptographic proof that the message truly came from you and hasn't been tampered with."
+        },
+        "verification": {
+          "title": "Verification",
+          "description": "Other users use your public key to verify the signatures of your messages. This ensures that the messages are authentic and come from you, without revealing the private key."
+        }
+      }
+    }
+  },
+  "errors": {
+    "generateFailed": "Key generation failed",
+    "copyFailed": "Copy failed"
+  }
+}

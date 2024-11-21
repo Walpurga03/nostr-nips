@@ -1,0 +1,47 @@
+{
+  "pageTitle": "Nostr Schlüssel",
+  "pageSubtitle": "Verstehen und Verwalten von Nostr-Schlüsseln",
+  "sections": {
+    "explanation": {
+      "title": "Schlüsselerklärung",
+      "privateKey": {
+        "title": "Der Private Schlüssel",
+        "description": "Der private Schlüssel ist ein kryptografisches Element, das als primäre Authentifizierungsquelle in Ihrem Nostr-Konto fungiert. Er ist ein 256-Bit-Wert, der mit der elliptischen Kurve secp256k1 generiert wird. Dieser Schlüssel ist entscheidend für die Erstellung digitaler Signaturen, die die Integrität und Authentizität Ihrer Nachrichten sicherstellen. Die Geheimhaltung dieses Schlüssels ist von höchster Bedeutung, da sein Verlust oder seine Offenlegung zu einem vollständigen Kontrollverlust über Ihr Konto führen kann.",
+        "point1": "Ermöglicht die Erstellung kryptografischer Signaturen für Nachrichten und Transaktionen",
+        "point2": "Bietet die Grundlage für die asymmetrische Verschlüsselung und Authentifizierung",
+        "point3": "Muss mit höchster Sorgfalt behandelt und sicher aufbewahrt werden",
+        "format": {
+          "title": "Format des privaten Schlüssels",
+          "description": "Private Schlüssel können in zwei Formaten dargestellt werden: Als Base58Check-codierte Zeichenkette, die mit 'nsec1' beginnt, oder als 64-stellige Hexadezimalzahl. Das nsec1-Format ist benutzerfreundlicher und enthält eine integrierte Prüfsumme zur Fehlererkennung.",
+          "hex": "7b6d1b5f0e4d3c2b1a9f8e7d6c5b4a3927162534435261708090a0b0c0d0e0f",
+          "bech32": "nsec1..."
+        }
+      },
+      "publicKey": {
+        "title": "Der Öffentliche Schlüssel",
+        "description": "Der öffentliche Schlüssel ist ein kryptografisches Gegenstück zum privaten Schlüssel und dient als Ihre öffentliche Identität im Nostr-Netzwerk. Er wird aus dem privaten Schlüssel durch eine elliptische Kurvenoperation abgeleitet und kann sicher geteilt werden. Der öffentliche Schlüssel ermöglicht es anderen, die von Ihnen signierten Nachrichten zu verifizieren und verschlüsselte Nachrichten an Sie zu senden.",
+        "point1": "Dient als öffentlicher Verifizierungspunkt für Ihre digitalen Signaturen",
+        "point2": "Ermöglicht die sichere Kommunikation durch asymmetrische Verschlüsselung",
+        "point3": "Kann bedenkenlos mit anderen geteilt werden, um Interaktionen zu ermöglichen",
+        "format": {
+          "title": "Format des öffentlichen Schlüssels",
+          "description": "Öffentliche Schlüssel können ebenfalls in zwei Formaten dargestellt werden: Als Base58Check-codierte Zeichenkette, die mit 'npub1' beginnt, oder als 64-stellige Hexadezimalzahl. Das npub1-Format ist benutzerfreundlicher und wird in den meisten Nostr-Clients verwendet.",
+          "hex": "3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d",
+          "bech32": "npub1..."
+        }
+      },
+      "usage": {
+        "title": "Verwendung der Schlüssel",
+        "description": "Im Nostr-Netzwerk arbeiten private und öffentliche Schlüssel als Paar, um eine sichere und authentische Kommunikation zu gewährleisten. Sie bieten die Grundlage für die Erstellung und Verifizierung digitaler Signaturen sowie für die Verschlüsselung und Entschlüsselung von Nachrichten.",
+        "signing": {
+          "title": "Signieren von Inhalten",
+          "description": "Mit Ihrem privaten Schlüssel signieren Sie Nachrichten und Transaktionen, um deren Authentizität zu gewährleisten. Die Signatur ist ein kryptografischer Beweis, dass die Nachricht tatsächlich von Ihnen stammt und nicht manipuliert wurde."
+        },
+        "verification": {
+          "title": "Verifizierung",
+          "description": "Andere Benutzer verwenden Ihren öffentlichen Schlüssel, um die Signaturen Ihrer Nachrichten zu verifizieren. Dies stellt sicher, dass die Nachrichten authentisch sind und von Ihnen stammen, ohne dass der private Schlüssel offengelegt wird."
+        }
+      }
+    }
+  }
+}

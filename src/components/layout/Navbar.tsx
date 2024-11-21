@@ -34,34 +34,10 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage }) => {
           {t('nav.home', 'Home')}
         </button>
         <button
-          className={`pl_navbar__item ${activePage === 'keyGenerator' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('keyGenerator')}
+          className={`pl_navbar__item ${activePage === 'keys' ? 'active' : ''}`}
+          onClick={() => handleMenuItemClick('keys')}
         >
-          {t('nav.keyGenerator', 'Key Generator')}
-        </button>
-        <button
-          className={`pl_navbar__item ${activePage === 'messenger' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('messenger')}
-        >
-          {t('nav.messenger', 'Messenger')}
-        </button>
-        <button
-          className={`pl_navbar__item ${activePage === 'nip1' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('nip1')}
-        >
-          {t('nav.nip1', 'NIP-01')}
-        </button>
-        <button
-          className={`pl_navbar__item ${activePage === 'nip2' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('nip2')}
-        >
-          {t('nav.nip2', 'NIP-02')}
-        </button>
-        <button
-          className={`pl_navbar__item ${activePage === 'example' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('example')}
-        >
-          {t('nav.example', 'Example')}
+          {t('nav.key', 'Keys')}
         </button>
         <button 
           className="pl_navbar__lang-button"
@@ -93,34 +69,10 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage }) => {
           {t('nav.home', 'Home')}
         </button>
         <button
-          className={`pl_navbar-mobile-item ${activePage === 'keyGenerator' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('keyGenerator')}
+          className={`pl_navbar-mobile-item ${activePage === 'keys' ? 'active' : ''}`}
+          onClick={() => handleMenuItemClick('keys')}
         >
-          {t('nav.keyGenerator', 'Key Generator')}
-        </button>
-        <button
-          className={`pl_navbar-mobile-item ${activePage === 'nip1' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('nip1')}
-        >
-          {t('nav.nip1', 'NIP-01')}
-        </button>
-        <button
-          className={`pl_navbar-mobile-item ${activePage === 'nip2' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('nip2')}
-        >
-          {t('nav.nip2', 'NIP-02')}
-        </button>
-        <button
-          className={`pl_navbar-mobile-item ${activePage === 'messenger' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('messenger')}
-        >
-          {t('nav.messenger', 'Messenger')}
-        </button>
-        <button
-          className={`pl_navbar-mobile-item ${activePage === 'example' ? 'active' : ''}`}
-          onClick={() => handleMenuItemClick('example')}
-        >
-          {t('nav.example', 'Example')}
+          {t('nav.keys', 'Keys')}
         </button>
 
         {/* Language Switch in Mobile Menu */}

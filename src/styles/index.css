@@ -1,6 +1,5 @@
 /* src/styles/index.css */
 @import url('./variables.css');
-@import url('./shared-layout.css');
 @import url('./home.css');
 @import url('./nip1.css');
 @import url('./navbar.css');
