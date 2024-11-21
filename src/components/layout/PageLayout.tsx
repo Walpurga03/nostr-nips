@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown } from 'lucide-react';
-import { Github } from 'lucide-react';
 import '../../styles/pageLayout.css';
 
 interface SectionProps {
@@ -62,6 +61,7 @@ const Section: React.FC<SectionProps> = ({
 
 const PageLayout: React.FC<PageLayoutProps> = ({ title, subtitle, sections, children }) => {
   const { t } = useTranslation('pageLayout');
+  console.log(t);
 
   return (
     <div className="pl_app">
