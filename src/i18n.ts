@@ -6,14 +6,16 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 // Deutsche Übersetzungen
 import deNav from './locales/de/nav.json';
-import deHome from './locales/de/home.json';
+import deHomeBeginner from './locales/de/home/beginner.json';
+import deHomeExpert from './locales/de/home/expert.json';
 import deKeys from './locales/de/keys.json';
 import dePageLayout from './locales/de/pageLayout.json';
 import deFooter from './locales/de/footer.json';
 
 // Englische Übersetzungen
 import enNav from './locales/en/nav.json';
-import enHome from './locales/en/home.json';
+import enHomeBeginner from './locales/en/home/beginner.json';
+import enHomeExpert from './locales/en/home/expert.json';
 import enKeys from './locales/en/keys.json';
 import enPageLayout from './locales/en/pageLayout.json';
 import enFooter from './locales/en/footer.json';
@@ -30,14 +32,20 @@ export type TranslationNamespace = typeof NAMESPACES[number];
 const resources = {
   de: {
     nav: deNav,
-    home: deHome,
+    home: {
+      beginner: deHomeBeginner,
+      expert: deHomeExpert
+    },
     keys: deKeys,
     pageLayout: dePageLayout,
     footer: deFooter
   },
   en: {
     nav: enNav,
-    home: enHome,
+    home: {
+      beginner: enHomeBeginner,
+      expert: enHomeExpert
+    },
     keys: enKeys,
     pageLayout: enPageLayout,
     footer: enFooter

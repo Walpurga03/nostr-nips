@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivePage } from '../../types/navigation';
-import { Languages } from 'lucide-react';
+import { Languages, GraduationCap, BookOpen } from 'lucide-react';
 import '../../styles/navbar.css';
+import { useLevel } from '../../context/LevelContext';
 
 interface NavbarProps {
   activePage: ActivePage;
@@ -12,6 +13,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage }) => {
   const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { level, setLevel } = useLevel();
 
   const handleMenuItemClick = (page: ActivePage) => {
     setActivePage(page);
@@ -24,36 +26,61 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage }) => {
     i18n.changeLanguage(nextLang);
   };
 
+  const toggleLevel = () => {
+    setLevel(level === 'beginner' ? 'expert' : 'beginner');
+  };
+
   return (
-    <nav className="pl_navbar">
-      <div className="pl_navbar__content">
+    <nav className="navbar">
+      <div className="navbar__items">
         <button
-          className={`pl_navbar__item ${activePage === 'home' ? 'active' : ''}`}
+          className={`navbar__item ${activePage === 'home' ? 'active' : ''}`}
           onClick={() => handleMenuItemClick('home')}
         >
           {t('nav.home', 'Home')}
         </button>
         <button
-          className={`pl_navbar__item ${activePage === 'keys' ? 'active' : ''}`}
+          className={`navbar__item ${activePage === 'keys' ? 'active' : ''}`}
           onClick={() => handleMenuItemClick('keys')}
         >
           {t('nav.key', 'Keys')}
         </button>
+      </div>
+      
+      <div className="navbar__controls">
         <button 
-          className="pl_navbar__lang-button"
+          className="navbar__lang-button"
           onClick={toggleLanguage}
           title={t('nav.switchLanguage', 'Switch language')}
         >
-          <Languages size={20} className="pl_navbar__lang-icon" />
-          <span className="pl_navbar__lang-text">
+          <Languages size={20} />
+          <span className="navbar__lang-text">
             {i18n.language.toUpperCase()}
           </span>
+        </button>
+        <button
+          onClick={toggleLevel}
+          className={`navbar__level-button ${level}`}
+          title={t('nav.switchLevel', 'Switch level')}
+        >
+          {level === 'beginner' ? (
+            <>
+              <BookOpen size={20} className="navbar__level-icon" />
+              <span className="navbar__level-text">{t('nav.beginner', 'Beginner')}</span>
+            </>
+          ) : (
+            <>
+              <GraduationCap size={20} className="navbar__level-icon" />
+              <span className="navbar__level-text">{t('nav.expert', 'Expert')}</span>
+            </>
+          )}
+          <span className={`navbar__level-indicator ${level}`} />
         </button>
       </div>
 
       {/* Mobile Menu Button */}
       <button
-        className="pl_navbar-mobile-button"
+        className="navbar-mobile-button"
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label={t('nav.toggleMenu', 'Toggle menu')}
       >
@@ -61,28 +88,19 @@ const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage }) => {
       </button>
 
       {/* Mobile Menu */}
-      <div className={`pl_navbar-mobile ${menuOpen ? 'open' : ''}`}>
+      <div className={`navbar-mobile ${menuOpen ? 'open' : ''}`}>
         <button
-          className={`pl_navbar-mobile-item ${activePage === 'home' ? 'active' : ''}`}
+          className={`navbar-mobile-item ${activePage === 'home' ? 'active' : ''}`}
           onClick={() => handleMenuItemClick('home')}
         >
           {t('nav.home', 'Home')}
         </button>
         <button
-          className={`pl_navbar-mobile-item ${activePage === 'keys' ? 'active' : ''}`}
+          className={`navbar-mobile-item ${activePage === 'keys' ? 'active' : ''}`}
           onClick={() => handleMenuItemClick('keys')}
         >
           {t('nav.keys', 'Keys')}
-        </button>
-
-        {/* Language Switch in Mobile Menu */}
-        <button
-          className="pl_navbar-mobile-item language-switch"
-          onClick={toggleLanguage}
-        >
-          <Languages size={20} />
-          <span>{t('nav.switchLanguage', 'Switch Language')} ({i18n.language.toUpperCase()})</span>
-        </button>
+        </button> 
       </div>
     </nav>
   );

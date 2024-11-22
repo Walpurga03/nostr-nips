@@ -2,10 +2,12 @@ import React, { useState, useCallback } from 'react';
 import { Book, Filter, Hash, Network, Server, Users, Layout, Shield, Workflow, Boxes, Volume2, VolumeX } from 'lucide-react';
 import PageLayout from './layout/PageLayout';
 import { useTranslation } from 'react-i18next';
+import { useLevel } from '../context/LevelContext';
 import '../styles/home.css';
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation('home');
+  const { level } = useLevel();
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
   const [isSpeaking, setIsSpeaking] = useState<string | null>(null);
 
@@ -18,73 +20,76 @@ const Home: React.FC = () => {
   };
 
   const getSectionText = (sectionId: string): string => {
+    // Füge den Level-Prefix für die Übersetzungen hinzu
+    const prefix = `${level}.`;
+    
     switch (sectionId) {
       case 'protocol-basics':
-        return `${t('protocol_basics')}. 
-                ${t('protocol_basics_intro')}. 
-                ${t('event_structure.title')}. 
-                ${t('event_structure.id_desc')}. 
-                ${t('event_structure.pubkey_desc')}. 
-                ${t('event_structure.created_at_desc')}. 
-                ${t('event_structure.kind_desc')}. 
-                ${t('event_structure.tags_desc')}. 
-                ${t('event_structure.content_desc')}. 
-                ${t('event_structure.sig_desc')}.`;
+        return `${t(prefix + 'protocol_basics')}. 
+                ${t(prefix + 'protocol_basics_intro')}. 
+                ${t(prefix + 'event_structure.title')}. 
+                ${t(prefix + 'event_structure.id_desc')}. 
+                ${t(prefix + 'event_structure.pubkey_desc')}. 
+                ${t(prefix + 'event_structure.created_at_desc')}. 
+                ${t(prefix + 'event_structure.kind_desc')}. 
+                ${t(prefix + 'event_structure.tags_desc')}. 
+                ${t(prefix + 'event_structure.content_desc')}. 
+                ${t(prefix + 'event_structure.sig_desc')}.`;
       
       case 'central-concepts':
-        return `${t('central_concepts.title')}. 
-                ${t('protocol_concepts.nips_vs_kinds')}. 
-                ${t('protocol_concepts.nips_vs_kinds_explanation')}. 
-                ${t('central_concepts.event_kinds.title')}. 
-                ${t('central_concepts.event_kinds.list_items.0')}. 
-                ${t('central_concepts.event_kinds.list_items.1')}. 
-                ${t('central_concepts.event_kinds.list_items.2')}. 
-                ${t('central_concepts.nips.title')}. 
-                ${t('central_concepts.nips.list_items.0')}. 
-                ${t('central_concepts.nips.list_items.1')}. 
-                ${t('central_concepts.nips.list_items.2')}. 
-                ${t('central_concepts.summary.title')}. 
-                ${t('central_concepts.summary.text')}.`;
+        return `${t(prefix + 'central_concepts.title')}. 
+                ${t(prefix + 'protocol_concepts.nips_vs_kinds')}. 
+                ${t(prefix + 'protocol_concepts.nips_vs_kinds_explanation')}. 
+                ${t(prefix + 'central_concepts.event_kinds.title')}. 
+                ${t(prefix + 'central_concepts.event_kinds.list_items.0')}. 
+                ${t(prefix + 'central_concepts.event_kinds.list_items.1')}. 
+                ${t(prefix + 'central_concepts.event_kinds.list_items.2')}. 
+                ${t(prefix + 'central_concepts.nips.title')}. 
+                ${t(prefix + 'central_concepts.nips.list_items.0')}. 
+                ${t(prefix + 'central_concepts.nips.list_items.1')}. 
+                ${t(prefix + 'central_concepts.nips.list_items.2')}. 
+                ${t(prefix + 'central_concepts.summary.title')}. 
+                ${t(prefix + 'central_concepts.summary.text')}.`;
       
       case 'relays':
-        return `${t('relays_section.title')}. 
-                ${t('relays_section.intro')}. 
-                ${t('relays_section.features.decentralized.title')}. 
-                ${t('relays_section.features.decentralized.description')}. 
-                ${t('relays_section.features.simple.title')}. 
-                ${t('relays_section.features.simple.description')}. 
-                ${t('relays_section.features.efficient.title')}. 
-                ${t('relays_section.features.efficient.description')}.`;
+        return `${t(prefix + 'relays_section.title')}. 
+                ${t(prefix + 'relays_section.intro')}. 
+                ${t(prefix + 'relays_section.features.decentralized.title')}. 
+                ${t(prefix + 'relays_section.features.decentralized.description')}. 
+                ${t(prefix + 'relays_section.features.simple.title')}. 
+                ${t(prefix + 'relays_section.features.simple.description')}. 
+                ${t(prefix + 'relays_section.features.efficient.title')}. 
+                ${t(prefix + 'relays_section.features.efficient.description')}.`;
       
       case 'clients':
-        return `${t('clients_section.title')}. 
-                ${t('clients_section.intro')}. 
-                ${t('clients_section.types.web.title')}. 
-                ${t('clients_section.types.web.description')}. 
-                ${t('clients_section.types.web.features.browser_based')}. 
-                ${t('clients_section.types.web.features.everywhere_available')}. 
-                ${t('clients_section.types.mobile.title')}. 
-                ${t('clients_section.types.mobile.description')}. 
-                ${t('clients_section.types.mobile.features.ios_android')}. 
-                ${t('clients_section.types.mobile.features.push_support')}. 
-                ${t('clients_section.types.desktop.title')}. 
-                ${t('clients_section.types.desktop.description')}. 
-                ${t('clients_section.types.desktop.features.full_control')}. 
-                ${t('clients_section.types.desktop.features.offline_support')}.`;
+        return `${t(prefix + 'clients_section.title')}. 
+                ${t(prefix + 'clients_section.intro')}. 
+                ${t(prefix + 'clients_section.types.web.title')}. 
+                ${t(prefix + 'clients_section.types.web.description')}. 
+                ${t(prefix + 'clients_section.types.web.features.browser_based')}. 
+                ${t(prefix + 'clients_section.types.web.features.everywhere_available')}. 
+                ${t(prefix + 'clients_section.types.mobile.title')}. 
+                ${t(prefix + 'clients_section.types.mobile.description')}. 
+                ${t(prefix + 'clients_section.types.mobile.features.ios_android')}. 
+                ${t(prefix + 'clients_section.types.mobile.features.push_support')}. 
+                ${t(prefix + 'clients_section.types.desktop.title')}. 
+                ${t(prefix + 'clients_section.types.desktop.description')}. 
+                ${t(prefix + 'clients_section.types.desktop.features.full_control')}. 
+                ${t(prefix + 'clients_section.types.desktop.features.offline_support')}.`;
       
       case 'summary':
-        return `${t('summary_section.title')}. 
-                ${t('summary_section.intro')}. 
-                ${t('summary_section.key_points.protocol.title')}. 
-                ${t('summary_section.key_points.protocol.description')}. 
-                ${t('summary_section.key_points.decentralized.title')}. 
-                ${t('summary_section.key_points.decentralized.description')}. 
-                ${t('summary_section.key_points.flexible.title')}. 
-                ${t('summary_section.key_points.flexible.description')}. 
-                ${t('summary_section.key_points.secure.title')}. 
-                ${t('summary_section.key_points.secure.description')}. 
-                ${t('summary_section.conclusion')}. 
-                ${t('summary_section.info_box')}.`;
+        return `${t(prefix + 'summary_section.title')}. 
+                ${t(prefix + 'summary_section.intro')}. 
+                ${t(prefix + 'summary_section.key_points.protocol.title')}. 
+                ${t(prefix + 'summary_section.key_points.protocol.description')}. 
+                ${t(prefix + 'summary_section.key_points.decentralized.title')}. 
+                ${t(prefix + 'summary_section.key_points.decentralized.description')}. 
+                ${t(prefix + 'summary_section.key_points.flexible.title')}. 
+                ${t(prefix + 'summary_section.key_points.flexible.description')}. 
+                ${t(prefix + 'summary_section.key_points.secure.title')}. 
+                ${t(prefix + 'summary_section.key_points.secure.description')}. 
+                ${t(prefix + 'summary_section.conclusion')}. 
+                ${t(prefix + 'summary_section.info_box')}.`;
       
       default:
         return '';
@@ -161,28 +166,28 @@ const Home: React.FC = () => {
   const sections = [
     {
       id: 'protocol-basics',
-      title: t('protocol_basics'),
+      title: t(`${level}.protocol_basics`),
       icon: <Hash size={20} />,
       children: (
         <div className="home-protocol-basics-container">
           <div className="section-header">
-            <h2>{t('protocol_basics')}</h2>
+            <h2>{t(`${level}.protocol_basics`)}</h2>
             <SpeakButton sectionId="protocol-basics" />
           </div>
-          <p className="home-protocol-basics-intro">{t('protocol_basics_intro')}</p>
+          <p className="home-protocol-basics-intro">{t(`${level}.protocol_basics_intro`)}</p>
           <div className="home-event-structure-container">
-            <h3 className="home-event-structure-heading">{t('event_structure.title')}</h3>
+            <h3 className="home-event-structure-heading">{t(`${level}.event_structure.title`)}</h3>
             <div className="home-code-example-container">
               <pre className="home-code-example-pre">
                 <code>
                   {`{
-  `}<span className="home-code-example-key">"id"</span>{`: "...",        // ${t('event_structure.id_desc')}
-  `}<span className="home-code-example-key">"pubkey"</span>{`: "...",    // ${t('event_structure.pubkey_desc')}
-  `}<span className="home-code-example-key">"created_at"</span>{`: ...,  // ${t('event_structure.created_at_desc')}
-  `}<span className="home-code-example-key">"kind"</span>{`: ...,        // ${t('event_structure.kind_desc')}
-  `}<span className="home-code-example-key">"tags"</span>{`: [...],      // ${t('event_structure.tags_desc')}
-  `}<span className="home-code-example-key">"content"</span>{`: "...",   // ${t('event_structure.content_desc')}
-  `}<span className="home-code-example-key">"sig"</span>{`: "..."        // ${t('event_structure.sig_desc')}
+  `}<span className="home-code-example-key">"id"</span>{`: "...",        // ${t(`${level}.event_structure.id_desc`)}
+  `}<span className="home-code-example-key">"pubkey"</span>{`: "...",    // ${t(`${level}.event_structure.pubkey_desc`)}
+  `}<span className="home-code-example-key">"created_at"</span>{`: ...,  // ${t(`${level}.event_structure.created_at_desc`)}
+  `}<span className="home-code-example-key">"kind"</span>{`: ...,        // ${t(`${level}.event_structure.kind_desc`)}
+  `}<span className="home-code-example-key">"tags"</span>{`: [...],      // ${t(`${level}.event_structure.tags_desc`)}
+  `}<span className="home-code-example-key">"content"</span>{`: "...",   // ${t(`${level}.event_structure.content_desc`)}
+  `}<span className="home-code-example-key">"sig"</span>{`: "..."        // ${t(`${level}.event_structure.sig_desc`)}
 }`}
                 </code>
               </pre>
@@ -195,22 +200,22 @@ const Home: React.FC = () => {
     },
     {
       id: 'central-concepts',
-      title: t('central_concepts.title'),
+      title: t(`${level}.central_concepts.title`),
       icon: <Filter size={20} />,
       children: (
         <div className="home-protocol-concepts-container">
           <div className="section-header">
-            <h2>{t('central_concepts.title')}</h2>
+            <h2>{t(`${level}.central_concepts.title`)}</h2>
             <SpeakButton sectionId="central-concepts" />
           </div>
           <div className="home-concepts-grid">
             <div className="home-concept-card">
               <div className="home-concept-card-header">
                 <Filter size={24} />
-                <h4>{t('central_concepts.event_kinds.title')}</h4>
+                <h4>{t(`${level}.central_concepts.event_kinds.title`)}</h4>
               </div>
               <ul className="home-concept-list">
-                {Object.values(t('central_concepts.event_kinds.list_items', { returnObjects: true })).map((item: string, index: number) => (
+                {Object.values(t(`${level}.central_concepts.event_kinds.list_items`, { returnObjects: true })).map((item: string, index: number) => (
                   <li key={index}>{item}</li>
                 ))}
               </ul>
@@ -218,22 +223,22 @@ const Home: React.FC = () => {
             <div className="home-concept-card">
               <div className="home-concept-card-header">
                 <Book size={24} />
-                <h4>{t('central_concepts.nips.title')}</h4>
+                <h4>{t(`${level}.central_concepts.nips.title`)}</h4>
               </div>
               <ul className="home-concept-list">
-                {Object.values(t('central_concepts.nips.list_items', { returnObjects: true })).map((item: string, index: number) => (
+                {Object.values(t(`${level}.central_concepts.nips.list_items`, { returnObjects: true })).map((item: string, index: number) => (
                   <li key={index}>{item}</li>
                 ))}
               </ul>
             </div>
           </div>
           <div className="home-concept-summary">
-            <h4>{t('central_concepts.summary.title')}</h4>
-            <p>{t('central_concepts.summary.text')}</p>
+            <h4>{t(`${level}.central_concepts.summary.title`)}</h4>
+            <p>{t(`${level}.central_concepts.summary.text`)}</p>
           </div>
           <div className="home-protocol-concepts">
-            <h4>{t('protocol_concepts.nips_vs_kinds')}</h4>
-            <p>{t('protocol_concepts.nips_vs_kinds_explanation')}</p>
+            <h4>{t(`${level}.protocol_concepts.nips_vs_kinds`)}</h4>
+            <p>{t(`${level}.protocol_concepts.nips_vs_kinds_explanation`)}</p>
           </div>
         </div>
       ),
@@ -242,36 +247,36 @@ const Home: React.FC = () => {
     },
     {
       id: 'relays',
-      title: t('relays_section.title'),
+      title: t(`${level}.relays_section.title`),
       icon: <Server size={20} />,
       children: (
         <div className="home-relays-container">
           <div className="section-header">
-            <h2>{t('relays_section.title')}</h2>
+            <h2>{t(`${level}.relays_section.title`)}</h2>
             <SpeakButton sectionId="relays" />
           </div>
-          <p className="home-relays-intro">{t('relays_section.intro')}</p>
+          <p className="home-relays-intro">{t(`${level}.relays_section.intro`)}</p>
           <div className="home-relays-features-grid">
             <div className="home-relay-feature-card">
               <div className="home-relay-feature-header">
                 <Network size={24} />
-                <h4>{t('relays_section.features.decentralized.title')}</h4>
+                <h4>{t(`${level}.relays_section.features.decentralized.title`)}</h4>
               </div>
-              <p>{t('relays_section.features.decentralized.description')}</p>
+              <p>{t(`${level}.relays_section.features.decentralized.description`)}</p>
             </div>
             <div className="home-relay-feature-card">
               <div className="home-relay-feature-header">
                 <Layout size={24} />
-                <h4>{t('relays_section.features.simple.title')}</h4>
+                <h4>{t(`${level}.relays_section.features.simple.title`)}</h4>
               </div>
-              <p>{t('relays_section.features.simple.description')}</p>
+              <p>{t(`${level}.relays_section.features.simple.description`)}</p>
             </div>
             <div className="home-relay-feature-card">
               <div className="home-relay-feature-header">
                 <Workflow size={24} />
-                <h4>{t('relays_section.features.efficient.title')}</h4>
+                <h4>{t(`${level}.relays_section.features.efficient.title`)}</h4>
               </div>
-              <p>{t('relays_section.features.efficient.description')}</p>
+              <p>{t(`${level}.relays_section.features.efficient.description`)}</p>
             </div>
           </div>
         </div>
@@ -281,47 +286,47 @@ const Home: React.FC = () => {
     },
     {
       id: 'clients',
-      title: t('clients_section.title'),
+      title: t(`${level}.clients_section.title`),
       icon: <Users size={20} />,
       children: (
         <div className="home-clients-container">
           <div className="section-header">
-            <h2>{t('clients_section.title')}</h2>
+            <h2>{t(`${level}.clients_section.title`)}</h2>
             <SpeakButton sectionId="clients" />
           </div>
-          <p className="home-clients-intro">{t('clients_section.intro')}</p>
+          <p className="home-clients-intro">{t(`${level}.clients_section.intro`)}</p>
           <div className="home-clients-grid">
             <div className="home-client-card">
               <div className="home-client-header">
                 <Layout size={24} />
-                <h4>{t('clients_section.types.web.title')}</h4>
+                <h4>{t(`${level}.clients_section.types.web.title`)}</h4>
               </div>
-              <p>{t('clients_section.types.web.description')}</p>
+              <p>{t(`${level}.clients_section.types.web.description`)}</p>
               <ul className="home-client-features">
-                <li>{t('clients_section.types.web.features.browser_based')}</li>
-                <li>{t('clients_section.types.web.features.everywhere_available')}</li>
+                <li>{t(`${level}.clients_section.types.web.features.browser_based`)}</li>
+                <li>{t(`${level}.clients_section.types.web.features.everywhere_available`)}</li>
               </ul>
             </div>
             <div className="home-client-card">
               <div className="home-client-header">
                 <Boxes size={24} />
-                <h4>{t('clients_section.types.mobile.title')}</h4>
+                <h4>{t(`${level}.clients_section.types.mobile.title`)}</h4>
               </div>
-              <p>{t('clients_section.types.mobile.description')}</p>
+              <p>{t(`${level}.clients_section.types.mobile.description`)}</p>
               <ul className="home-client-features">
-                <li>{t('clients_section.types.mobile.features.ios_android')}</li>
-                <li>{t('clients_section.types.mobile.features.push_support')}</li>
+                <li>{t(`${level}.clients_section.types.mobile.features.ios_android`)}</li>
+                <li>{t(`${level}.clients_section.types.mobile.features.push_support`)}</li>
               </ul>
             </div>
             <div className="home-client-card">
               <div className="home-client-header">
                 <Shield size={24} />
-                <h4>{t('clients_section.types.desktop.title')}</h4>
+                <h4>{t(`${level}.clients_section.types.desktop.title`)}</h4>
               </div>
-              <p>{t('clients_section.types.desktop.description')}</p>
+              <p>{t(`${level}.clients_section.types.desktop.description`)}</p>
               <ul className="home-client-features">
-                <li>{t('clients_section.types.desktop.features.full_control')}</li>
-                <li>{t('clients_section.types.desktop.features.offline_support')}</li>
+                <li>{t(`${level}.clients_section.types.desktop.features.full_control`)}</li>
+                <li>{t(`${level}.clients_section.types.desktop.features.offline_support`)}</li>
               </ul>
             </div>
           </div>
@@ -332,15 +337,15 @@ const Home: React.FC = () => {
     },
     {
       id: 'summary',
-      title: t('summary_section.title'),
+      title: t(`${level}.summary_section.title`),
       icon: <Network size={20} />,
       children: (
         <div className="home-summary-container">
           <div className="section-header">
-            <h2>{t('summary_section.title')}</h2>
+            <h2>{t(`${level}.summary_section.title`)}</h2>
             <SpeakButton sectionId="summary" />
           </div>
-          <p className="home-summary-intro">{t('summary_section.intro')}</p>
+          <p className="home-summary-intro">{t(`${level}.summary_section.intro`)}</p>
           <div className="home-summary-points">
             {/* Protocol Point */}
             <div className="home-summary-point">
@@ -349,11 +354,11 @@ const Home: React.FC = () => {
                   <Workflow size={24} />
                 </div>
                 <h4 className="home-summary-point-title">
-                  {t('summary_section.key_points.protocol.title')}
+                  {t(`${level}.summary_section.key_points.protocol.title`)}
                 </h4>
               </div>
               <p className="home-summary-point-description">
-                {t('summary_section.key_points.protocol.description')}
+                {t(`${level}.summary_section.key_points.protocol.description`)}
               </p>
             </div>
 
@@ -364,11 +369,11 @@ const Home: React.FC = () => {
                   <Network size={24} />
                 </div>
                 <h4 className="home-summary-point-title">
-                  {t('summary_section.key_points.decentralized.title')}
+                  {t(`${level}.summary_section.key_points.decentralized.title`)}
                 </h4>
               </div>
               <p className="home-summary-point-description">
-                {t('summary_section.key_points.decentralized.description')}
+                {t(`${level}.summary_section.key_points.decentralized.description`)}
               </p>
             </div>
 
@@ -379,11 +384,11 @@ const Home: React.FC = () => {
                   <Boxes size={24} />
                 </div>
                 <h4 className="home-summary-point-title">
-                  {t('summary_section.key_points.flexible.title')}
+                  {t(`${level}.summary_section.key_points.flexible.title`)}
                 </h4>
               </div>
               <p className="home-summary-point-description">
-                {t('summary_section.key_points.flexible.description')}
+                {t(`${level}.summary_section.key_points.flexible.description`)}
               </p>
             </div>
 
@@ -394,19 +399,19 @@ const Home: React.FC = () => {
                   <Shield size={24} />
                 </div>
                 <h4 className="home-summary-point-title">
-                  {t('summary_section.key_points.secure.title')}
+                  {t(`${level}.summary_section.key_points.secure.title`)}
                 </h4>
               </div>
               <p className="home-summary-point-description">
-                {t('summary_section.key_points.secure.description')}
+                {t(`${level}.summary_section.key_points.secure.description`)}
               </p>
             </div>
           </div>
           <div className="home-summary-info-box">
-            <p>{t('summary_section.info_box')}</p>
+            <p>{t(`${level}.summary_section.info_box`)}</p>
           </div>
           <p className="home-summary-conclusion">
-            {t('summary_section.conclusion')}
+            {t(`${level}.summary_section.conclusion`)}
           </p>
         </div>
       ),
@@ -418,8 +423,8 @@ const Home: React.FC = () => {
   return (
     <article className="home">
       <PageLayout
-        title={t('title')}
-        subtitle={t('subtitle')}
+        title={t(`${level}.title`)}
+        subtitle={t(`${level}.subtitle`)}
         sections={sections}
       />
     </article>

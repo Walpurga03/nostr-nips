@@ -1,0 +1,119 @@
+{
+    "title": "Nostr entdecken",
+    "subtitle": "Dein Einstieg in die Welt der dezentralen Kommunikation - einfach erklärt",
+    "nostr_intro": "Nostr ist wie ein digitales Notizbuch, das deine Nachrichten sicher über das Internet verteilt. Stell dir vor, du schreibst eine Nachricht, und viele kleine Helfer (wir nennen sie Relays) sorgen dafür, dass deine Freunde sie lesen können. Das Besondere: Niemand kann deine Nachrichten kontrollieren oder löschen!",
+    "protocol_basics": "Die Grundlagen",
+    "protocol_basics_intro": "Bei Nostr ist alles eine Nachricht. Ob du einen Text schreibst, ein Bild teilst oder dein Profil aktualisierst - alles wird als Nachricht verschickt. Jede Nachricht ist wie ein Brief mit deiner persönlichen Unterschrift.",
+    "event_structure": {
+      "title": "Wie eine Nachricht aufgebaut ist",
+      "id_desc": "Jede Nachricht hat eine eigene Nummer, wie ein Fingerabdruck. So kann niemand sie verändern.",
+      "pubkey_desc": "Dein öffentlicher Schlüssel ist wie dein Absender auf dem Brief. Jeder kann sehen, dass die Nachricht von dir kommt.",
+      "created_at_desc": "Der Zeitstempel zeigt, wann du die Nachricht geschrieben hast.",
+      "kind_desc": "Die Art der Nachricht sagt, ob es ein normaler Text, ein Profilupdate oder etwas anderes ist.",
+      "tags_desc": "Tags sind wie Etiketten auf deinem Brief. Sie helfen dabei, Nachrichten zu sortieren und zu finden.",
+      "content_desc": "Der Inhalt ist deine eigentliche Nachricht - das, was du anderen mitteilen möchtest.",
+      "sig_desc": "Die Signatur ist wie deine Unterschrift. Sie beweist, dass wirklich du die Nachricht geschrieben hast."
+    },
+    "protocol_concepts": {
+      "title": "Was du wissen solltest",
+      "nips_vs_kinds": "Verschiedene Arten von Nachrichten",
+      "nips_vs_kinds_explanation": "Es gibt viele verschiedene Arten von Nachrichten in Nostr. Manche sind für Texte, andere für Bilder oder Profile. Diese verschiedenen Arten helfen dabei, dass alle Apps die Nachrichten richtig verstehen können."
+    },
+    "central_concepts": {
+      "title": "Die wichtigsten Dinge",
+      "event_kinds": {
+        "title": "Nachrichtenarten",
+        "list_items": [
+          "Jede Nachricht hat einen bestimmten Typ, zum Beispiel 'Text' oder 'Profilinfo'",
+          "Die Apps wissen so, wie sie deine Nachricht anzeigen sollen",
+          "Du kannst verschiedene Arten von Nachrichten verschicken"
+        ]
+      },
+      "nips": {
+        "title": "Nostr-Regeln (NIPs)",
+        "list_items": [
+          "NIPs sind wie Spielregeln, die allen sagen, wie Nostr funktioniert",
+          "Sie helfen dabei, dass alle Apps gut zusammenarbeiten",
+          "Neue Regeln können hinzugefügt werden, um Nostr noch besser zu machen"
+        ]
+      },
+      "summary": {
+        "title": "Kurz gesagt",
+        "text": "Nostr ist einfach zu verstehen: Du schreibst Nachrichten, und viele kleine Helfer sorgen dafür, dass sie bei deinen Freunden ankommen. Dabei bleibst du immer der Chef über deine Nachrichten!"
+      }
+    },
+    "relays_section": {
+      "title": "Die Helfer (Relays)",
+      "intro": "Relays sind wie Postämter für deine Nachrichten. Sie nehmen deine Nachrichten entgegen und verteilen sie an andere. Das Tolle: Es gibt viele davon, und jeder kann ein eigenes Postamt eröffnen!",
+      "features": {
+        "decentralized": {
+          "title": "Überall verteilt",
+          "description": "Weil es viele Relays gibt, kann niemand die Kontrolle über deine Nachrichten übernehmen."
+        },
+        "simple": {
+          "title": "Einfach zu verstehen",
+          "description": "Die Relays machen ihre Arbeit ganz automatisch - du musst dich um nichts kümmern."
+        },
+        "efficient": {
+          "title": "Schnell und zuverlässig",
+          "description": "Die Relays arbeiten sehr schnell und verbrauchen wenig Energie."
+        }
+      }
+    },
+    "clients_section": {
+      "title": "Die Apps (Clients)",
+      "intro": "Mit Nostr-Apps kannst du Nachrichten schreiben, lesen und mit anderen teilen. Es gibt verschiedene Apps für verschiedene Geräte.",
+      "types": {
+        "web": {
+          "title": "Web-Apps",
+          "description": "Diese Apps funktionieren direkt in deinem Browser - ganz ohne Installation!",
+          "features": {
+            "browser_based": "Funktioniert in jedem Browser",
+            "everywhere_available": "Von überall aus nutzbar"
+          }
+        },
+        "mobile": {
+          "title": "Handy-Apps",
+          "description": "Speziell für dein Smartphone gemachte Apps mit vielen praktischen Funktionen.",
+          "features": {
+            "ios_android": "Für iPhone und Android",
+            "push_support": "Benachrichtigungen bei neuen Nachrichten"
+          }
+        },
+        "desktop": {
+          "title": "Computer-Apps",
+          "description": "Programme für deinen Computer mit allen Funktionen.",
+          "features": {
+            "full_control": "Volle Kontrolle über deine Einstellungen",
+            "offline_support": "Funktioniert auch ohne Internet"
+          }
+        }
+      }
+    },
+    "summary_section": {
+      "title": "Das Wichtigste in Kürze",
+      "intro": "Nostr ist dein Weg zu freier und sicherer Kommunikation im Internet. Du behältst die Kontrolle über deine Nachrichten, und niemand kann sie dir wegnehmen.",
+      "key_points": {
+        "protocol": {
+          "title": "Einfach zu verstehen",
+          "description": "Nostr ist so gemacht, dass es jeder benutzen kann."
+        },
+        "decentralized": {
+          "title": "Niemand hat die Kontrolle",
+          "description": "Du entscheidest über deine Nachrichten - niemand sonst!"
+        },
+        "flexible": {
+          "title": "Wächst mit deinen Bedürfnissen",
+          "description": "Nostr kann immer neue Funktionen bekommen, die du brauchst."
+        },
+        "secure": {
+          "title": "Sicher und geschützt",
+          "description": "Deine Nachrichten sind durch deine digitale Unterschrift geschützt."
+        }
+      },
+      "conclusion": "Mit Nostr kannst du sicher und frei mit anderen kommunizieren - ganz ohne Angst, dass jemand deine Nachrichten kontrolliert oder löscht.",
+      "info_box": "Los geht's! Entdecke Nostr und werde Teil einer neuen Art zu kommunizieren!"
+    },
+    "start_speaking": "Text vorlesen",
+    "stop_speaking": "Vorlesen stoppen"
+  }

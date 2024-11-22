@@ -1,0 +1,119 @@
+{
+    "title": "Discover Nostr",
+    "subtitle": "Your entry into the world of decentralized communication - simply explained",
+    "nostr_intro": "Nostr is like a digital notebook that securely distributes your messages across the Internet. Imagine writing a message, and many little helpers (we call them relays) ensure that your friends can read it. The special thing: Nobody can control or delete your messages!",
+    "protocol_basics": "The Basics",
+    "protocol_basics_intro": "In Nostr, everything is a message. Whether you write a text, share an image, or update your profile - everything is sent as a message. Each message is like a letter with your personal signature.",
+    "event_structure": {
+      "title": "How a message is structured",
+      "id_desc": "Each message has its own number, like a fingerprint. So nobody can change it.",
+      "pubkey_desc": "Your public key is like your return address on the letter. Everyone can see that the message comes from you.",
+      "created_at_desc": "The timestamp shows when you wrote the message.",
+      "kind_desc": "The type of message indicates whether it's a normal text, a profile update, or something else.",
+      "tags_desc": "Tags are like labels on your letter. They help sort and find messages.",
+      "content_desc": "The content is your actual message - what you want to communicate to others.",
+      "sig_desc": "The signature is like your signature. It proves that you really wrote the message."
+    },
+    "protocol_concepts": {
+      "title": "What you should know",
+      "nips_vs_kinds": "Different types of messages",
+      "nips_vs_kinds_explanation": "There are many different types of messages in Nostr. Some are for texts, others for images or profiles. These different types help ensure that all apps can correctly understand the messages."
+    },
+    "central_concepts": {
+      "title": "The most important things",
+      "event_kinds": {
+        "title": "Message types",
+        "list_items": [
+          "Each message has a specific type, such as 'text' or 'profile info'",
+          "The apps know how to display your message",
+          "You can send different types of messages"
+        ]
+      },
+      "nips": {
+        "title": "Nostr Rules (NIPs)",
+        "list_items": [
+          "NIPs are like rules of the game that tell everyone how Nostr works",
+          "They help ensure that all apps work well together",
+          "New rules can be added to make Nostr even better"
+        ]
+      },
+      "summary": {
+        "title": "In summary",
+        "text": "Nostr is easy to understand: You write messages, and many little helpers ensure that they reach your friends. You always remain the boss of your messages!"
+      }
+    },
+    "relays_section": {
+      "title": "The Helpers (Relays)",
+      "intro": "Relays are like post offices for your messages. They receive your messages and distribute them to others. The great thing: There are many of them, and anyone can open their own post office!",
+      "features": {
+        "decentralized": {
+          "title": "Distributed everywhere",
+          "description": "Because there are many relays, nobody can take control of your messages."
+        },
+        "simple": {
+          "title": "Easy to understand",
+          "description": "The relays do their work completely automatically - you don't have to worry about anything."
+        },
+        "efficient": {
+          "title": "Fast and reliable",
+          "description": "The relays work very fast and consume little energy."
+        }
+      }
+    },
+    "clients_section": {
+      "title": "The Apps (Clients)",
+      "intro": "With Nostr apps, you can write, read, and share messages with others. There are different apps for different devices.",
+      "types": {
+        "web": {
+          "title": "Web Apps",
+          "description": "These apps work directly in your browser - no installation required!",
+          "features": {
+            "browser_based": "Works in any browser",
+            "everywhere_available": "Accessible from anywhere"
+          }
+        },
+        "mobile": {
+          "title": "Mobile Apps",
+          "description": "Apps made specifically for your smartphone with many practical features.",
+          "features": {
+            "ios_android": "For iPhone and Android",
+            "push_support": "Notifications for new messages"
+          }
+        },
+        "desktop": {
+          "title": "Desktop Apps",
+          "description": "Programs for your computer with all features.",
+          "features": {
+            "full_control": "Full control over your settings",
+            "offline_support": "Works even without internet"
+          }
+        }
+      }
+    },
+    "summary_section": {
+      "title": "The Essentials in Brief",
+      "intro": "Nostr is your way to free and secure communication on the internet. You retain control over your messages, and nobody can take them away from you.",
+      "key_points": {
+        "protocol": {
+          "title": "Easy to understand",
+          "description": "Nostr is designed so that anyone can use it."
+        },
+        "decentralized": {
+          "title": "Nobody has control",
+          "description": "You decide about your messages - nobody else!"
+        },
+        "flexible": {
+          "title": "Grows with your needs",
+          "description": "Nostr can always get new features that you need."
+        },
+        "secure": {
+          "title": "Safe and secure",
+          "description": "Your messages are protected by your digital signature."
+        }
+      },
+      "conclusion": "With Nostr, you can communicate safely and freely with others - without fear that someone will control or delete your messages.",
+      "info_box": "Let's go! Discover Nostr and become part of a new way to communicate!"
+    },
+    "start_speaking": "Read text",
+    "stop_speaking": "Stop reading"
+}

@@ -47,7 +47,6 @@ const Section: React.FC<SectionProps> = ({
       </button>
       {isExpanded && (
         <div
-          className="pl_section__content"
           id={`section-content-${id}`}
           role="region"
           aria-labelledby={id}
