@@ -2,37 +2,70 @@
   "pageTitle": "Nostr Keys",
   "pageSubtitle": "Understanding and Managing Nostr Keys",
   "sections": {
+    "intro": {
+      "title": "Introduction to Nostr Keys",
+      "content": "Nostr uses a pair of cryptographic keys for your digital identity and secure communication.",
+      "content-info": "These keys enable you to sign messages, encrypt data, and prove your identity on the network.",
+      "privateKey": {
+        "title": "Private Key",
+        "content": "Your secret key for signatures and encryption. Keep it secure!"
+      },
+      "publicKey": {
+        "title": "Public Key",
+        "content": "Your public identity on the network that you can share with others."
+      }
+    },
+    "technical": {
+      "title": "Technical Details",
+      "subtitle": "Technical Implementation of Nostr Keys",
+      "privateKeyGen": {
+        "title": "Private Key Generation",
+        "content": "The private key is created using cryptographically secure random number generation",
+        "code": "const privateKey = generateSecretKey()"
+      },
+      "publicKeyGen": {
+        "title": "Public Key Derivation",
+        "content": "The public key is derived from the private key through an elliptic curve operation",
+        "code": "const publicKey = getPublicKey(privateKey)"
+      },
+      "conclusion": "These cryptographic operations ensure the security and immutability of your Nostr identity."
+    },
+    "generator": {
+      "title": "Key Generator",
+      "button": "Generate New Keys",
+      "privateKeyLabel": "Private Key (nsec)",
+      "publicKeyLabel": "Public Key (npub)",
+      "copyButton": "Copy",
+      "downloadButton": "Download Keys",
+      "copied": "Copied!"
+    },
     "explanation": {
       "title": "Key Explanation",
       "privateKey": {
         "title": "The Private Key",
-        "description": "The private key serves as the primary authentication source for your Nostr account. It is a 256-bit value generated using the secp256k1 elliptic curve. This key is crucial for creating digital signatures that ensure the integrity and authenticity of your messages. Keeping this key secret is of utmost importance, as its loss or disclosure can result in complete loss of control over your account.",
+        "description": "The private key serves as the primary authentication source in your Nostr account. It is a 256-bit value generated using the secp256k1 elliptic curve. This key is crucial for creating digital signatures that ensure the integrity and authenticity of your messages. Maintaining the secrecy of this key is of utmost importance, as its loss or disclosure can result in complete loss of control over your account.",
         "point1": "Enables the creation of cryptographic signatures for messages and transactions",
         "point2": "Provides the foundation for asymmetric encryption and authentication",
-        "point3": "Must be handled with extreme care and stored securely",
+        "point3": "Must be handled with utmost care and stored securely",
         "format": {
           "title": "Private Key Format",
-          "description": "Private keys can be represented in two formats: as a Base58Check-encoded string starting with 'nsec1', or as a 64-character hexadecimal number. The nsec1 format is more user-friendly and includes an integrated checksum for error detection.",
-          "hex": "7b6d1b5f0e4d3c2b1a9f8e7d6c5b4a3927162534435261708090a0b0c0d0e0f",
-          "bech32": "nsec1..."
+          "description": "Private keys can be represented in two formats: as a Base58Check-encoded string starting with 'nsec1', or as a 64-character hexadecimal number. The nsec1 format is more user-friendly and includes an integrated checksum for error detection."
         }
       },
       "publicKey": {
         "title": "The Public Key",
-        "description": "The public key is a cryptographic counterpart to the private key and serves as your public identity in the Nostr network. It is derived from the private key through an elliptic curve operation and can be safely shared. The public key allows others to verify messages you've signed and send encrypted messages to you.",
+        "description": "The public key is a cryptographic counterpart to the private key and serves as your public identity in the Nostr network. It is derived from the private key through an elliptic curve operation and can be safely shared. The public key allows others to verify your signed messages and send encrypted messages to you.",
         "point1": "Serves as a public verification point for your digital signatures",
         "point2": "Enables secure communication through asymmetric encryption",
         "point3": "Can be freely shared with others to enable interactions",
         "format": {
           "title": "Public Key Format",
-          "description": "Public keys can also be represented in two formats: as a Base58Check-encoded string starting with 'npub1', or as a 64-character hexadecimal number. The npub1 format is more user-friendly and is used in most Nostr clients.",
-          "hex": "3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d",
-          "bech32": "npub1..."
+          "description": "Public keys can also be represented in two formats: as a Base58Check-encoded string starting with 'npub1', or as a 64-character hexadecimal number. The npub1 format is more user-friendly and is used in most Nostr clients."
         }
       },
       "usage": {
         "title": "Key Usage",
-        "description": "In the Nostr network, private and public keys work as a pair to ensure secure and authentic communication. They provide the foundation for creating and verifying digital signatures, as well as encrypting and decrypting messages.",
+        "description": "In the Nostr network, private and public keys work together as a pair to ensure secure and authentic communication. They form the foundation for creating and verifying digital signatures, as well as encrypting and decrypting messages.",
         "signing": {
           "title": "Content Signing",
           "description": "You use your private key to sign messages and transactions, ensuring their authenticity. The signature is cryptographic proof that the message truly came from you and hasn't been tampered with."
@@ -42,10 +75,36 @@
           "description": "Other users use your public key to verify the signatures of your messages. This ensures that the messages are authentic and come from you, without revealing the private key."
         }
       }
+    },
+    "security": {
+      "title": "Cryptographic Security Guidelines",
+      "description": "The cryptographic integrity of your Nostr keys is based on secp256k1 elliptic curve cryptography. The security of your private key is fundamental to the immutability and authenticity of your digital identity in the Nostr protocol.",
+      "warning": "Critical Warning: Loss of the private key results in permanent and irrevocable loss of control over your Nostr identity. Recovery is cryptographically impossible!",
+      "guidelines": {
+        "title": "Advanced Security Protocol",
+        "storage": "Key Storage: Implement an air-gapped cold storage solution for your private key. Use hardware-based security modules (HSM) or encrypted offline storage media with strong encryption (AES-256).",
+        "backup": "Redundant Backup: Establish a multi-signature backup system with geographically distributed, encrypted copies. Use standardized seed phrases (BIP-39) for key recovery.",
+        "trust": "Zero Trust Principle: Treat your private key as highly sensitive cryptographic material. Never share the key over insecure channels and implement strict access controls.",
+        "validation": "Key Validation: Regularly verify the cryptographic integrity of your key pairs through test signatures and validation of the mathematical relationship between private and public keys.",
+        "rotation": "Key Rotation: Consider periodic rotation of your keys for critical operations. Implement a secure procedure for transferring identity to new key pairs."
+      },
+      "extensions": {
+        "title": "Browser Extensions & Wallet Integration",
+        "description": "Trusted browser extensions like Alby exist that can manage your Nostr keys. However, consider the following:",
+        "guidelines": {
+          "verify": "Verification: Carefully verify the authenticity and reputation of any extension before installation.",
+          "control": "Control: You alone are responsible for verifying and trusting third-party tools.",
+          "source": "Source Code: Prefer open-source solutions whose code is publicly verifiable.",
+          "updates": "Updates: Pay attention to regular security updates and the developer community.",
+          "permissions": "Permissions: Carefully review what access rights an extension requests."
+        }
+      },
+      "advanced": {
+        "title": "Advanced Security Measures",
+        "entropy": "Entropy Assurance: Use cryptographically secure random number generators (CSPRNG) for key generation. The entropy source should ensure at least 256 bits of true randomness.",
+        "storage_methods": "Storage Methods: Implement Shamir's Secret Sharing (SSS) for distributed key storage. Use hardware security modules with FIPS 140-2 Level 3+ certification.",
+        "operational": "Operational Security: Perform critical key operations only in a secure, isolated environment. Use dedicated hardware and air-gapped systems for key management."
+      }
     }
-  },
-  "errors": {
-    "generateFailed": "Key generation failed",
-    "copyFailed": "Copy failed"
   }
 }

@@ -4,6 +4,8 @@
   --secondary-color: #1F1827;
   --tertiary-color: #201928;
   --text-color: #fff;
+  --warning: #f59e0b;
+  --warning-rgb: 245, 158, 11;
 
   /* RGB-Werte der Hauptfarben */
   --primary-color-rgb: 202, 54, 185;

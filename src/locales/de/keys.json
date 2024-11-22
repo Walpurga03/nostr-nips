@@ -1,45 +1,87 @@
 {
-  "pageTitle": "Nostr Schlüssel",
-  "pageSubtitle": "Verstehen und Verwalten von Nostr-Schlüsseln",
+  "pageTitle": "Nostr Schlüsselverwaltung",
+  "pageSubtitle": "Erfahren Sie, wie Sie Ihre Nostr-Schlüssel effektiv verwalten und schützen können, um Ihre digitale Souveränität zu gewährleisten.",
   "sections": {
-    "explanation": {
-      "title": "Schlüsselerklärung",
-      "privateKey": {
-        "title": "Der Private Schlüssel",
-        "description": "Der private Schlüssel ist ein kryptografisches Element, das als primäre Authentifizierungsquelle in Ihrem Nostr-Konto fungiert. Er ist ein 256-Bit-Wert, der mit der elliptischen Kurve secp256k1 generiert wird. Dieser Schlüssel ist entscheidend für die Erstellung digitaler Signaturen, die die Integrität und Authentizität Ihrer Nachrichten sicherstellen. Die Geheimhaltung dieses Schlüssels ist von höchster Bedeutung, da sein Verlust oder seine Offenlegung zu einem vollständigen Kontrollverlust über Ihr Konto führen kann.",
-        "point1": "Ermöglicht die Erstellung kryptografischer Signaturen für Nachrichten und Transaktionen",
-        "point2": "Bietet die Grundlage für die asymmetrische Verschlüsselung und Authentifizierung",
-        "point3": "Muss mit höchster Sorgfalt behandelt und sicher aufbewahrt werden",
-        "format": {
-          "title": "Format des privaten Schlüssels",
-          "description": "Private Schlüssel können in zwei Formaten dargestellt werden: Als Base58Check-codierte Zeichenkette, die mit 'nsec1' beginnt, oder als 64-stellige Hexadezimalzahl. Das nsec1-Format ist benutzerfreundlicher und enthält eine integrierte Prüfsumme zur Fehlererkennung.",
-          "hex": "7b6d1b5f0e4d3c2b1a9f8e7d6c5b4a3927162534435261708090a0b0c0d0e0f",
-          "bech32": "nsec1..."
-        }
-      },
-      "publicKey": {
-        "title": "Der Öffentliche Schlüssel",
-        "description": "Der öffentliche Schlüssel ist ein kryptografisches Gegenstück zum privaten Schlüssel und dient als Ihre öffentliche Identität im Nostr-Netzwerk. Er wird aus dem privaten Schlüssel durch eine elliptische Kurvenoperation abgeleitet und kann sicher geteilt werden. Der öffentliche Schlüssel ermöglicht es anderen, die von Ihnen signierten Nachrichten zu verifizieren und verschlüsselte Nachrichten an Sie zu senden.",
-        "point1": "Dient als öffentlicher Verifizierungspunkt für Ihre digitalen Signaturen",
-        "point2": "Ermöglicht die sichere Kommunikation durch asymmetrische Verschlüsselung",
-        "point3": "Kann bedenkenlos mit anderen geteilt werden, um Interaktionen zu ermöglichen",
-        "format": {
-          "title": "Format des öffentlichen Schlüssels",
-          "description": "Öffentliche Schlüssel können ebenfalls in zwei Formaten dargestellt werden: Als Base58Check-codierte Zeichenkette, die mit 'npub1' beginnt, oder als 64-stellige Hexadezimalzahl. Das npub1-Format ist benutzerfreundlicher und wird in den meisten Nostr-Clients verwendet.",
-          "hex": "3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d",
-          "bech32": "npub1..."
-        }
-      },
-      "usage": {
-        "title": "Verwendung der Schlüssel",
-        "description": "Im Nostr-Netzwerk arbeiten private und öffentliche Schlüssel als Paar, um eine sichere und authentische Kommunikation zu gewährleisten. Sie bieten die Grundlage für die Erstellung und Verifizierung digitaler Signaturen sowie für die Verschlüsselung und Entschlüsselung von Nachrichten.",
-        "signing": {
-          "title": "Signieren von Inhalten",
-          "description": "Mit Ihrem privaten Schlüssel signieren Sie Nachrichten und Transaktionen, um deren Authentizität zu gewährleisten. Die Signatur ist ein kryptografischer Beweis, dass die Nachricht tatsächlich von Ihnen stammt und nicht manipuliert wurde."
+    "intro": {
+      "title": "Einführung in Nostr-Schlüssel",
+      "description": "Nostr verwendet ein Paar kryptographischer Schlüssel für Ihre digitale Identität und sichere Kommunikation im Netzwerk.",
+      "keyTypes": {
+        "title": "Die zwei Schlüsseltypen",
+        "privateKey": {
+          "title": "Der Private Schlüssel",
+          "description": "Ihr geheimer Schlüssel, der niemals geteilt werden darf. Er ermöglicht:",
+          "points": [
+            "Signieren von Nachrichten und Beiträgen",
+            "Entschlüsseln von empfangenen Nachrichten",
+            "Volle Kontrolle über Ihre Nostr-Identität"
+          ]
         },
-        "verification": {
-          "title": "Verifizierung",
-          "description": "Andere Benutzer verwenden Ihren öffentlichen Schlüssel, um die Signaturen Ihrer Nachrichten zu verifizieren. Dies stellt sicher, dass die Nachrichten authentisch sind und von Ihnen stammen, ohne dass der private Schlüssel offengelegt wird."
+        "publicKey": {
+          "title": "Der Öffentliche Schlüssel",
+          "description": "Ihre öffentliche Identität im Netzwerk. Er wird verwendet für:",
+          "points": [
+            "Ihre eindeutige Identifikation im Netzwerk",
+            "Empfangen von verschlüsselten Nachrichten",
+            "Verifizierung Ihrer signierten Nachrichten"
+          ]
+        }
+      }
+    },
+    "generator": {
+      "title": "Schlüsselgenerator",
+      "description": "Generieren Sie hier Ihr neues Schlüsselpaar für Nostr. Bewahren Sie den privaten Schlüssel sicher auf!",
+      "warning": "Warnung: Der private Schlüssel gewährt volle Kontrolle über Ihre Identität. Teilen Sie ihn niemals und erstellen Sie eine sichere Backup-Kopie!",
+      "button": "Neue Schlüssel generieren",
+      "privateKeyLabel": "Privater Schlüssel (nsec)",
+      "publicKeyLabel": "Öffentlicher Schlüssel (npub)",
+      "copyButton": "Kopieren",
+      "downloadButton": "Schlüssel herunterladen",
+      "copied": "Kopiert!"
+    },
+    "technical": {
+      "title": "Technische Details",
+      "description": "Die technische Implementierung basiert auf der secp256k1-Elliptischen-Kurven-Kryptographie.",
+      "keyGeneration": {
+        "title": "Schlüsselgenerierung",
+        "privateKey": {
+          "title": "Generierung des privaten Schlüssels",
+          "description": "Ein 256-Bit Zufallswert wird mittels kryptographisch sicherem Zufallszahlengenerator erstellt",
+          "code": "const privateKey = generateSecretKey()"
+        },
+        "publicKey": {
+          "title": "Ableitung des öffentlichen Schlüssels",
+          "description": "Der öffentliche Schlüssel wird durch eine mathematische Einweg-Operation abgeleitet",
+          "code": "const publicKey = getPublicKey(privateKey)"
+        }
+      },
+      "formats": {
+        "title": "Schlüsselformate",
+        "description": "Nostr verwendet zwei Formate für bessere Benutzerfreundlichkeit:",
+        "types": {
+          "bech32": "Bech32-Format: Beginnt mit 'nsec1' (privat) oder 'npub1' (öffentlich)",
+          "hex": "Hex-Format: 64 Zeichen lange hexadezimale Darstellung"
+        }
+      }
+    },
+    "security": {
+      "title": "Sicherheitsrichtlinien",
+      "description": "Die Sicherheit Ihres privaten Schlüssels ist fundamental für Ihre Nostr-Identität.",
+      "warning": "Kritische Warnung: Der Verlust des privaten Schlüssels resultiert in einem permanenten und unwiderruflichen Verlust der Kontrolle über Ihre Nostr-Identität!",
+      "guidelines": {
+        "title": "Sicherheitsempfehlungen",
+        "storage": "Sichere Speicherung: Verwenden Sie verschlüsselte Offline-Speichermedien oder Hardware-Wallets",
+        "backup": "Backup: Erstellen Sie verschlüsselte Sicherungskopien an sicheren Orten",
+        "sharing": "Teilen: Geben Sie niemals Ihren privaten Schlüssel weiter - unter keinen Umständen",
+        "software": "Software: Nutzen Sie nur vertrauenswürdige und verifizierte Nostr-Clients"
+      },
+      "extensions": {
+        "title": "Browser-Erweiterungen",
+        "description": "Für die Verwaltung Ihrer Nostr-Schlüssel gibt es Browser-Erweiterungen wie Alby. Beachten Sie:",
+        "guidelines": {
+          "verify": "Überprüfen Sie die Authentizität der Erweiterung",
+          "updates": "Halten Sie die Erweiterung stets aktuell",
+          "permissions": "Prüfen Sie die angeforderten Berechtigungen",
+          "source": "Bevorzugen Sie Open-Source-Lösungen"
         }
       }
     }
