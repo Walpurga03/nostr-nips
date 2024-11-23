@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import { Info, Lock, Key, Shield, Copy, Download, AlertTriangle, BookOpen, Volume2, 
-  CheckCircle, RefreshCw, Zap, Database, CheckCircle2, Settings, Code, RefreshCcw, Lock as LockIcon } from 'lucide-react';
+import {
+  Info, Lock, Key, Shield, Copy, Download, AlertTriangle, Volume2,
+  CheckCircle, CheckCircle2, Code, RefreshCcw, Lock as LockIcon
+} from 'lucide-react';
 import PageLayout from './layout/PageLayout';
 import { useTranslation } from 'react-i18next';
 import { nip19, getPublicKey, generateSecretKey } from 'nostr-tools';
@@ -10,7 +12,7 @@ import '../styles/keys.css';
 const getIntroSectionContent = (t: any) => {
   const privateKeyPoints = t('sections.intro.keyTypes.privateKey.points', { returnObjects: true });
   const publicKeyPoints = t('sections.intro.keyTypes.publicKey.points', { returnObjects: true });
-  
+
   return `${t('sections.intro.title')}. 
     ${t('sections.intro.description')}
     
@@ -78,7 +80,7 @@ const Keys: React.FC = () => {
   const [copyStatus, setCopyStatus] = useState<{ [key: string]: boolean }>({});
   const [error, setError] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isPlaying, setIsPlaying] = useState<{ [key: string]: boolean }>({});
+  // const [isPlaying, setIsPlaying] = useState<{ [key: string]: boolean }>({});
   const [speaking, setSpeaking] = useState<string | null>(null);
 
   const toggleSection = (sectionId: string) => {
@@ -89,21 +91,21 @@ const Keys: React.FC = () => {
     );
   };
 
-  const speakText = async (text: string, sectionId: string) => {
-    if (isPlaying[sectionId]) {
-      window.speechSynthesis.cancel();
-      setIsPlaying(prev => ({ ...prev, [sectionId]: false }));
-      return;
-    }
+  // const speakText = async (text: string, sectionId: string) => {
+  //   if (isPlaying[sectionId]) {
+  //     window.speechSynthesis.cancel();
+  //     setIsPlaying(prev => ({ ...prev, [sectionId]: false }));
+  //     return;
+  //   }
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = i18n.language === 'en' ? 'en-US' : 'de-DE'; 
-    utterance.onend = () => {
-      setIsPlaying(prev => ({ ...prev, [sectionId]: false }));
-    };
-    setIsPlaying(prev => ({ ...prev, [sectionId]: true }));
-    window.speechSynthesis.speak(utterance);
-  };
+  //   const utterance = new SpeechSynthesisUtterance(text);
+  //   utterance.lang = i18n.language === 'en' ? 'en-US' : 'de-DE';
+  //   utterance.onend = () => {
+  //     setIsPlaying(prev => ({ ...prev, [sectionId]: false }));
+  //   };
+  //   setIsPlaying(prev => ({ ...prev, [sectionId]: true }));
+  //   window.speechSynthesis.speak(utterance);
+  // };
 
   const speak = useCallback((text: string, section: string) => {
     if (speaking === section) {
@@ -120,45 +122,45 @@ const Keys: React.FC = () => {
     setSpeaking(section);
   }, [speaking, i18n.language]);
 
-  const getSectionContent = useCallback((section: string) => {
-    switch (section) {
-      case 'privateKey':
-        return `${t('sections.explanation.privateKey.title')}. 
-                ${t('sections.explanation.privateKey.description')}
-                ${t('sections.explanation.privateKey.point1')}
-                ${t('sections.explanation.privateKey.point2')}
-                ${t('sections.explanation.privateKey.point3')}
-                ${t('sections.explanation.privateKey.format.title')}
-                ${t('sections.explanation.privateKey.format.description')}`;
-      case 'publicKey':
-        return `${t('sections.explanation.publicKey.title')}. 
-                ${t('sections.explanation.publicKey.description')}
-                ${t('sections.explanation.publicKey.point1')}
-                ${t('sections.explanation.publicKey.point2')}
-                ${t('sections.explanation.publicKey.point3')}
-                ${t('sections.explanation.publicKey.format.title')}
-                ${t('sections.explanation.publicKey.format.description')}`;
-      case 'usage':
-        return `${t('sections.explanation.usage.title')}. 
-                ${t('sections.explanation.usage.description')}
-                ${t('sections.explanation.usage.signing.title')}
-                ${t('sections.explanation.usage.signing.description')}
-                ${t('sections.explanation.usage.verification.title')}
-                ${t('sections.explanation.usage.verification.description')}`;
-      case 'security':
-        return `${t('sections.security.title')}. 
-                ${t('sections.security.description')}
-                ${t('sections.security.warning')}
-                ${t('sections.security.guidelines.title')}
-                ${t('sections.security.guidelines.storage')}
-                ${t('sections.security.guidelines.backup')}
-                ${t('sections.security.guidelines.trust')}
-                ${t('sections.security.guidelines.validation')}
-                ${t('sections.security.guidelines.rotation')}`;
-      default:
-        return '';
-    }
-  }, [t]);
+  // const getSectionContent = useCallback((section: string) => {
+  //   switch (section) {
+  //     case 'privateKey':
+  //       return `${t('sections.explanation.privateKey.title')}. 
+  //               ${t('sections.explanation.privateKey.description')}
+  //               ${t('sections.explanation.privateKey.point1')}
+  //               ${t('sections.explanation.privateKey.point2')}
+  //               ${t('sections.explanation.privateKey.point3')}
+  //               ${t('sections.explanation.privateKey.format.title')}
+  //               ${t('sections.explanation.privateKey.format.description')}`;
+  //     case 'publicKey':
+  //       return `${t('sections.explanation.publicKey.title')}. 
+  //               ${t('sections.explanation.publicKey.description')}
+  //               ${t('sections.explanation.publicKey.point1')}
+  //               ${t('sections.explanation.publicKey.point2')}
+  //               ${t('sections.explanation.publicKey.point3')}
+  //               ${t('sections.explanation.publicKey.format.title')}
+  //               ${t('sections.explanation.publicKey.format.description')}`;
+  //     case 'usage':
+  //       return `${t('sections.explanation.usage.title')}. 
+  //               ${t('sections.explanation.usage.description')}
+  //               ${t('sections.explanation.usage.signing.title')}
+  //               ${t('sections.explanation.usage.signing.description')}
+  //               ${t('sections.explanation.usage.verification.title')}
+  //               ${t('sections.explanation.usage.verification.description')}`;
+  //     case 'security':
+  //       return `${t('sections.security.title')}. 
+  //               ${t('sections.security.description')}
+  //               ${t('sections.security.warning')}
+  //               ${t('sections.security.guidelines.title')}
+  //               ${t('sections.security.guidelines.storage')}
+  //               ${t('sections.security.guidelines.backup')}
+  //               ${t('sections.security.guidelines.trust')}
+  //               ${t('sections.security.guidelines.validation')}
+  //               ${t('sections.security.guidelines.rotation')}`;
+  //     default:
+  //       return '';
+  //   }
+  // }, [t]);
 
   const generateKeys = async () => {
     try {
@@ -169,7 +171,7 @@ const Keys: React.FC = () => {
       if (!privKeyBytes) {
         throw new Error('Failed to generate private key');
       }
-      
+
       const pubKey = getPublicKey(privKeyBytes);
       if (!pubKey) {
         throw new Error('Failed to generate public key');
@@ -217,8 +219,8 @@ const Keys: React.FC = () => {
 
   const KeyGeneratorComponent = () => (
     <div className="key-generator">
-      <button 
-        className="generate-button" 
+      <button
+        className="generate-button"
         onClick={generateKeys}
         disabled={isGenerating}
       >
@@ -262,7 +264,7 @@ const Keys: React.FC = () => {
             </div>
           </div>
 
-          <button 
+          <button
             className="download-button"
             onClick={downloadKeys}
             title={t('sections.generator.downloadButton')}
@@ -286,7 +288,7 @@ const Keys: React.FC = () => {
         <div className="key-intro">
           <div className="section-header">
             <h2>{t('sections.intro.title')}</h2>
-            <button 
+            <button
               className="speech-button"
               onClick={() => speak(getIntroSectionContent(t), 'intro')}
               aria-label={t('accessibility.speak')}
@@ -295,7 +297,7 @@ const Keys: React.FC = () => {
             </button>
           </div>
           <p>{t('sections.intro.description')}</p>
-          
+
           <div className="key-types">
             <h3>{t('sections.intro.keyTypes.title')}</h3>
             <div className="key-type">
@@ -304,9 +306,9 @@ const Keys: React.FC = () => {
                 <h4>{t('sections.intro.keyTypes.privateKey.title')}</h4>
                 <p>{t('sections.intro.keyTypes.privateKey.description')}</p>
                 <ul>
-                {Object.values(t('sections.intro.keyTypes.privateKey.points', { returnObjects: true })).map((item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                ))}
+                  {Object.values(t('sections.intro.keyTypes.privateKey.points', { returnObjects: true })).map((item: string, index: number) => (
+                    <li key={index}>{item}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -316,9 +318,9 @@ const Keys: React.FC = () => {
                 <h4>{t('sections.intro.keyTypes.publicKey.title')}</h4>
                 <p>{t('sections.intro.keyTypes.publicKey.description')}</p>
                 <ul>
-                {Object.values(t('sections.intro.keyTypes.publicKey.points', { returnObjects: true })).map((item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                ))}
+                  {Object.values(t('sections.intro.keyTypes.publicKey.points', { returnObjects: true })).map((item: string, index: number) => (
+                    <li key={index}>{item}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -336,7 +338,7 @@ const Keys: React.FC = () => {
         <div className="key-generator-container">
           <div className="section-header">
             <h2>{t('sections.generator.title')}</h2>
-            <button 
+            <button
               className="speech-button"
               onClick={() => speak(getGeneratorSectionContent(t), 'generator')}
               aria-label={t('accessibility.speak')}
@@ -363,7 +365,7 @@ const Keys: React.FC = () => {
         <div className="key-technical">
           <div className="section-header">
             <h2>{t('sections.technical.title')}</h2>
-            <button 
+            <button
               className="speech-button"
               onClick={() => speak(getTechnicalSectionContent(t), 'technical')}
               aria-label={t('accessibility.speak')}
@@ -371,9 +373,9 @@ const Keys: React.FC = () => {
               <Volume2 className={`speech-icon ${speaking === 'technical' ? 'speaking' : ''}`} />
             </button>
           </div>
-          
+
           <p>{t('sections.technical.description')}</p>
-          
+
           <div className="technical-section">
             <h3>{t('sections.technical.keyGeneration.title')}</h3>
             <div className="technical-item">
@@ -415,7 +417,7 @@ const Keys: React.FC = () => {
         <div className="key-security">
           <div className="section-header">
             <h2>{t('sections.security.title')}</h2>
-            <button 
+            <button
               className="speech-button"
               onClick={() => speak(getSecuritySectionContent(t), 'security')}
               aria-label={t('accessibility.speak')}
@@ -423,9 +425,9 @@ const Keys: React.FC = () => {
               <Volume2 className={`speech-icon ${speaking === 'security' ? 'speaking' : ''}`} />
             </button>
           </div>
-          
+
           <p>{t('sections.security.description')}</p>
-          
+
           <div className="security-warning">
             <AlertTriangle className="warning-icon" />
             <p>{t('sections.security.warning')}</p>
