@@ -7,10 +7,83 @@
 
 :root {
   /**
-   * Farbpalette
-   * -----------
-   * Primäre und sekundäre Farben definieren das Hauptfarbschema.
-   * RGB-Werte werden für Opacity-Anpassungen verwendet.
+   * Debug-Einstellungen
+   */
+  --debug-padding: 1rem;
+  --debug-border-radius: 0.5rem;
+  --debug-text: #ffffff;
+  --debug-text-opacity: 0.8;
+  --debug-z-index: 9999;
+  --debug-font-size-large: 1.5rem;
+  --debug-font-size-medium: 1.2rem;
+  --debug-font-size-small: 0.8rem;
+
+  /**
+   * Breakpoints
+   * Mobile-First Ansatz mit min-width Media Queries
+   * 
+   * Bereiche:
+   * - 0-374px:    XXS (Sehr kleine Smartphones)
+   * - 375-414px:  XS (iPhone SE/Mini)
+   * - 415-639px:  XS (Große Smartphones)
+   * - 640-767px:  SM (Kleine Tablets)
+   * - 768-1023px: MD (iPad/Tablets)
+   * - 1024-1279px: LG (iPad Pro/Kleine Laptops)
+   * - 1280-1535px: XL (Laptops)
+   * - Ab 1536px:   2XL (Große Bildschirme)
+   */
+  --breakpoint-xxs: 375px; /* Ab hier: iPhone SE/Mini */
+  --breakpoint-xs: 415px;  /* Ab hier: Große Smartphones */
+  --breakpoint-sm: 640px;  /* Ab hier: Kleine Tablets */
+  --breakpoint-md: 768px;  /* Ab hier: iPad/Tablets */
+  --breakpoint-lg: 1024px; /* Ab hier: iPad Pro/Kleine Laptops */
+  --breakpoint-xl: 1280px; /* Ab hier: Laptops */
+  --breakpoint-2xl: 1536px; /* Ab hier: Große Bildschirme */
+
+  /**
+   * Debug-Farben
+   * Unterschiedliche Farben für jeden Breakpoint-Bereich
+   */
+  --debug-color-xxs: #ff6b6b; /* Rot (0-374px) */
+  --debug-color-xs: #ffd93d;  /* Gelb (375-639px) */
+  --debug-color-sm: #6c5ce7;  /* Violett (640-767px) */
+  --debug-color-md: #a8e6cf;  /* Mint (768-1023px) */
+  --debug-color-lg: #ff8b94;  /* Rosa (1024-1279px) */
+  --debug-color-xl: #98ddca;  /* Türkis (1280-1535px) */
+  --debug-color-2xl: #d4a5a5; /* Altrosa (ab 1536px) */
+
+  /**
+   * Layout
+   * Grundlegende Abstände und Größen
+   */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /**
+   * Container
+   * Max-Breiten für verschiedene Container-Typen
+   */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+
+  /**
+   * Navigation
+   * Navbar spezifische Variablen
+   */
+  --navbar-height: 64px;
+  --navbar-padding: var(--spacing-md);
+  --navbar-background: #ffffff;
+  --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /**
+   * Farben
+   * Basis-Farben und deren RGB-Werte für Opacity-Anpassungen
    */
   
   /* Basis-Farben */
@@ -29,102 +102,39 @@
   /* Funktionale Farben */
   --background-color: rgba(var(--secondary-color-rgb), 0.8);
   --hover-background-color: rgba(var(--tertiary-color-rgb), 0.8);
-  --navbar-background-color: rgba(var(--secondary-color-rgb), 0.5);
+  --navbar-background-color: rgba(var(--secondary-color-rgb), 0.75);
   --border-color: rgba(var(--tertiary-color-rgb), 0.5);
   --button-hover-background-color: rgba(var(--primary-color-rgb), 0.1);
 
   /**
-   * Typografie
-   * ----------
-   * Definition der Schriftgrößen und Zeilenhöhen.
-   * Verwendet clamp() für responsive Anpassungen.
+   * Schriftarten
+   * Font-Stack und Größen
    */
-
-  /* Basis-Schriftgröße */
-  --font-size-base: 16px;  /* Grundlage für rem-Berechnungen */
-
-  /* Responsive Schriftgrößen mit clamp() */
-  --font-size-large: clamp(2rem, 4vw, 3rem);        /* 32px -> 48px */
-  --font-size-medium: clamp(1.25rem, 2vw, 1.5rem);  /* 20px -> 24px */
-  --font-size-small: clamp(1rem, 1.5vw, 1.125rem);  /* 16px -> 18px */
-  --font-size-xsmall: 0.875rem;                     /* 14px - fix */
-  --font-size-xxsmall: 0.75rem;                     /* 12px - fix */
-
-  /* Zeilenhöhen für verschiedene Textgrößen */
-  --line-height-tight: 1.2;    /* Überschriften */
-  --line-height-normal: 1.5;   /* Normaler Text */
-  --line-height-relaxed: 1.75; /* Langer Text */
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                      'Helvetica Neue', Arial, sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 18px;
+  --line-height-base: 1.5;
 
   /**
-   * Layout-System
-   * ------------
-   * Definiert die grundlegende Seitenstruktur und
-   * responsive Breakpoints.
+   * Übergänge
+   * Animation und Transition Timing
    */
-
-  /* Container und Section Limits */
-  --container-max-width: 1800px;
-  --section-max-width: 1600px;
-  --container-width: min(95%, var(--container-max-width));
-  --section-width: min(95%, var(--section-max-width));
-
-  /* Responsive Breakpoints */
-  --br-450-xs: 450px;    /* Small Smartphones */
-  --br-640-sm: 640px;    /* Smartphones */
-  --br-768-md: 768px;    /* Tablets */
-  --br-1024-lg: 1024px;   /* Laptops */
-  --br-1280-xl: 1280px;   /* Desktop */
-  --br-1536-2xl: 1536px;  /* Large Screens */
-
-  /* Container-Breiten pro Breakpoint */
-  --container-width-2xl: 85%;   /* >1536px - Large Desktop */
-  --container-width-xl: 90%;    /* >1280px - Desktop */
-  --container-width-lg: 95%;    /* >1024px - Laptop */
-  --container-width-md: 98%;    /* >768px  - Tablet */
-  --container-width-sm: 100%;   /* >640px  - Mobile */
-  --container-width-xs: 100%;   /* <450px  - Small Mobile */
-
-  /* Section-Breiten pro Breakpoint */
-  --section-width-2xl: 85%;     /* >1536px - Large Desktop */
-  --section-width-xl: 90%;      /* >1280px - Desktop */
-  --section-width-lg: 95%;      /* >1024px - Laptop */
-  --section-width-md: 98%;      /* >768px  - Tablet */
-  --section-width-sm: 100%;     /* >640px  - Mobile */
-  --section-width-xs: 100%;     /* <450px  - Small Mobile */
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+  --transition-timing: ease-in-out;
 
   /**
-   * Spacing-System
-   * -------------
-   * Einheitliches Spacing für Margins, Paddings und Gaps
+   * Z-Index Stacks
+   * Definierte Ebenen für verschiedene UI-Elemente
    */
-
-  /* Vertikales und horizontales Padding für Sections */
-  --section-padding-y: clamp(1.5rem, 4vh, 3rem);  /* 24px -> 48px */
-  --section-padding-x: clamp(1rem, 3vw, 2rem);    /* 16px -> 32px */
-
-  /* Content-Höhen */
-  --content-height: clamp(250px, 60vh, 800px);
-  --content-max-height: 80vh;
-
-  /* Einheitliche Spacing-Skala */
-  --spacing-xs: 0.25rem;   /*  4px - Minimale Abstände */
-  --spacing-sm: 0.5rem;    /*  8px - Kleine Komponenten */
-  --spacing-md: 1rem;      /* 16px - Standard-Abstand */
-  --spacing-lg: 1.5rem;    /* 24px - Größere Abstände */
-  --spacing-xl: 2rem;      /* 32px - Sektions-Abstände */
-
-  /**
-   * UI-Komponenten
-   * -------------
-   * Variablen für wiederkehrende UI-Elemente
-   */
-
-  /* Border-Radius */
-  --border-radius-sm: 0.25rem;  /*  4px - Buttons, Inputs */
-  --border-radius-md: 0.5rem;   /*  8px - Cards, Dialoge */
-  --border-radius-lg: 1rem;     /* 16px - Große Container */
-
-  /* Transitions */
-  --transition-speed: 0.3s;
-  --transition-timing: ease;
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
 }
