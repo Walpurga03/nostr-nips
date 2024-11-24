@@ -86,52 +86,17 @@ export const getBreakpointName = (width: number): string => {
  * Verwendet die CSS-Variablen für die Farbdefinitionen
  */
 export const getBreakpointColor = (width: number): string => {
-  // Debug: Aktuelle Breite
-  console.log('Current width:', width);
-
-  // Immer die CSS-Variable neu auslesen
-  const getColor = (name: string) => {
-    const color = getComputedStyle(document.documentElement)
-      .getPropertyValue(name)
-      .trim();
-    
-    // Debug: Gelesene Farbe
-    console.log(`Reading color for ${name}:`, color || '#ff6b6b');
-    
-    return color || '#ff6b6b'; // Fallback ist die XXS-Farbe (Rot)
-  };
-
-  // Debug: Aktuelle Breakpoints
-  console.log('Breakpoints:', breakpoints);
-
-  if (width >= breakpoints['2xl']) {
-    console.log('Using 2XL color');
-    return getColor('--debug-color-2xl'); // Ab 1536px
-  }
-  if (width >= breakpoints.xl) {
-    console.log('Using XL color');
-    return getColor('--debug-color-xl');      // 1280-1535px
-  }
-  if (width >= breakpoints.lg) {
-    console.log('Using LG color');
-    return getColor('--debug-color-lg');      // 1024-1279px
-  }
-  if (width >= breakpoints.md) {
-    console.log('Using MD color');
-    return getColor('--debug-color-md');      // 768-1023px
-  }
-  if (width >= breakpoints.sm) {
-    console.log('Using SM color');
-    return getColor('--debug-color-sm');      // 640-767px
-  }
-  if (width >= breakpoints.xs) {
-    console.log('Using XS color (415-639px)');
-    return getColor('--debug-color-xs');      // 415-639px
-  }
-  if (width >= breakpoints.xxs) {
-    console.log('Using XS color (375-414px)');
-    return getColor('--debug-color-xs');     // 375-414px: XS-Farbe!
-  }
-  console.log('Using XXS color (0-374px)');
-  return getColor('--debug-color-xxs');                                  // 0-374px
+  const breakpointName = getBreakpointName(width).toLowerCase();
+  const colorVar = `--debug-color-${breakpointName}`;
+  
+  // Farbe aus CSS-Variable lesen
+  const color = getComputedStyle(document.documentElement)
+    .getPropertyValue(colorVar)
+    .trim();
+  
+  // Debug-Logging
+  console.log(`Width: ${width}px, Breakpoint: ${breakpointName}, Color Variable: ${colorVar}, Color: ${color}`);
+  
+  // Fallback-Farbe wenn keine CSS-Variable gefunden
+  return color || '#ff6b6b';
 };

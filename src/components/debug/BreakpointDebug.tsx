@@ -33,26 +33,14 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
   const [width, setWidth] = useState(window.innerWidth);
   const [isVisible, setIsVisible] = useState(true);
   const [position, setPosition] = useState<Position>(initialPosition);
-  const [color, setColor] = useState(getBreakpointColor(window.innerWidth));
 
-  // CSS-Variablen Helper
-  const getCSSVar = (name: string): string => {
-    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  };
-
-  // Farbe aktualisieren
-  const updateColor = useCallback(() => {
-    console.log('Updating color for width:', width);
-    const newColor = getBreakpointColor(width);
-    console.log('New color:', newColor);
-    setColor(newColor);
-  }, [width]);
+  // Aktuelle Farbe direkt berechnen statt im State zu halten
+  const currentColor = getBreakpointColor(width);
 
   // Bildschirmbreite überwachen
   useEffect(() => {
     const handleResize = () => {
       const newWidth = window.innerWidth;
-      console.log('Window resized to:', newWidth);
       setWidth(newWidth);
     };
     
@@ -60,39 +48,22 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Breite-Änderungen überwachen
-  useEffect(() => {
-    console.log('Width changed, updating color');
-    updateColor();
-  }, [width, updateColor]);
-
   // CSS-Änderungen überwachen
   useEffect(() => {
-    console.log('Setting up MutationObserver');
     const styleObserver = new MutationObserver(() => {
-      console.log('CSS changes detected');
-      updateColor();
+      // Force re-render
+      setWidth(window.innerWidth);
     });
     
     styleObserver.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['style', 'class'],
-      childList: false,
-      subtree: false
+      attributeFilter: ['style', 'class']
     });
 
-    // Regelmäßige Aktualisierung
-    const interval = setInterval(() => {
-      console.log('Interval update');
-      updateColor();
-    }, 1000);
-
     return () => {
-      console.log('Cleaning up observers');
       styleObserver.disconnect();
-      clearInterval(interval);
     };
-  }, [updateColor]);
+  }, []);
 
   // Keyboard-Shortcuts
   useEffect(() => {
@@ -112,11 +83,13 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [position, updateColor]);
+  }, [position]);
 
   // Position Styles berechnen
   const getPositionStyle = (pos: Position): React.CSSProperties => {
-    const spacing = getCSSVar('--debug-padding');
+    const spacing = getComputedStyle(document.documentElement)
+      .getPropertyValue('--debug-padding')
+      .trim();
     
     switch (pos) {
       case 'top-left':
@@ -143,13 +116,13 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
     <div 
       style={{
         position: 'fixed',
-        padding: getCSSVar('--debug-padding'),
-        borderRadius: getCSSVar('--debug-border-radius'),
-        fontSize: getCSSVar('--debug-font-size-large'),
+        padding: getComputedStyle(document.documentElement).getPropertyValue('--debug-padding').trim(),
+        borderRadius: getComputedStyle(document.documentElement).getPropertyValue('--debug-border-radius').trim(),
+        fontSize: getComputedStyle(document.documentElement).getPropertyValue('--debug-font-size-large').trim(),
         fontWeight: 'bold',
-        backgroundColor: color,
-        color: getCSSVar('--debug-text'),
-        zIndex: parseInt(getCSSVar('--debug-z-index')),
+        backgroundColor: currentColor,
+        color: getComputedStyle(document.documentElement).getPropertyValue('--debug-text').trim(),
+        zIndex: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--debug-z-index').trim()),
         textAlign: 'center',
         whiteSpace: 'pre-line',
         pointerEvents: 'none',
@@ -169,9 +142,9 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
 
       {/* Shortcut-Hilfe */}
       <div style={{ 
-        fontSize: getCSSVar('--debug-font-size-small'),
+        fontSize: getComputedStyle(document.documentElement).getPropertyValue('--debug-font-size-small').trim(),
         marginTop: '8px',
-        opacity: parseFloat(getCSSVar('--debug-text-opacity'))
+        opacity: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--debug-text-opacity').trim())
       }}>
         Alt+D: Toggle | Alt+P: Position
       </div>
