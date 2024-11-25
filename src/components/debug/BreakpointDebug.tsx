@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getBreakpointName, getBreakpointColor } from '../../styles/mediaQueries';
 
 // Mögliche Positionen für den Debug-Indikator
@@ -23,7 +23,7 @@ interface BreakpointDebugProps {
  * - Alt+D: Ein/Ausblenden
  * - Alt+P: Position ändern
  */
-export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({ 
+export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
   position: initialPosition = 'center',
   showPixels = true,
   className = '',
@@ -43,7 +43,7 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
       const newWidth = window.innerWidth;
       setWidth(newWidth);
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -54,7 +54,7 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
       // Force re-render
       setWidth(window.innerWidth);
     });
-    
+
     styleObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['style', 'class']
@@ -90,7 +90,7 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
     const spacing = getComputedStyle(document.documentElement)
       .getPropertyValue('--debug-padding')
       .trim();
-    
+
     switch (pos) {
       case 'top-left':
         return { top: spacing, left: spacing };
@@ -111,9 +111,9 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
 
   // Wenn nicht sichtbar, nichts rendern
   if (!isVisible) return null;
-  
+
   return (
-    <div 
+    <div
       style={{
         position: 'fixed',
         padding: getComputedStyle(document.documentElement).getPropertyValue('--debug-padding').trim(),
@@ -136,12 +136,12 @@ export const BreakpointDebug: React.FC<BreakpointDebugProps> = ({
     >
       {/* Breakpoint Name */}
       {getBreakpointName(width)}
-      
+
       {/* Pixel-Breite */}
       {showPixels ? `\n${width}px` : ''}
 
       {/* Shortcut-Hilfe */}
-      <div style={{ 
+      <div style={{
         fontSize: getComputedStyle(document.documentElement).getPropertyValue('--debug-font-size-small').trim(),
         marginTop: '8px',
         opacity: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--debug-text-opacity').trim())
