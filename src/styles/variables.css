@@ -9,7 +9,7 @@
   /**
    * Debug-Einstellungen
    */
-  --debug-padding: 1rem;
+  --debug-padding: 0rem;
   --debug-border-radius: 0.5rem;
   --debug-text: #ffffff;
   --debug-text-opacity: 0.8;

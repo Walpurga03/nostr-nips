@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Book, Filter, Hash, Network, Server, Users, Layout, Shield, Workflow, Boxes, Volume2, VolumeX } from 'lucide-react';
 import PageLayout from './layout/PageLayout';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,23 @@ const Home: React.FC = () => {
   const { level } = useLevel();
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
   const [isSpeaking, setIsSpeaking] = useState<string | null>(null);
+  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(null);
+
+  useEffect(() => {
+    const loadVoices = () => {
+      window.speechSynthesis.getVoices();
+    };
+    
+    loadVoices();
+    
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    
+    return () => {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   const toggleSection = (sectionId: string) => {
     setExpandedSections(prev =>
@@ -20,148 +37,137 @@ const Home: React.FC = () => {
   };
 
   const getSectionText = (sectionId: string): string => {
-    // Füge den Level-Prefix für die Übersetzungen hinzu
     const prefix = `${level}.`;
     
     switch (sectionId) {
       case 'protocol-basics':
-        return `${t(prefix + 'protocol_basics')}. 
-                ${t(prefix + 'protocol_basics_intro')}. 
-                ${t(prefix + 'event_structure.title')}. 
-                ${t(prefix + 'event_structure.id_desc')}. 
-                ${t(prefix + 'event_structure.pubkey_desc')}. 
-                ${t(prefix + 'event_structure.created_at_desc')}. 
-                ${t(prefix + 'event_structure.kind_desc')}. 
-                ${t(prefix + 'event_structure.tags_desc')}. 
-                ${t(prefix + 'event_structure.content_desc')}. 
-                ${t(prefix + 'event_structure.sig_desc')}.`;
+        return `${t(`${prefix}protocol_basics`)}. 
+                ${t(`${prefix}protocol_basics_intro`)}. 
+                ${t(`${prefix}event_structure.title`)}. 
+                ${t(`${prefix}event_structure.id_desc`)}. 
+                ${t(`${prefix}event_structure.pubkey_desc`)}. 
+                ${t(`${prefix}event_structure.created_at_desc`)}. 
+                ${t(`${prefix}event_structure.kind_desc`)}. 
+                ${t(`${prefix}event_structure.tags_desc`)}. 
+                ${t(`${prefix}event_structure.content_desc`)}. 
+                ${t(`${prefix}event_structure.sig_desc`)}.`;
       
       case 'central-concepts':
-        return `${t(prefix + 'central_concepts.title')}. 
-                ${t(prefix + 'protocol_concepts.nips_vs_kinds')}. 
-                ${t(prefix + 'protocol_concepts.nips_vs_kinds_explanation')}. 
-                ${t(prefix + 'central_concepts.event_kinds.title')}. 
-                ${t(prefix + 'central_concepts.event_kinds.list_items.0')}. 
-                ${t(prefix + 'central_concepts.event_kinds.list_items.1')}. 
-                ${t(prefix + 'central_concepts.event_kinds.list_items.2')}. 
-                ${t(prefix + 'central_concepts.nips.title')}. 
-                ${t(prefix + 'central_concepts.nips.list_items.0')}. 
-                ${t(prefix + 'central_concepts.nips.list_items.1')}. 
-                ${t(prefix + 'central_concepts.nips.list_items.2')}. 
-                ${t(prefix + 'central_concepts.summary.title')}. 
-                ${t(prefix + 'central_concepts.summary.text')}.`;
+        return `${t(`${prefix}central_concepts.title`)}. 
+                ${t(`${prefix}protocol_concepts.nips_vs_kinds`)}. 
+                ${t(`${prefix}protocol_concepts.nips_vs_kinds_explanation`)}. 
+                ${t(`${prefix}central_concepts.event_kinds.title`)}. 
+                ${t(`${prefix}central_concepts.event_kinds.list_items.0`)}. 
+                ${t(`${prefix}central_concepts.event_kinds.list_items.1`)}. 
+                ${t(`${prefix}central_concepts.event_kinds.list_items.2`)}. 
+                ${t(`${prefix}central_concepts.nips.title`)}. 
+                ${t(`${prefix}central_concepts.nips.list_items.0`)}. 
+                ${t(`${prefix}central_concepts.nips.list_items.1`)}. 
+                ${t(`${prefix}central_concepts.nips.list_items.2`)}. 
+                ${t(`${prefix}central_concepts.summary.title`)}. 
+                ${t(`${prefix}central_concepts.summary.text`)}.`;
       
       case 'relays':
-        return `${t(prefix + 'relays_section.title')}. 
-                ${t(prefix + 'relays_section.intro')}. 
-                ${t(prefix + 'relays_section.features.decentralized.title')}. 
-                ${t(prefix + 'relays_section.features.decentralized.description')}. 
-                ${t(prefix + 'relays_section.features.simple.title')}. 
-                ${t(prefix + 'relays_section.features.simple.description')}. 
-                ${t(prefix + 'relays_section.features.efficient.title')}. 
-                ${t(prefix + 'relays_section.features.efficient.description')}.`;
+        return `${t(`${prefix}relays_section.title`)}. 
+                ${t(`${prefix}relays_section.intro`)}. 
+                ${t(`${prefix}relays_section.features.decentralized.title`)}. 
+                ${t(`${prefix}relays_section.features.decentralized.description`)}. 
+                ${t(`${prefix}relays_section.features.simple.title`)}. 
+                ${t(`${prefix}relays_section.features.simple.description`)}. 
+                ${t(`${prefix}relays_section.features.efficient.title`)}. 
+                ${t(`${prefix}relays_section.features.efficient.description`)}.`;
       
       case 'clients':
-        return `${t(prefix + 'clients_section.title')}. 
-                ${t(prefix + 'clients_section.intro')}. 
-                ${t(prefix + 'clients_section.types.web.title')}. 
-                ${t(prefix + 'clients_section.types.web.description')}. 
-                ${t(prefix + 'clients_section.types.web.features.browser_based')}. 
-                ${t(prefix + 'clients_section.types.web.features.everywhere_available')}. 
-                ${t(prefix + 'clients_section.types.mobile.title')}. 
-                ${t(prefix + 'clients_section.types.mobile.description')}. 
-                ${t(prefix + 'clients_section.types.mobile.features.ios_android')}. 
-                ${t(prefix + 'clients_section.types.mobile.features.push_support')}. 
-                ${t(prefix + 'clients_section.types.desktop.title')}. 
-                ${t(prefix + 'clients_section.types.desktop.description')}. 
-                ${t(prefix + 'clients_section.types.desktop.features.full_control')}. 
-                ${t(prefix + 'clients_section.types.desktop.features.offline_support')}.`;
+        return `${t(`${prefix}clients_section.title`)}. 
+                ${t(`${prefix}clients_section.intro`)}. 
+                ${t(`${prefix}clients_section.types.web.title`)}. 
+                ${t(`${prefix}clients_section.types.web.description`)}. 
+                ${t(`${prefix}clients_section.types.web.features.browser_based`)}. 
+                ${t(`${prefix}clients_section.types.web.features.everywhere_available`)}. 
+                ${t(`${prefix}clients_section.types.mobile.title`)}. 
+                ${t(`${prefix}clients_section.types.mobile.description`)}. 
+                ${t(`${prefix}clients_section.types.mobile.features.ios_android`)}. 
+                ${t(`${prefix}clients_section.types.mobile.features.push_support`)}. 
+                ${t(`${prefix}clients_section.types.desktop.title`)}. 
+                ${t(`${prefix}clients_section.types.desktop.description`)}. 
+                ${t(`${prefix}clients_section.types.desktop.features.full_control`)}. 
+                ${t(`${prefix}clients_section.types.desktop.features.offline_support`)}.`;
       
       case 'summary':
-        return `${t(prefix + 'summary_section.title')}. 
-                ${t(prefix + 'summary_section.intro')}. 
-                ${t(prefix + 'summary_section.key_points.protocol.title')}. 
-                ${t(prefix + 'summary_section.key_points.protocol.description')}. 
-                ${t(prefix + 'summary_section.key_points.decentralized.title')}. 
-                ${t(prefix + 'summary_section.key_points.decentralized.description')}. 
-                ${t(prefix + 'summary_section.key_points.flexible.title')}. 
-                ${t(prefix + 'summary_section.key_points.flexible.description')}. 
-                ${t(prefix + 'summary_section.key_points.secure.title')}. 
-                ${t(prefix + 'summary_section.key_points.secure.description')}. 
-                ${t(prefix + 'summary_section.conclusion')}. 
-                ${t(prefix + 'summary_section.info_box')}.`;
+        return `${t(`${prefix}summary_section.title`)}. 
+                ${t(`${prefix}summary_section.intro`)}. 
+                ${t(`${prefix}summary_section.key_points.protocol.title`)}. 
+                ${t(`${prefix}summary_section.key_points.protocol.description`)}. 
+                ${t(`${prefix}summary_section.key_points.decentralized.title`)}. 
+                ${t(`${prefix}summary_section.key_points.decentralized.description`)}. 
+                ${t(`${prefix}summary_section.key_points.flexible.title`)}. 
+                ${t(`${prefix}summary_section.key_points.flexible.description`)}. 
+                ${t(`${prefix}summary_section.key_points.secure.title`)}. 
+                ${t(`${prefix}summary_section.key_points.secure.description`)}. 
+                ${t(`${prefix}summary_section.conclusion`)}. 
+                ${t(`${prefix}summary_section.info_box`)}.`;
       
       default:
         return '';
     }
   };
 
-  const speakText = useCallback((text: string, sectionId: string) => {
-    // Stop previous speech
-    window.speechSynthesis.cancel();
-
-    if (isSpeaking === sectionId) {
+  const stopSpeaking = useCallback(() => {
+    if (window.speechSynthesis && utterance) {
+      window.speechSynthesis.cancel();
       setIsSpeaking(null);
-      return;
+      setUtterance(null);
     }
+  }, [utterance]);
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    
-    // Wait for voices to be loaded
-    const loadVoices = () => {
+  const startSpeaking = useCallback((sectionId: string) => {
+    if (window.speechSynthesis) {
+      stopSpeaking();
+
+      const text = getSectionText(sectionId);
+      const newUtterance = new SpeechSynthesisUtterance(text);
+      
       const voices = window.speechSynthesis.getVoices();
-      const currentLang = i18n.language === 'de' ? 'de-DE' : 'en-US';
-      
-      // First try to find an exact match for the current language
-      let voice = voices.find(v => v.lang === currentLang);
-      
-      // If no exact match, try to find any voice that starts with the language code
-      if (!voice) {
-        voice = voices.find(v => v.lang.startsWith(currentLang.split('-')[0]));
-      }
-      
-      // Fallback to any available voice if no matching voice found
-      if (!voice && voices.length > 0) {
-        voice = voices[0];
-      }
+      const currentLang = i18n.language;
+      const voice = voices.find(v => v.lang.startsWith(currentLang));
       
       if (voice) {
-        utterance.voice = voice;
-        utterance.lang = voice.lang;
+        newUtterance.voice = voice;
+        newUtterance.lang = currentLang;
       }
-      
-      utterance.onend = () => {
+
+      newUtterance.rate = 1.0;  
+      newUtterance.pitch = 1.0; 
+      newUtterance.volume = 1.0; 
+
+      newUtterance.onend = () => {
         setIsSpeaking(null);
+        setUtterance(null);
       };
 
+      newUtterance.onerror = (event) => {
+        console.error('Sprachsynthese Fehler:', event);
+        setIsSpeaking(null);
+        setUtterance(null);
+      };
+
+      setUtterance(newUtterance);
       setIsSpeaking(sectionId);
-      window.speechSynthesis.speak(utterance);
-    };
-
-    // If voices are already loaded, use them immediately
-    if (window.speechSynthesis.getVoices().length > 0) {
-      loadVoices();
-    } else {
-      // Otherwise wait for voices to be loaded
-      window.speechSynthesis.onvoiceschanged = loadVoices;
+      window.speechSynthesis.speak(newUtterance);
     }
-  }, [i18n.language, isSpeaking]);
+  }, [i18n.language, stopSpeaking]);
 
-  const SpeakButton: React.FC<{ sectionId: string }> = ({ sectionId }) => (
-    <button 
-      className="speak-button"
-      onClick={(e) => {
-        e.stopPropagation();
-        const text = getSectionText(sectionId);
-        speakText(text, sectionId);
-      }}
-      title={isSpeaking === sectionId ? t('stop_speaking') : t('start_speaking')}
-      data-speaking={isSpeaking === sectionId}
-      aria-label={isSpeaking === sectionId ? t('stop_speaking') : t('start_speaking')}
-    >
-      {isSpeaking === sectionId ? <VolumeX size={20} /> : <Volume2 size={20} />}
-    </button>
-  );
+  const toggleSpeaking = useCallback((sectionId: string, event?: React.MouseEvent) => {
+    if (event) {
+      event.stopPropagation();
+    }
+    
+    if (isSpeaking === sectionId) {
+      stopSpeaking();
+    } else {
+      startSpeaking(sectionId);
+    }
+  }, [isSpeaking, startSpeaking, stopSpeaking]);
 
   const sections = [
     {
@@ -172,25 +178,35 @@ const Home: React.FC = () => {
         <div className="home-protocol-basics-container">
           <div className="section-header">
             <h2>{t(`${level}.protocol_basics`)}</h2>
-            <SpeakButton sectionId="protocol-basics" />
+            <button 
+              className="home-speech-button"
+              onClick={(e) => toggleSpeaking('protocol-basics', e)}
+              aria-label={isSpeaking === 'protocol-basics' ? 'Vorlesen beenden' : 'Vorlesen starten'}
+            >
+              {isSpeaking === 'protocol-basics' ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
           </div>
           <p className="home-protocol-basics-intro">{t(`${level}.protocol_basics_intro`)}</p>
           <div className="home-event-structure-container">
             <h3 className="home-event-structure-heading">{t(`${level}.event_structure.title`)}</h3>
-            <div className="home-code-example-container">
-              <pre className="home-code-example-pre">
-                <code>
-                  {`{
-  `}<span className="home-code-example-key">"id"</span>{`: "...",        // ${t(`${level}.event_structure.id_desc`)}
-  `}<span className="home-code-example-key">"pubkey"</span>{`: "...",    // ${t(`${level}.event_structure.pubkey_desc`)}
-  `}<span className="home-code-example-key">"created_at"</span>{`: ...,  // ${t(`${level}.event_structure.created_at_desc`)}
-  `}<span className="home-code-example-key">"kind"</span>{`: ...,        // ${t(`${level}.event_structure.kind_desc`)}
-  `}<span className="home-code-example-key">"tags"</span>{`: [...],      // ${t(`${level}.event_structure.tags_desc`)}
-  `}<span className="home-code-example-key">"content"</span>{`: "...",   // ${t(`${level}.event_structure.content_desc`)}
-  `}<span className="home-code-example-key">"sig"</span>{`: "..."        // ${t(`${level}.event_structure.sig_desc`)}
+            <div className="home-code-example-outer">
+              <div className="home-code-example-container">
+                <pre className="home-code-example-pre">
+                  <div className="home-code-block">
+                    <code>
+{`{
+  "id": "...",        // ${t(`${level}.event_structure.id_desc`)}
+  "pubkey": "...",    // ${t(`${level}.event_structure.pubkey_desc`)}
+  "created_at": ...,  // ${t(`${level}.event_structure.created_at_desc`)}
+  "kind": ...,        // ${t(`${level}.event_structure.kind_desc`)}
+  "tags": [...],      // ${t(`${level}.event_structure.tags_desc`)}
+  "content": "...",   // ${t(`${level}.event_structure.content_desc`)}
+  "sig": "..."        // ${t(`${level}.event_structure.sig_desc`)}
 }`}
-                </code>
-              </pre>
+                    </code>
+                  </div>
+                </pre>
+              </div>
             </div>
           </div>
         </div>
@@ -206,7 +222,13 @@ const Home: React.FC = () => {
         <div className="home-protocol-concepts-container">
           <div className="section-header">
             <h2>{t(`${level}.central_concepts.title`)}</h2>
-            <SpeakButton sectionId="central-concepts" />
+            <button 
+              className="home-speech-button"
+              onClick={(e) => toggleSpeaking('central-concepts', e)}
+              aria-label={isSpeaking === 'central-concepts' ? 'Vorlesen beenden' : 'Vorlesen starten'}
+            >
+              {isSpeaking === 'central-concepts' ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
           </div>
           <div className="home-concepts-grid">
             <div className="home-concept-card">
@@ -253,7 +275,13 @@ const Home: React.FC = () => {
         <div className="home-relays-container">
           <div className="section-header">
             <h2>{t(`${level}.relays_section.title`)}</h2>
-            <SpeakButton sectionId="relays" />
+            <button 
+              className="home-speech-button"
+              onClick={(e) => toggleSpeaking('relays', e)}
+              aria-label={isSpeaking === 'relays' ? 'Vorlesen beenden' : 'Vorlesen starten'}
+            >
+              {isSpeaking === 'relays' ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
           </div>
           <p className="home-relays-intro">{t(`${level}.relays_section.intro`)}</p>
           <div className="home-relays-features-grid">
@@ -292,7 +320,13 @@ const Home: React.FC = () => {
         <div className="home-clients-container">
           <div className="section-header">
             <h2>{t(`${level}.clients_section.title`)}</h2>
-            <SpeakButton sectionId="clients" />
+            <button 
+              className="home-speech-button"
+              onClick={(e) => toggleSpeaking('clients', e)}
+              aria-label={isSpeaking === 'clients' ? 'Vorlesen beenden' : 'Vorlesen starten'}
+            >
+              {isSpeaking === 'clients' ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
           </div>
           <p className="home-clients-intro">{t(`${level}.clients_section.intro`)}</p>
           <div className="home-clients-grid">
@@ -343,11 +377,16 @@ const Home: React.FC = () => {
         <div className="home-summary-container">
           <div className="section-header">
             <h2>{t(`${level}.summary_section.title`)}</h2>
-            <SpeakButton sectionId="summary" />
+            <button 
+              className="home-speech-button"
+              onClick={(e) => toggleSpeaking('summary', e)}
+              aria-label={isSpeaking === 'summary' ? 'Vorlesen beenden' : 'Vorlesen starten'}
+            >
+              {isSpeaking === 'summary' ? <VolumeX size={20} /> : <Volume2 size={20} />}
+            </button>
           </div>
           <p className="home-summary-intro">{t(`${level}.summary_section.intro`)}</p>
           <div className="home-summary-points">
-            {/* Protocol Point */}
             <div className="home-summary-point">
               <div className="home-summary-point-header">
                 <div className="home-summary-point-icon">
@@ -362,7 +401,6 @@ const Home: React.FC = () => {
               </p>
             </div>
 
-            {/* Decentralized Point */}
             <div className="home-summary-point">
               <div className="home-summary-point-header">
                 <div className="home-summary-point-icon">
@@ -377,7 +415,6 @@ const Home: React.FC = () => {
               </p>
             </div>
 
-            {/* Flexible Point */}
             <div className="home-summary-point">
               <div className="home-summary-point-header">
                 <div className="home-summary-point-icon">
@@ -392,7 +429,6 @@ const Home: React.FC = () => {
               </p>
             </div>
 
-            {/* Secure Point */}
             <div className="home-summary-point">
               <div className="home-summary-point-header">
                 <div className="home-summary-point-icon">
@@ -421,13 +457,11 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <article className="home">
-      <PageLayout
-        title={t(`${level}.title`)}
-        subtitle={t(`${level}.subtitle`)}
-        sections={sections}
-      />
-    </article>
+    <PageLayout
+      title={t(`${level}.title`)}
+      subtitle={t(`${level}.subtitle`)}
+      sections={sections}
+    />
   );
 };
 
